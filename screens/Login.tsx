@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
   Image,
-  TextInput,
   ScrollView,
   Button,
 } from "react-native";
+
+import TextField from "../components/TextField";
+
 import loginImage from "../assets/images/login-image.png";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
   return (
     <ScrollView style={styles.container}>
       <Image style={styles.image} source={loginImage} />
@@ -19,8 +22,8 @@ const Login = () => {
         <Text style={styles.heading2}>Sentimos a sua falta</Text>
       </View>
       <View>
-        <TextInput style={styles.input}></TextInput>
-        <TextInput style={styles.input}></TextInput>
+        <TextField label="Email" leftIcon={{ name: "email" }} />
+        <TextField label="Password" leftIcon={{ name: "key" }} isSecret />
         <Button title="Login" onPress={() => console.log("Login")} />
       </View>
       <View style={styles.footer}>
@@ -57,13 +60,7 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     color: "#303030",
   },
-  input: {
-    borderWidth: 1,
-    borderColor: "#000",
-    height: 40,
-    paddingHorizontal: 10,
-    marginBottom: 20,
-  },
+
   footer: {
     marginTop: 40,
     alignItems: "center",
