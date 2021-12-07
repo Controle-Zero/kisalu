@@ -10,12 +10,18 @@ interface Props {
     color?: string;
     size?: number;
   };
+  onChangeText: (text: string) => void;
+  fieldValue: string;
   isSecret?: boolean;
-  //   value: string | number;
 }
 
-const TextField: FC<Props> = ({ label, leftIcon, isSecret = false }) => {
-  const [value, setValue] = useState("");
+const TextField: FC<Props> = ({
+  label,
+  leftIcon,
+  isSecret = false,
+  onChangeText,
+  fieldValue,
+}) => {
   return (
     <TextInput
       style={styles.input}
@@ -33,9 +39,9 @@ const TextField: FC<Props> = ({ label, leftIcon, isSecret = false }) => {
         )
       }
       mode="outlined"
-      value={value}
       autoComplete={false}
-      onChangeText={(text) => setValue(text)}
+      value={fieldValue}
+      onChangeText={onChangeText}
     />
   );
 };

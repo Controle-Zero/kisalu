@@ -9,8 +9,9 @@ import loginImage from "../assets/images/login-image.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const onLogin = () => {
-    console.log("Login");
+    console.log({ email, password });
   };
   return (
     <ScrollView style={styles.container}>
@@ -20,8 +21,19 @@ const Login = () => {
         <Text style={styles.heading2}>Sentimos a sua falta</Text>
       </View>
       <View>
-        <TextField label="Email" leftIcon={{ name: "email" }} />
-        <TextField label="Password" leftIcon={{ name: "key" }} isSecret />
+        <TextField
+          label="Email"
+          leftIcon={{ name: "email" }}
+          fieldValue={email}
+          onChangeText={(text) => setEmail(text)}
+        />
+        <TextField
+          label="Password"
+          leftIcon={{ name: "key" }}
+          isSecret
+          fieldValue={password}
+          onChangeText={(text) => setPassword(text)}
+        />
         <FormButton text="Login" color="#60DBDA" onPress={onLogin} />
       </View>
       <View style={styles.footer}>
