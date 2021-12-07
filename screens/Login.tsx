@@ -1,17 +1,11 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView,
-  Button,
-} from "react-native";
+import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
 
-import TextField from "../components/TextField";
+import TextField from "../components/formInputs/TextField";
+import FormButton from "../components/buttons/FormButton";
+import Fonts from "../styles/fontsConstants";
 
 import loginImage from "../assets/images/login-image.png";
-import FormButton from "../components/buttons/FormButton";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -53,18 +47,17 @@ const styles = StyleSheet.create({
     marginVertical: 35,
   },
   heading1: {
-    fontWeight: "600",
     fontSize: 25,
     lineHeight: 30,
+    fontFamily: Fonts.Poppins_600SemiBold,
   },
   heading2: {
     marginTop: 10,
-    fontWeight: "400",
     fontSize: 20,
     lineHeight: 30,
+    fontFamily: Fonts.Poppins_400Regular,
     color: "#303030",
   },
-
   footer: {
     marginTop: 40,
     alignItems: "center",
@@ -74,6 +67,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     lineHeight: 24,
     marginBottom: 5,
+    fontFamily: Fonts.Poppins_400Regular,
   },
   textButton: {
     fontSize: 16,
@@ -81,5 +75,6 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: "#0078CF",
     textDecorationLine: "underline",
+    fontFamily: Fonts.Poppins_400Regular,
   },
 });

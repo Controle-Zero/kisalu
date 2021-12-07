@@ -1,11 +1,12 @@
 import React, { FC } from "react";
 import {
-  View,
   Text,
   StyleSheet,
   Pressable,
   GestureResponderEvent,
 } from "react-native";
+
+import Fonts from "../../styles/fontsConstants";
 
 interface Props {
   text: string;
@@ -20,6 +21,7 @@ const FormButton: FC<Props> = ({ color, text, onPress }) => {
       borderRadius: 10,
       height: 45,
       flex: 1,
+      fontFamily: Fonts.Poppins_400Regular,
       alignItems: "center",
       justifyContent: "center",
       shadowColor: "#000",

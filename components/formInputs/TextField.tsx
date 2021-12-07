@@ -1,6 +1,7 @@
-import React, { FC, ReactNode, useState } from "react";
+import React, { FC, useState } from "react";
 import { StyleSheet } from "react-native";
 import { TextInput } from "react-native-paper";
+import Fonts from "../../styles/fontsConstants";
 
 interface Props {
   label: string;
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
     height: 50,
     marginBottom: 10,
     fontSize: 15,
+    fontFamily: Fonts.Poppins_400Regular,
   },
   icon: {
     marginTop: 16,
