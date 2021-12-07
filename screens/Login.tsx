@@ -11,9 +11,13 @@ import {
 import TextField from "../components/TextField";
 
 import loginImage from "../assets/images/login-image.png";
+import FormButton from "../components/buttons/FormButton";
 
 const Login = () => {
   const [email, setEmail] = useState("");
+  const onLogin = () => {
+    console.log("Login");
+  };
   return (
     <ScrollView style={styles.container}>
       <Image style={styles.image} source={loginImage} />
@@ -24,7 +28,7 @@ const Login = () => {
       <View>
         <TextField label="Email" leftIcon={{ name: "email" }} />
         <TextField label="Password" leftIcon={{ name: "key" }} isSecret />
-        <Button title="Login" onPress={() => console.log("Login")} />
+        <FormButton text="Login" color="#60DBDA" onPress={onLogin} />
       </View>
       <View style={styles.footer}>
         <Text style={styles.paragraph}>Não possui uma conta?</Text>
