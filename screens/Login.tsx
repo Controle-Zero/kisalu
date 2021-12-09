@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,34 +8,28 @@ import {
   ImageSourcePropType,
 } from "react-native";
 
+import {
+  BottomSheetModalProvider,
+  BottomSheetModal,
+} from "@gorhom/bottom-sheet";
+
 import TextField from "../components/formInputs/TextField";
 import FormButton from "../components/buttons/FormButton";
+import CreateAccountTypeModal from "../components/modals/CreateAccountTypeModal";
 import Fonts from "../styles/fontsConstants";
-
 import loginImage from "../assets/images/login-image.png";
-import {
-  BottomSheetModal,
-  BottomSheetModalProvider,
-} from "@gorhom/bottom-sheet";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  const snapPoints = ["25"];
-
-  // callbacks
-  const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
-  }, []);
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index);
-  }, []);
-
   const onLogin = () => {
     console.log({ email, password });
   };
+
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const onModalShown = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
 
   return (
     <BottomSheetModalProvider>
@@ -66,20 +60,11 @@ const Login = () => {
         </View>
         <View style={styles.footer}>
           <Text style={styles.paragraph}>Não possui uma conta?</Text>
-          <Text onPress={handlePresentModalPress} style={styles.textButton}>
+          <Text onPress={onModalShown} style={styles.textButton}>
             Cadastre Já
           </Text>
         </View>
-        <BottomSheetModal
-          ref={bottomSheetModalRef}
-          index={0}
-          snapPoints={snapPoints}
-          onChange={handleSheetChanges}
-        >
-          <View>
-            <Text>Awesome Modal</Text>
-          </View>
-        </BottomSheetModal>
+        <CreateAccountTypeModal reference={bottomSheetModalRef} />
       </ScrollView>
     </BottomSheetModalProvider>
   );
