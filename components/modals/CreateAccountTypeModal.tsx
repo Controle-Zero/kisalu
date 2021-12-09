@@ -5,6 +5,7 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 
 import Fonts from "../../styles/fontsConstants";
 import BottomSheetModalButton from "../buttons/BottomSheetModalButton";
+import Spacer from "../layout/Spacer";
 interface Props {
   reference: React.Ref<BottomSheetModal>;
 }
@@ -26,7 +27,7 @@ const CreateAccountTypeModal: React.FC<Props> = ({ reference }) => {
           color="#60DBDA"
           onPress={(e) => console.log("Provedor")}
         />
-        <View style={{ height: 25 }}></View>
+        <Spacer height={25} />
         <BottomSheetModalButton
           text="Como Cliente"
           color="#60DBDA"

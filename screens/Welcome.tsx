@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import Fonts from "../styles/fontsConstants";
-import FormButton from "../components/buttons/FormButton";
+import PrimaryButton from "../components/buttons/PrimaryButton";
 import welcomeimage from "../assets/images/logooficial.png";
 import Spacer from "../components/layout/Spacer";
 export default function Welcome() {
@@ -18,9 +18,9 @@ export default function Welcome() {
         Uma app que te ajuda a encontrar e providenciar serviços
       </Text>
       <View style={styles.alinharbotao}>
-        <FormButton text="Login" color="#383D3B" onPress={onLogin} />
+        <PrimaryButton text="Login" color="#383D3B" onPress={onLogin} />
         <Spacer width={10} height={0} />
-        <FormButton text="Cadastro" color="#60DBDA" onPress={onLogin} />
+        <PrimaryButton text="Cadastro" color="#60DBDA" onPress={onLogin} />
       </View>
       <StatusBar style="auto" />
     </View>
