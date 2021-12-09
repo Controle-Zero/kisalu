@@ -2,9 +2,14 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import Fonts from "../styles/fontsConstants";
+import FormButton from "../components/buttons/FormButton";
 import welcomeimage from "../assets/images/logooficial.png";
-
+import Spacer from "../components/layout/Spacer";
 export default function Welcome() {
+  const onLogin = () => {
+    console.log("Sergio");
+  };
+
   return (
     <View style={styles.container}>
       <Image style={styles.direction} source={welcomeimage} />
@@ -13,12 +18,9 @@ export default function Welcome() {
         Uma app que te ajuda a encontrar e providenciar serviços
       </Text>
       <View style={styles.alinharbotao}>
-        <Pressable style={styles.btnLogin}>
-          <Text style={styles.btntxtLogin}> LOGIN </Text>
-        </Pressable>
-        <Pressable style={styles.btnCadastro}>
-          <Text style={styles.btntxtCadastro}> CADASTRO </Text>
-        </Pressable>
+        <FormButton text="Login" color="#383D3B" onPress={onLogin} />
+        <Spacer width={10} height={0} />
+        <FormButton text="Cadastro" color="#60DBDA" onPress={onLogin} />
       </View>
       <StatusBar style="auto" />
     </View>
@@ -32,20 +34,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 
-  btnLogin: {
-    height: 40,
-    width: 160,
-    borderRadius: 10,
-    backgroundColor: "#383D3B",
-    marginRight: 10,
-  },
-
-  btnCadastro: {
-    height: 40,
-    width: 160,
-    borderRadius: 10,
-    backgroundColor: "#60DBDA",
-  },
   btntxtLogin: {
     color: "#FFFFFF",
     fontSize: 20,
