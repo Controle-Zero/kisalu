@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  ImageSourcePropType,
+} from "react-native";
 
 import TextField from "../components/formInputs/TextField";
 import FormButton from "../components/buttons/FormButton";
@@ -10,12 +17,14 @@ import loginImage from "../assets/images/login-image.png";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const onLogin = () => {
     console.log({ email, password });
   };
+
   return (
     <ScrollView style={styles.container}>
-      <Image style={styles.image} source={loginImage} />
+      <Image style={styles.image} source={loginImage as ImageSourcePropType} />
       <View style={styles.headerContainer}>
         <Text style={styles.heading1}>Bem-vindo de volta</Text>
         <Text style={styles.heading2}>Sentimos a sua falta</Text>
@@ -76,7 +85,6 @@ const styles = StyleSheet.create({
   },
   paragraph: {
     fontSize: 16,
-    fontWeight: "400",
     lineHeight: 24,
     marginBottom: 5,
     fontFamily: Fonts.Poppins_400Regular,
