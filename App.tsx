@@ -6,7 +6,7 @@ import {
   Poppins_600SemiBold,
 } from "@expo-google-fonts/poppins";
 
-import Login from "./screens/Login";
+import Welcome from "./screens/Welcome";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -15,5 +15,5 @@ export default function App() {
   });
 
   if (!fontsLoaded) return <AppLoading />;
-  return <Login />;
+  return <Welcome />;
 }
