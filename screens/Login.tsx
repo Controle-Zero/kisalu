@@ -14,7 +14,7 @@ import {
 } from "@gorhom/bottom-sheet";
 
 import TextField from "../components/formInputs/TextField";
-import FormButton from "../components/buttons/FormButton";
+import PrimaryButton from "../components/buttons/PrimaryButton";
 import CreateAccountTypeModal from "../components/modals/CreateAccountTypeModal";
 import Fonts from "../styles/fontsConstants";
 import loginImage from "../assets/images/login-image.png";
@@ -56,7 +56,7 @@ const Login = () => {
             fieldValue={password}
             onChangeText={(text) => setPassword(text)}
           />
-          <FormButton text="Login" color="#60DBDA" onPress={onLogin} />
+          <PrimaryButton text="Login" color="#60DBDA" onPress={onLogin} />
         </View>
         <View style={styles.footer}>
           <Text style={styles.paragraph}>Não possui uma conta?</Text>
