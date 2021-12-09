@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,48 +8,65 @@ import {
   ImageSourcePropType,
 } from "react-native";
 
-import TextField from "../components/formInputs/TextField";
-import FormButton from "../components/buttons/FormButton";
-import Fonts from "../styles/fontsConstants";
+import {
+  BottomSheetModalProvider,
+  BottomSheetModal,
+} from "@gorhom/bottom-sheet";
 
+import TextField from "../components/formInputs/TextField";
+import PrimaryButton from "../components/buttons/PrimaryButton";
+import CreateAccountTypeModal from "../components/modals/CreateAccountTypeModal";
+import Fonts from "../styles/fontsConstants";
 import loginImage from "../assets/images/login-image.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const onLogin = () => {
     console.log({ email, password });
   };
 
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const onModalShown = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+
   return (
-    <ScrollView style={styles.container}>
-      <Image style={styles.image} source={loginImage as ImageSourcePropType} />
-      <View style={styles.headerContainer}>
-        <Text style={styles.heading1}>Bem-vindo de volta</Text>
-        <Text style={styles.heading2}>Sentimos a sua falta</Text>
-      </View>
-      <View>
-        <TextField
-          label="Email"
-          leftIcon={{ name: "email" }}
-          fieldValue={email}
-          onChangeText={(text) => setEmail(text)}
+    <BottomSheetModalProvider>
+      <ScrollView style={styles.container}>
+        <Image
+          style={styles.image}
+          source={loginImage as ImageSourcePropType}
         />
-        <TextField
-          label="Password"
-          leftIcon={{ name: "key" }}
-          isSecret
-          fieldValue={password}
-          onChangeText={(text) => setPassword(text)}
-        />
-        <FormButton text="Login" color="#60DBDA" onPress={onLogin} />
-      </View>
-      <View style={styles.footer}>
-        <Text style={styles.paragraph}>Não possui uma conta?</Text>
-        <Text style={styles.textButton}>Cadastre Já</Text>
-      </View>
-    </ScrollView>
+        <View style={styles.headerContainer}>
+          <Text style={styles.heading1}>Bem-vindo de volta</Text>
+          <Text style={styles.heading2}>Sentimos a sua falta</Text>
+        </View>
+        <View>
+          <TextField
+            label="Email"
+            leftIcon={{ name: "email" }}
+            fieldValue={email}
+            onChangeText={(text) => setEmail(text)}
+          />
+          <TextField
+            label="Password"
+            leftIcon={{ name: "key" }}
+            isSecret
+            fieldValue={password}
+            onChangeText={(text) => setPassword(text)}
+          />
+          <PrimaryButton text="Login" color="#60DBDA" onPress={onLogin} />
+        </View>
+        <View style={styles.footer}>
+          <Text style={styles.paragraph}>Não possui uma conta?</Text>
+          <Text onPress={onModalShown} style={styles.textButton}>
+            Cadastre Já
+          </Text>
+        </View>
+        <CreateAccountTypeModal reference={bottomSheetModalRef} />
+      </ScrollView>
+    </BottomSheetModalProvider>
   );
 };
 
