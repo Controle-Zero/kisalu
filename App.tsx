@@ -9,11 +9,14 @@ import {
 import Login from "./screens/Login";
 
 export default function App() {
+  // Carrega as fontes
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_600SemiBold,
   });
 
+  // Se as fontes não carregarem, apresenta a aplicação a carregar
   if (!fontsLoaded) return <AppLoading />;
+  // Renderiza o login quando as fontes carregarem
   return <Login />;
 }

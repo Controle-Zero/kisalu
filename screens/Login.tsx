@@ -17,9 +17,11 @@ import loginImage from "../assets/images/login-image.png";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const onLogin = () => {
     console.log({ email, password });
   };
+
   return (
     <ScrollView style={styles.container}>
       <Image style={styles.image} source={loginImage as ImageSourcePropType} />
@@ -83,7 +85,6 @@ const styles = StyleSheet.create({
   },
   paragraph: {
     fontSize: 16,
-    fontWeight: "400",
     lineHeight: 24,
     marginBottom: 5,
     fontFamily: Fonts.Poppins_400Regular,
