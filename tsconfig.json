@@ -1,7 +1,9 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
+    "strict": true,
+    "removeComments": true
   },
-  "include": ["**/*"]
+  "include": ["./**/*.ts", "./**/*.tsx", "./**/*.png"],
+  "exclude": ["node_modules/**/*"]
 }

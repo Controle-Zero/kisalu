@@ -29,11 +29,18 @@ export default function Welcome({ navigation }) {
           Uma app que te ajuda a encontrar e providenciar serviços
         </Text>
         <View style={styles.alinharbotao}>
-          <PrimaryButton text="Login" color="#383D3B" onPress={openLogin} />
-          <Spacer width={10} height={0} />
+          <PrimaryButton
+            text="Login"
+            color="#383D3B"
+            textColor="#fff"
+            width={300}
+            onPress={openLogin}
+          />
+          <Spacer height={30} />
           <PrimaryButton
             text="Cadastro"
             color="#60DBDA"
+            width={300}
             onPress={onModalShown}
           />
         </View>
@@ -46,22 +53,7 @@ export default function Welcome({ navigation }) {
 const styles = StyleSheet.create({
   alinharbotao: {
     marginTop: 80,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-
-  btntxtLogin: {
-    color: "#FFFFFF",
-    fontSize: 20,
-    marginTop: 10,
-    textAlign: "center",
-  },
-  btntxtCadastro: {
-    color: "#000000",
-    fontSize: 18,
-    marginTop: 10,
-    textAlign: "center",
-    fontWeight: "bold",
+    flexDirection: "column",
   },
   container: {
     flex: 1,
