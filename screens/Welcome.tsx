@@ -1,6 +1,5 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useCallback, useRef } from "react";
-import { StyleSheet, Text, View, Image, Pressable } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import {
   BottomSheetModalProvider,
   BottomSheetModal,
@@ -10,14 +9,15 @@ import PrimaryButton from "../components/buttons/PrimaryButton";
 import welcomeimage from "../assets/images/logooficial.png";
 import Spacer from "../components/layout/Spacer";
 import CreateAccountTypeModal from "../components/modals/CreateAccountTypeModal";
-export default function Welcome() {
+
+export default function Welcome({ navigation }) {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const onModalShown = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
 
   const openLogin = () => {
-    // TODO: Roberto implementar navegação para a tela de login
+    navigation.navigate("Login");
   };
 
   return (

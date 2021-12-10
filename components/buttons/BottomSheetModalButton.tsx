@@ -4,6 +4,7 @@ import { Text, StyleSheet, GestureResponderEvent } from "react-native";
 import { TouchableHighlight } from "@gorhom/bottom-sheet";
 
 import Fonts from "../../styles/fontsConstants";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
 
 interface Props {
   text: string;
@@ -15,6 +16,7 @@ interface Props {
     TouchableHighlight do bottom-sheet. O Pressable não funciona no bottom-sheet
 */
 const BottomSheetModalButton: React.FC<Props> = ({ color, text, onPress }) => {
+  const navigation = useNavigation();
   const styles = StyleSheet.create({
     container: {
       backgroundColor: color,

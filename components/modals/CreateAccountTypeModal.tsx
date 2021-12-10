@@ -6,13 +6,23 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import Fonts from "../../styles/fontsConstants";
 import BottomSheetModalButton from "../buttons/BottomSheetModalButton";
 import Spacer from "../layout/Spacer";
+import { useNavigation } from "@react-navigation/native";
 interface Props {
   reference: React.Ref<BottomSheetModal>;
 }
 
 const CreateAccountTypeModal: React.FC<Props> = ({ reference }) => {
+  const navigation = useNavigation();
+
   // Define o espaço da tela que o modal irá ocupar em percentagem
   const snapPoints = ["40%"];
+
+  const pushProviderScreen = () => {
+    navigation.push("CadastroProvedor");
+  };
+  const pushClientScreen = () => {
+    navigation.push("CadastroCliente");
+  };
   return (
     <BottomSheetModal
       ref={reference}
@@ -25,13 +35,13 @@ const CreateAccountTypeModal: React.FC<Props> = ({ reference }) => {
         <BottomSheetModalButton
           text="Como Provedor"
           color="#60DBDA"
-          onPress={(e) => console.log("Provedor")}
+          onPress={pushProviderScreen}
         />
         <Spacer height={25} />
         <BottomSheetModalButton
           text="Como Cliente"
           color="#60DBDA"
-          onPress={(e) => console.log("Cliente")}
+          onPress={pushClientScreen}
         />
       </View>
     </BottomSheetModal>

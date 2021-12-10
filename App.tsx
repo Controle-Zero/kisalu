@@ -24,17 +24,34 @@ export default function App() {
     Poppins_600SemiBold,
   });
 
+  const screensHeaderOptions = {
+    headerShown: false,
+  };
+
   // Se as fontes não carregarem, apresenta a aplicação a carregar
   if (!fontsLoaded) return <AppLoading />;
   return (
     <NavigationContainer>
       <AuthStack.Navigator>
-        <AuthStack.Screen name="Welcome" component={Welcome} />
-        <AuthStack.Screen name="Login" component={Login} />
-        <AuthStack.Screen name="CadastroCliente" component={CadastroCliente} />
+        <AuthStack.Screen
+          name="Welcome"
+          component={Welcome}
+          options={screensHeaderOptions}
+        />
+        <AuthStack.Screen
+          name="Login"
+          component={Login}
+          options={screensHeaderOptions}
+        />
+        <AuthStack.Screen
+          name="CadastroCliente"
+          component={CadastroCliente}
+          options={screensHeaderOptions}
+        />
         <AuthStack.Screen
           name="CadastroProvedor"
           component={CadastroProvedor}
+          options={screensHeaderOptions}
         />
       </AuthStack.Navigator>
     </NavigationContainer>
