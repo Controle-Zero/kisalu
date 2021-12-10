@@ -1,14 +1,17 @@
 import React, { useCallback, useRef } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
+
 import {
   BottomSheetModalProvider,
   BottomSheetModal,
 } from "@gorhom/bottom-sheet";
+
 import Fonts from "../styles/fontsConstants";
 import PrimaryButton from "../components/buttons/PrimaryButton";
-import welcomeimage from "../assets/images/logooficial.png";
 import Spacer from "../components/layout/Spacer";
 import CreateAccountTypeModal from "../components/modals/CreateAccountTypeModal";
+
+import welcomeimage from "../assets/images/logooficial.png";
 
 export default function Welcome({ navigation }) {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -23,24 +26,26 @@ export default function Welcome({ navigation }) {
   return (
     <BottomSheetModalProvider>
       <View style={styles.container}>
-        <Image style={styles.direction} source={welcomeimage} />
-        <Text style={styles.welcome}>BEM VINDO</Text>
-        <Text style={styles.introdu}>
-          Uma app que te ajuda a encontrar e providenciar serviços
-        </Text>
-        <View style={styles.alinharbotao}>
+        <Image style={styles.imagem} source={welcomeimage} />
+        <View style={styles.headingContainer}>
+          <Text style={styles.heading1}>BEM VINDO</Text>
+          <Text style={styles.heading2}>
+            Uma app que te ajuda a encontrar e providenciar serviços
+          </Text>
+        </View>
+        <View style={styles.buttonsContainer}>
           <PrimaryButton
             text="Login"
             color="#383D3B"
+            width={150}
             textColor="#fff"
-            width={300}
             onPress={openLogin}
           />
-          <Spacer height={30} />
+          <Spacer width={30} />
           <PrimaryButton
             text="Cadastro"
             color="#60DBDA"
-            width={300}
+            width={150}
             onPress={onModalShown}
           />
         </View>
@@ -51,30 +56,36 @@ export default function Welcome({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  alinharbotao: {
-    marginTop: 80,
-    flexDirection: "column",
+  buttonsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   container: {
-    flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    flex: 1,
   },
-  direction: {
-    paddingTop: 200,
-    height: 200,
-    width: 200,
+  headingContainer: {
+    paddingHorizontal: 20,
+    alignItems: "center",
+    marginBottom: 70,
   },
-  welcome: {
-    marginTop: 15,
+  imagem: {
+    marginVertical: 80,
+    height: 208,
+    width: 208,
+  },
+  heading1: {
     fontSize: 30,
-    fontWeight: "bold",
+    fontFamily: Fonts.Poppins_400Regular,
+    lineHeight: 45,
+    marginBottom: 26,
   },
-  introdu: {
-    marginTop: 10,
-    fontStyle: "italic",
-    fontSize: 15,
+  heading2: {
+    fontSize: 20,
+    textAlign: "center",
+    color: "#757575",
     fontFamily: Fonts.Poppins_400Regular,
   },
 });
