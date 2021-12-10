@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import { StyleSheet } from "react-native";
 import { TextInput } from "react-native-paper";
+import { light } from "../../styles/colorThemes";
 import Fonts from "../../styles/fontsConstants";
 
 interface Props {
@@ -27,7 +28,7 @@ const TextField: FC<Props> = ({
       style={styles.input}
       label={label}
       secureTextEntry={isSecret}
-      activeOutlineColor="#60DBDA"
+      activeOutlineColor={light.primaryColor}
       left={
         leftIcon && (
           <TextInput.Icon

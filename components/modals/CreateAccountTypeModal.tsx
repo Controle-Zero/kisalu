@@ -7,6 +7,7 @@ import Fonts from "../../styles/fontsConstants";
 import BottomSheetModalButton from "../buttons/BottomSheetModalButton";
 import Spacer from "../layout/Spacer";
 import { useNavigation } from "@react-navigation/native";
+import { light } from "../../styles/colorThemes";
 interface Props {
   reference: React.Ref<BottomSheetModal>;
 }
@@ -34,13 +35,13 @@ const CreateAccountTypeModal: React.FC<Props> = ({ reference }) => {
         <Text style={styles.modalTitle}>Selecione o tipo de cadastro</Text>
         <BottomSheetModalButton
           text="Como Provedor"
-          color="#60DBDA"
+          color={light.primaryColor}
           onPress={pushProviderScreen}
         />
         <Spacer height={25} />
         <BottomSheetModalButton
           text="Como Cliente"
-          color="#60DBDA"
+          color={light.primaryColor}
           onPress={pushClientScreen}
         />
       </View>

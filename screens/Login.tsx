@@ -18,6 +18,7 @@ import PrimaryButton from "../components/buttons/PrimaryButton";
 import CreateAccountTypeModal from "../components/modals/CreateAccountTypeModal";
 import Fonts from "../styles/fontsConstants";
 import loginImage from "../assets/images/login-image.png";
+import { light } from "../styles/colorThemes";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -56,7 +57,11 @@ const Login = () => {
             fieldValue={password}
             onChangeText={(text) => setPassword(text)}
           />
-          <PrimaryButton text="Login" color="#60DBDA" onPress={onLogin} />
+          <PrimaryButton
+            text="Login"
+            color={light.primaryColor}
+            onPress={onLogin}
+          />
         </View>
         <View style={styles.footer}>
           <Text style={styles.paragraph}>Não possui uma conta?</Text>
@@ -94,7 +99,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 30,
     fontFamily: Fonts.Poppins_400Regular,
-    color: "#303030",
+    color: light.darkGreyColor,
   },
   footer: {
     marginTop: 40,
@@ -110,7 +115,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "400",
     lineHeight: 24,
-    color: "#0078CF",
+    color: light.linkColor,
     textDecorationLine: "underline",
     fontFamily: Fonts.Poppins_400Regular,
   },

@@ -7,6 +7,7 @@ import {
 } from "@gorhom/bottom-sheet";
 
 import Fonts from "../styles/fontsConstants";
+import { light } from "../styles/colorThemes";
 import PrimaryButton from "../components/buttons/PrimaryButton";
 import Spacer from "../components/layout/Spacer";
 import CreateAccountTypeModal from "../components/modals/CreateAccountTypeModal";
@@ -36,7 +37,7 @@ export default function Welcome({ navigation }) {
         <View style={styles.buttonsContainer}>
           <PrimaryButton
             text="Login"
-            color="#383D3B"
+            color={light.accentColor}
             width={150}
             textColor="#fff"
             onPress={openLogin}
@@ -44,7 +45,7 @@ export default function Welcome({ navigation }) {
           <Spacer width={30} />
           <PrimaryButton
             text="Cadastro"
-            color="#60DBDA"
+            color={light.primaryColor}
             width={150}
             onPress={onModalShown}
           />
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   container: {
-    backgroundColor: "#fff",
+    backgroundColor: light.whiteColor,
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
   heading2: {
     fontSize: 20,
     textAlign: "center",
-    color: "#757575",
+    color: light.greyColor,
     fontFamily: Fonts.Poppins_400Regular,
   },
 });
