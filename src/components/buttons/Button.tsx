@@ -27,6 +27,13 @@ const Button: FC<Props> = ({
       paddingHorizontal: 15,
       backgroundColor: isPrimaryColor ? Colors.primary : Colors.secondary,
       width,
+      shadowColor: Colors.black,
+      shadowOffset: {
+        height: 5,
+        width: 0,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 10,
     },
     text: {
       fontFamily: TextStyles.button.font,

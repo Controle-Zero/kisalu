@@ -17,7 +17,7 @@ export const TextStyles = {
   },
   modalHeading: {
     font: "Poppins_400Regular",
-    fontSize: 22,
+    fontSize: 20,
     lineHeight: 33,
   },
   paragraph: {

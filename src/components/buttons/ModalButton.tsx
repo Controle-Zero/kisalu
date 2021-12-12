@@ -2,33 +2,39 @@ import React from "react";
 import { Text, StyleSheet, GestureResponderEvent } from "react-native";
 
 import { TouchableHighlight } from "@gorhom/bottom-sheet";
-
-import Fonts from "../../styles/fontsConstants";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
+import { Colors, TextStyles } from "../../styles/appTheme";
+import dropShadow from "../../styles/dropShadow";
 
 interface Props {
+  isPrimary?: boolean;
   text: string;
-  color: string;
   onPress?: (event: GestureResponderEvent) => void;
 }
 
 /* Esse botão é equivalente ao PrimaryButton. A diferença é o uso do 
     TouchableHighlight do bottom-sheet. O Pressable não funciona no bottom-sheet
 */
-const BottomSheetModalButton: React.FC<Props> = ({ color, text, onPress }) => {
-  const navigation = useNavigation();
+const ModalButton: React.FC<Props> = ({ isPrimary = true, text, onPress }) => {
   const styles = StyleSheet.create({
     container: {
-      backgroundColor: color,
-      borderRadius: 10,
+      backgroundColor: isPrimary ? Colors.primary : Colors.secondary,
       height: 45,
-      fontFamily: Fonts.Poppins_400Regular,
-      alignItems: "center",
       justifyContent: "center",
-      elevation: 5,
+      borderRadius: 10,
+      shadowColor: Colors.black,
+      shadowOffset: {
+        height: 5,
+        width: 0,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 10,
     },
     text: {
-      fontSize: 18,
+      fontSize: TextStyles.button.fontSize,
+      lineHeight: TextStyles.button.lineHeight,
+      textAlign: "center",
+      fontFamily: TextStyles.button.font,
+      color: isPrimary ? Colors.black : Colors.white,
     },
   });
   return (
@@ -42,4 +48,4 @@ const BottomSheetModalButton: React.FC<Props> = ({ color, text, onPress }) => {
   );
 };
 
-export default BottomSheetModalButton;
+export default ModalButton;

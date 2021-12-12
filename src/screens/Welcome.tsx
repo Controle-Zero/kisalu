@@ -9,6 +9,7 @@ import { appLogo } from "../styles/imageConstants";
 import { Colors, TextStyles } from "../styles/appTheme";
 import Button from "../components/buttons/Button";
 import Spacer from "../components/layout/Spacer";
+import CreateAccountTypeModal from "../components/modals/CreateAccountTypeModal";
 
 export default function Welcome({ navigation }) {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -28,18 +29,17 @@ export default function Welcome({ navigation }) {
         <Text style={styles.heading2}>
           Uma app que te ajuda a encontrar e providenciar serviços
         </Text>
-        {/* TODO: Add button container */}
         <View style={styles.buttonsContainer}>
-          <Button onPress={() => console.log("Button CLicked")} text="Login" />
+          <Button onPress={openLogin} text="Login" />
           <Spacer height={20} />
           <Button
-            onPress={() => console.log("Button CLicked")}
+            onPress={onModalShown}
             text="Cadastrar"
             isPrimaryColor={false}
           />
         </View>
       </View>
-      {/* <CreateAccountTypeModal reference={bottomSheetModalRef} /> */}
+      <CreateAccountTypeModal reference={bottomSheetModalRef} />
     </BottomSheetModalProvider>
   );
 }
