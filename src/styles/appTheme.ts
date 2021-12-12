@@ -2,12 +2,12 @@ export const TextStyles = {
   heading1: {
     fontRegular: "Poppins_400Regular",
     fontMedium: "Poppins_500Medium",
-    fontSize: 30,
+    fontSize: 25,
     lineHeight: 45,
   },
   heading2: {
     font: "Poppins_400Regular",
-    fontSize: 25,
+    fontSize: 22,
     lineHeight: 37,
   },
   button: {
