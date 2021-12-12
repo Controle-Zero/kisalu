@@ -8,7 +8,7 @@ import {
 } from "@expo-google-fonts/poppins";
 import { NavigationContainer } from "@react-navigation/native";
 
-import AuthStackRoute from "./routes/AuthStackRoute";
+import AuthStackRoute from "./src/routes/AuthStackRoute";
 
 export default function App() {
   // Carrega as fontes
