@@ -1,4 +1,7 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationOptions,
+} from "@react-navigation/native-stack";
 import React from "react";
 import CadastroCliente from "../screens/CadastroCliente";
 import CadastroProvedor from "../screens/CadastroProvedor";
@@ -8,8 +11,11 @@ import Welcome from "../screens/Welcome";
 const AuthStack = createNativeStackNavigator();
 
 function AuthStackRoute() {
-  const screensHeaderOptions = {
+  const screensHeaderOptions: NativeStackNavigationOptions = {
     headerShown: false,
+    contentStyle: {
+      backgroundColor: "#fff",
+    },
   };
   return (
     <AuthStack.Navigator initialRouteName="Welcome">
