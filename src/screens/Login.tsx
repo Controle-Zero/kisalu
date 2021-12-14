@@ -11,6 +11,7 @@ import { Formik } from "formik";
 import TextField from "../components/input/TextField";
 import Spacer from "../components/layout/Spacer";
 import Button from "../components/buttons/Button";
+import CreateAccountTypeModal from "../components/modals/CreateAccountTypeModal";
 
 const Login = () => {
   const onLogin = () => {};
@@ -40,6 +41,7 @@ const Login = () => {
           </Text>
         </ScrollView>
       </View>
+      <CreateAccountTypeModal reference={bottomSheetModalRef} />
     </BottomSheetModalProvider>
   );
 };
