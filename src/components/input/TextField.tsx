@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  KeyboardTypeOptions,
+} from "react-native";
 import { Colors, TextStyles } from "../../styles/appTheme";
 
 interface Props {
@@ -7,6 +13,9 @@ interface Props {
   placeholder?: string;
   icon?: string;
   secureText?: boolean;
+  value: string;
+  onChangeText: (text: string) => void;
+  keyboardType?: KeyboardTypeOptions;
 }
 
 const TextField: React.FC<Props> = ({
@@ -14,6 +23,9 @@ const TextField: React.FC<Props> = ({
   placeholder = "",
   icon,
   secureText = false,
+  value,
+  onChangeText,
+  keyboardType,
 }) => {
   return (
     <View>
@@ -22,6 +34,9 @@ const TextField: React.FC<Props> = ({
         style={styles.input}
         placeholder={placeholder}
         secureTextEntry={secureText}
+        onChangeText={onChangeText}
+        value={value}
+        keyboardType={keyboardType}
       />
     </View>
   );

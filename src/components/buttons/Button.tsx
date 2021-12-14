@@ -11,7 +11,7 @@ interface Props {
   text: string;
   isPrimaryColor?: boolean;
   width?: number | string;
-  onPress: (event: GestureResponderEvent) => void;
+  onPress: () => void;
 }
 
 const Button: FC<Props> = ({
