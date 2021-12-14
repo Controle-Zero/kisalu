@@ -1,12 +1,5 @@
-import React, { useCallback, useRef, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView,
-  ImageSourcePropType,
-} from "react-native";
+import React, { useCallback, useRef } from "react";
+import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
 
 import {
   BottomSheetModalProvider,
@@ -16,6 +9,8 @@ import { loginImage } from "../styles/imageConstants";
 import { Colors, TextStyles } from "../styles/appTheme";
 import { Formik } from "formik";
 import TextField from "../components/input/TextField";
+import Spacer from "../components/layout/Spacer";
+import Button from "../components/buttons/Button";
 
 const Login = () => {
   const onLogin = () => {};
@@ -27,14 +22,22 @@ const Login = () => {
 
   return (
     <BottomSheetModalProvider>
-      <View style={styles.container}>
-        <ScrollView>
+      <View>
+        <ScrollView style={styles.container}>
           <Image source={loginImage} style={styles.image} />
           <Text style={styles.heading1}>Bem-vindo de Volta</Text>
           <Text style={styles.heading2}>Sentimos a sua falta</Text>
           <View>
             <TextField label="Email" />
+            <Spacer height={12} />
+            <TextField label="Password" secureText />
+            <Spacer height={22} />
+            <Button text="Login" onPress={() => console.log()} />
           </View>
+          <Text style={styles.paragraph}>Não possui uma conta?</Text>
+          <Text style={styles.linkText} onPress={onModalShown}>
+            Cadastre já
+          </Text>
         </ScrollView>
       </View>
     </BottomSheetModalProvider>
@@ -45,14 +48,13 @@ export default Login;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 50,
-    marginHorizontal: 38,
-    flex: 1,
-    alignItems: "center",
+    paddingHorizontal: 38,
   },
   image: {
-    width: 203,
-    height: 203,
+    marginTop: 30,
+    alignSelf: "center",
+    width: 190,
+    height: 190,
   },
   heading1: {
     fontFamily: TextStyles.heading1.fontMedium,
@@ -66,7 +68,21 @@ const styles = StyleSheet.create({
     fontSize: TextStyles.heading2.fontSize,
     lineHeight: TextStyles.heading2.lineHeight,
     marginTop: 20,
+    marginBottom: 30,
     textAlign: "center",
     color: Colors.greyText,
+  },
+  paragraph: {
+    marginTop: 22,
+    textAlign: "center",
+    fontFamily: TextStyles.paragraph.font,
+    fontSize: TextStyles.paragraph.fontSize,
+  },
+  linkText: {
+    fontFamily: TextStyles.linkText.font,
+    fontSize: TextStyles.linkText.fontSize,
+    color: Colors.linkText,
+    textDecorationLine: "underline",
+    textAlign: "center",
   },
 });

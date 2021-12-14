@@ -6,13 +6,23 @@ interface Props {
   label: string;
   placeholder?: string;
   icon?: string;
+  secureText?: boolean;
 }
 
-const TextField: React.FC<Props> = ({ label, placeholder = "", icon }) => {
+const TextField: React.FC<Props> = ({
+  label,
+  placeholder = "",
+  icon,
+  secureText = false,
+}) => {
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
-      <TextInput style={styles.input} placeholder={placeholder} />
+      <TextInput
+        style={styles.input}
+        placeholder={placeholder}
+        secureTextEntry={secureText}
+      />
     </View>
   );
 };
@@ -25,6 +35,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.black,
     borderStyle: "solid",
+    paddingHorizontal: 10,
   },
   label: {
     fontFamily: TextStyles.label.font,
