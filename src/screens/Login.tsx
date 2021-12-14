@@ -12,20 +12,13 @@ import {
   BottomSheetModalProvider,
   BottomSheetModal,
 } from "@gorhom/bottom-sheet";
-
-import TextField from "../components/formInputs/TextField";
-import PrimaryButton from "../components/buttons/PrimaryButton";
-import CreateAccountTypeModal from "../components/modals/CreateAccountTypeModal";
-import Fonts from "../styles/fontsConstants";
-import loginImage from "../assets/images/login-image.png";
-import { light } from "../styles/colorThemes";
+import { loginImage } from "../styles/imageConstants";
+import { Colors, TextStyles } from "../styles/appTheme";
+import { Formik } from "formik";
+import TextField from "../components/input/TextField";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const onLogin = () => {
-    console.log({ email, password });
-  };
+  const onLogin = () => {};
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const onModalShown = useCallback(() => {
@@ -34,43 +27,16 @@ const Login = () => {
 
   return (
     <BottomSheetModalProvider>
-      <ScrollView style={styles.container}>
-        <Image
-          style={styles.image}
-          source={loginImage as ImageSourcePropType}
-        />
-        <View style={styles.headerContainer}>
-          <Text style={styles.heading1}>Bem-vindo de volta</Text>
+      <View style={styles.container}>
+        <ScrollView>
+          <Image source={loginImage} style={styles.image} />
+          <Text style={styles.heading1}>Bem-vindo de Volta</Text>
           <Text style={styles.heading2}>Sentimos a sua falta</Text>
-        </View>
-        <View>
-          <TextField
-            label="Email"
-            leftIcon={{ name: "email" }}
-            fieldValue={email}
-            onChangeText={(text) => setEmail(text)}
-          />
-          <TextField
-            label="Password"
-            leftIcon={{ name: "key" }}
-            isSecret
-            fieldValue={password}
-            onChangeText={(text) => setPassword(text)}
-          />
-          <PrimaryButton
-            text="Login"
-            color={light.primaryColor}
-            onPress={onLogin}
-          />
-        </View>
-        <View style={styles.footer}>
-          <Text style={styles.paragraph}>Não possui uma conta?</Text>
-          <Text onPress={onModalShown} style={styles.textButton}>
-            Cadastre Já
-          </Text>
-        </View>
-        <CreateAccountTypeModal reference={bottomSheetModalRef} />
-      </ScrollView>
+          <View>
+            <TextField label="Email" />
+          </View>
+        </ScrollView>
+      </View>
     </BottomSheetModalProvider>
   );
 };
@@ -79,44 +45,28 @@ export default Login;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 70,
-    paddingBottom: 55,
-    paddingHorizontal: 25,
-  },
-  image: {
-    alignSelf: "center",
-  },
-  headerContainer: {
-    marginVertical: 35,
-  },
-  heading1: {
-    fontSize: 25,
-    lineHeight: 30,
-    fontFamily: Fonts.Poppins_600SemiBold,
-  },
-  heading2: {
-    marginTop: 10,
-    fontSize: 20,
-    lineHeight: 30,
-    fontFamily: Fonts.Poppins_400Regular,
-    color: light.darkGreyColor,
-  },
-  footer: {
-    marginTop: 40,
+    marginTop: 50,
+    marginHorizontal: 38,
+    flex: 1,
     alignItems: "center",
   },
-  paragraph: {
-    fontSize: 16,
-    lineHeight: 24,
-    marginBottom: 5,
-    fontFamily: Fonts.Poppins_400Regular,
+  image: {
+    width: 203,
+    height: 203,
   },
-  textButton: {
-    fontSize: 16,
-    fontWeight: "400",
-    lineHeight: 24,
-    color: light.linkColor,
-    textDecorationLine: "underline",
-    fontFamily: Fonts.Poppins_400Regular,
+  heading1: {
+    fontFamily: TextStyles.heading1.fontMedium,
+    fontSize: TextStyles.heading1.fontSize,
+    lineHeight: TextStyles.heading1.lineHeight,
+    marginTop: 40,
+    textAlign: "center",
+  },
+  heading2: {
+    fontFamily: TextStyles.heading2.font,
+    fontSize: TextStyles.heading2.fontSize,
+    lineHeight: TextStyles.heading2.lineHeight,
+    marginTop: 20,
+    textAlign: "center",
+    color: Colors.greyText,
   },
 });

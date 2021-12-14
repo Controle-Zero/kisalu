@@ -12,7 +12,7 @@ function AuthStackRoute() {
     headerShown: false,
   };
   return (
-    <AuthStack.Navigator>
+    <AuthStack.Navigator initialRouteName="Welcome">
       <AuthStack.Screen
         name="Welcome"
         component={Welcome}
@@ -23,7 +23,7 @@ function AuthStackRoute() {
         component={Login}
         options={screensHeaderOptions}
       />
-      <AuthStack.Screen
+      {/* <AuthStack.Screen
         name="CadastroCliente"
         component={CadastroCliente}
         options={screensHeaderOptions}
@@ -32,7 +32,7 @@ function AuthStackRoute() {
         name="CadastroProvedor"
         component={CadastroProvedor}
         options={screensHeaderOptions}
-      />
+      /> */}
     </AuthStack.Navigator>
   );
 }

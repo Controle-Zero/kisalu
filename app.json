@@ -1,5 +1,6 @@
 {
   "expo": {
+    "backgroundColor": "#fff",
     "name": "union-services",
     "slug": "union-services",
     "version": "1.0.0",
