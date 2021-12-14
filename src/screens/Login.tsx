@@ -5,24 +5,22 @@ import {
   BottomSheetModalProvider,
   BottomSheetModal,
 } from "@gorhom/bottom-sheet";
-import { Formik, FormikHelpers } from "formik";
+import { FormikHelpers } from "formik";
 
 import { loginImage } from "../styles/imageConstants";
 import { Colors, TextStyles } from "../styles/appTheme";
-import TextField from "../components/input/TextField";
-import Spacer from "../components/layout/Spacer";
-import Button from "../components/buttons/Button";
 import CreateAccountTypeModal from "../components/modals/CreateAccountTypeModal";
+import LoginForm from "../components/forms/LoginForm";
 
-type formType = {
+type FormType = {
   email: string;
   password: string;
 };
 
 const Login = () => {
   const onLogin = (
-    { email, password }: formType,
-    actions: FormikHelpers<formType>
+    { email, password }: FormType,
+    actions: FormikHelpers<FormType>
   ) => {
     actions.resetForm();
     console.log({ email, password });
@@ -40,34 +38,7 @@ const Login = () => {
           <Image source={loginImage} style={styles.image} />
           <Text style={styles.heading1}>Bem-vindo de Volta</Text>
           <Text style={styles.heading2}>Sentimos a sua falta</Text>
-          <Formik
-            initialValues={{
-              email: "",
-              password: "",
-            }}
-            onSubmit={onLogin}
-          >
-            {({ handleChange, values, handleSubmit }) => (
-              <View>
-                <TextField
-                  label="Email"
-                  onChangeText={handleChange("email")}
-                  value={values.email}
-                  keyboardType="email-address"
-                />
-                <Spacer height={12} />
-                <TextField
-                  label="Password"
-                  secureText
-                  onChangeText={handleChange("password")}
-                  value={values.password}
-                />
-                <Spacer height={22} />
-                <Button text="Login" onPress={handleSubmit} />
-              </View>
-            )}
-          </Formik>
-
+          <LoginForm onSubmit={onLogin} />
           <Text style={styles.paragraph}>Não possui uma conta?</Text>
           <Text style={styles.linkText} onPress={onModalShown}>
             Cadastre já
