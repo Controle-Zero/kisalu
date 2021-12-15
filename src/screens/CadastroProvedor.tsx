@@ -1,10 +1,20 @@
+import { FormikHelpers } from "formik";
 import React from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 
-import CadastroProvedorForm from "../components/forms/CadastroProvedorForm";
+import CadastroProvedorForm, {
+  CadastroProvedorFormType,
+} from "../components/forms/CadastroProvedorForm";
 import { Colors, TextStyles } from "../styles/appTheme";
 
 const CadastroProvedor = () => {
+  const onCadastrarProvedor = (
+    values: CadastroProvedorFormType,
+    actions: FormikHelpers<CadastroProvedorFormType>
+  ) => {
+    console.log(values);
+  };
+
   return (
     <View>
       <ScrollView style={styles.container}>
@@ -14,7 +24,7 @@ const CadastroProvedor = () => {
           Cadastre como provedor para começar a fornecer serviços
         </Text>
         <View style={styles.formContainer}>
-          <CadastroProvedorForm />
+          <CadastroProvedorForm onSubmit={onCadastrarProvedor} />
         </View>
       </ScrollView>
     </View>

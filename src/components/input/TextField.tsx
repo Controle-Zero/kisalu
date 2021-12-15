@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.black,
     borderStyle: "solid",
     paddingHorizontal: 10,
+    fontFamily: TextStyles.paragraph.font,
   },
   label: {
     fontFamily: TextStyles.label.font,
