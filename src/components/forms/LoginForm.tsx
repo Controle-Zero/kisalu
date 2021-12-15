@@ -16,7 +16,7 @@ interface Props {
   ) => void;
 }
 
-const reviewSchema = yup.object({
+const loginSchema = yup.object({
   email: yup
     .string()
     .required("Email não deve estar vazio")
@@ -38,7 +38,7 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
         password: "",
       }}
       onSubmit={onSubmit}
-      validationSchema={reviewSchema}
+      validationSchema={loginSchema}
     >
       {({ handleChange, values, handleSubmit, errors, touched }) => {
         setEmailError(errors.email && touched.email ? true : false);

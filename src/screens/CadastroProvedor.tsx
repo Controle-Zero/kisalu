@@ -47,9 +47,10 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     marginTop: 50,
+    paddingVertical: 40,
+    paddingHorizontal: 37,
     backgroundColor: Colors.white,
     borderTopStartRadius: 40,
     borderTopEndRadius: 40,
-    height: 100,
   },
 });
