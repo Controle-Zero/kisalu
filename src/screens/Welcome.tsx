@@ -1,21 +1,17 @@
-import React, { useCallback, useRef } from "react";
+import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 
-import {
-  BottomSheetModalProvider,
-  BottomSheetModal,
-} from "@gorhom/bottom-sheet";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+
 import { appLogo } from "../styles/imageConstants";
 import { Colors, TextStyles } from "../styles/appTheme";
 import Button from "../components/buttons/Button";
 import Spacer from "../components/layout/Spacer";
 import CreateAccountTypeModal from "../components/modals/CreateAccountTypeModal";
+import { useCustomBottomSheetModal } from "../hooks/useCustomBottomSheetModal";
 
 export default function Welcome({ navigation }) {
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  const onModalShown = useCallback(() => {
-    bottomSheetModalRef.current?.present();
-  }, []);
+  const { reference, onModalShown } = useCustomBottomSheetModal();
 
   const openLogin = () => {
     navigation.navigate("Login");
@@ -39,7 +35,7 @@ export default function Welcome({ navigation }) {
           />
         </View>
       </View>
-      <CreateAccountTypeModal reference={bottomSheetModalRef} />
+      <CreateAccountTypeModal reference={reference} />
     </BottomSheetModalProvider>
   );
 }

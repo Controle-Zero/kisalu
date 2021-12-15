@@ -1,16 +1,14 @@
-import React, { useCallback, useRef } from "react";
+import React from "react";
 import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
 
-import {
-  BottomSheetModalProvider,
-  BottomSheetModal,
-} from "@gorhom/bottom-sheet";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { FormikHelpers } from "formik";
 
 import { loginImage } from "../styles/imageConstants";
 import { Colors, TextStyles } from "../styles/appTheme";
 import CreateAccountTypeModal from "../components/modals/CreateAccountTypeModal";
 import LoginForm from "../components/forms/LoginForm";
+import { useCustomBottomSheetModal } from "../hooks/useCustomBottomSheetModal";
 
 type FormType = {
   email: string;
@@ -26,10 +24,7 @@ const Login = () => {
     console.log({ email, password });
   };
 
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  const onModalShown = useCallback(() => {
-    bottomSheetModalRef.current?.present();
-  }, []);
+  const { reference, onModalShown } = useCustomBottomSheetModal();
 
   return (
     <BottomSheetModalProvider>
@@ -45,7 +40,7 @@ const Login = () => {
           </Text>
         </ScrollView>
       </View>
-      <CreateAccountTypeModal reference={bottomSheetModalRef} />
+      <CreateAccountTypeModal reference={reference} />
     </BottomSheetModalProvider>
   );
 };
