@@ -1,9 +1,13 @@
-import { Formik, FormikHelpers } from "formik";
 import React from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
+
+import { Formik, FormikHelpers } from "formik";
+import * as yup from "yup";
+
 import Button from "../buttons/Button";
 import TextField from "../input/TextField";
 import Spacer from "../layout/Spacer";
+import ErrorText from "./ErrorText";
 
 interface Props {
   onSubmit: (
@@ -11,6 +15,17 @@ interface Props {
     actions: FormikHelpers<{ email: string; password: string }>
   ) => void;
 }
+
+const reviewSchema = yup.object({
+  email: yup
+    .string()
+    .required("Email não deve estar vazio")
+    .email("Deve ser um email"),
+  password: yup
+    .string()
+    .required("Password não deve estar vazia")
+    .min(7, "Deve ter pelo menos 7 caracteres"),
+});
 
 const LoginForm: React.FC<Props> = ({ onSubmit }) => {
   return (
@@ -20,8 +35,9 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
         password: "",
       }}
       onSubmit={onSubmit}
+      validationSchema={reviewSchema}
     >
-      {({ handleChange, values, handleSubmit }) => (
+      {({ handleChange, values, handleSubmit, errors, touched }) => (
         <View>
           <TextField
             label="Email"
@@ -29,6 +45,9 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
             value={values.email}
             keyboardType="email-address"
           />
+          {errors.email && touched.email && (
+            <ErrorText>{errors.email}</ErrorText>
+          )}
           <Spacer height={12} />
           <TextField
             label="Password"
@@ -36,6 +55,9 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
             onChangeText={handleChange("password")}
             value={values.password}
           />
+          {errors.password && touched.password && (
+            <ErrorText>{errors.password}</ErrorText>
+          )}
           <Spacer height={22} />
           <Button text="Login" onPress={handleSubmit} />
         </View>
