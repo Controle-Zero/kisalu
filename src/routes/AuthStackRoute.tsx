@@ -3,6 +3,7 @@ import React from "react";
 import CadastroCliente from "../screens/CadastroCliente";
 import CadastroProvedor from "../screens/CadastroProvedor";
 import Login from "../screens/Login";
+import PerfilProvedor from "../screens/PerfilProvedor";
 import Welcome from "../screens/Welcome";
 
 const AuthStack = createNativeStackNavigator();
@@ -12,7 +13,7 @@ function AuthStackRoute() {
     headerShown: false,
   };
   return (
-    <AuthStack.Navigator>
+    /* <AuthStack.Navigator>
       <AuthStack.Screen
         name="Welcome"
         component={Welcome}
@@ -33,7 +34,9 @@ function AuthStackRoute() {
         component={CadastroProvedor}
         options={screensHeaderOptions}
       />
-    </AuthStack.Navigator>
+    </AuthStack.Navigator> 
+    */
+    <PerfilProvedor />
   );
 }
 
