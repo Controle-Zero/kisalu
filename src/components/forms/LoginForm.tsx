@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 
 import { Formik, FormikHelpers } from "formik";
@@ -28,6 +28,9 @@ const reviewSchema = yup.object({
 });
 
 const LoginForm: React.FC<Props> = ({ onSubmit }) => {
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+
   return (
     <Formik
       initialValues={{
@@ -37,31 +40,37 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
       onSubmit={onSubmit}
       validationSchema={reviewSchema}
     >
-      {({ handleChange, values, handleSubmit, errors, touched }) => (
-        <View>
-          <TextField
-            label="Email"
-            onChangeText={handleChange("email")}
-            value={values.email}
-            keyboardType="email-address"
-          />
-          {errors.email && touched.email && (
-            <ErrorText>{errors.email}</ErrorText>
-          )}
-          <Spacer height={12} />
-          <TextField
-            label="Password"
-            secureText
-            onChangeText={handleChange("password")}
-            value={values.password}
-          />
-          {errors.password && touched.password && (
-            <ErrorText>{errors.password}</ErrorText>
-          )}
-          <Spacer height={22} />
-          <Button text="Login" onPress={handleSubmit} />
-        </View>
-      )}
+      {({ handleChange, values, handleSubmit, errors, touched }) => {
+        setEmailError(errors.email && touched.email ? true : false);
+        setPasswordError(errors.password && touched.email ? true : false);
+        return (
+          <View>
+            <TextField
+              label="Email"
+              onChangeText={handleChange("email")}
+              value={values.email}
+              keyboardType="email-address"
+              hasError={emailError}
+            />
+            {errors.email && touched.email && (
+              <ErrorText>{errors.email}</ErrorText>
+            )}
+            <Spacer height={12} />
+            <TextField
+              label="Password"
+              secureText
+              onChangeText={handleChange("password")}
+              value={values.password}
+              hasError={passwordError}
+            />
+            {errors.password && touched.password && (
+              <ErrorText>{errors.password}</ErrorText>
+            )}
+            <Spacer height={22} />
+            <Button text="Login" onPress={handleSubmit} />
+          </View>
+        );
+      }}
     </Formik>
   );
 };

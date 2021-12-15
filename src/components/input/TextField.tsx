@@ -16,6 +16,7 @@ interface Props {
   value: string;
   onChangeText: (text: string) => void;
   keyboardType?: KeyboardTypeOptions;
+  hasError?: boolean;
 }
 
 const TextField: React.FC<Props> = ({
@@ -26,12 +27,13 @@ const TextField: React.FC<Props> = ({
   value,
   onChangeText,
   keyboardType,
+  hasError = false,
 }) => {
   return (
     <View>
-      <Text style={styles.label}>{label}</Text>
+      <Text style={[styles.label, hasError && styles.labelError]}>{label}</Text>
       <TextInput
-        style={styles.input}
+        style={[styles.input, hasError && styles.inputError]}
         placeholder={placeholder}
         secureTextEntry={secureText}
         onChangeText={onChangeText}
@@ -57,6 +59,13 @@ const styles = StyleSheet.create({
     fontSize: TextStyles.label.fontSize,
     lineHeight: TextStyles.label.lineHeight,
     marginBottom: 5,
+    color: Colors.black,
+  },
+  inputError: {
+    borderColor: Colors.danger,
+  },
+  labelError: {
+    color: Colors.danger,
   },
 });
 

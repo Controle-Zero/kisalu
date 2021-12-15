@@ -1,10 +1,6 @@
 import React, { FC } from "react";
-import {
-  Text,
-  StyleSheet,
-  Pressable,
-  GestureResponderEvent,
-} from "react-native";
+import { Text, StyleSheet, Pressable } from "react-native";
+
 import { Colors, TextStyles } from "../../styles/appTheme";
 
 interface Props {

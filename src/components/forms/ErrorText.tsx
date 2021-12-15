@@ -1,5 +1,6 @@
-import React, { Children } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React from "react";
+import { Text, StyleSheet } from "react-native";
+
 import { Colors } from "../../styles/appTheme";
 
 const ErrorText: React.FC = ({ children }) => {
