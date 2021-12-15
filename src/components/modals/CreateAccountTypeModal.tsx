@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { BottomSheetModal, useBottomSheetModal } from "@gorhom/bottom-sheet";
 import { useNavigation } from "@react-navigation/native";
-import { TextStyles } from "../../styles/appTheme";
+import { Colors, TextStyles } from "../../styles/appTheme";
 import ModalButton from "../buttons/ModalButton";
 import Spacer from "../layout/Spacer";
 
@@ -28,7 +28,12 @@ const CreateAccountTypeModal: React.FC<Props> = ({ reference }) => {
     navigation.push("CadastroCliente");
   };
   return (
-    <BottomSheetModal ref={reference} index={0} snapPoints={snapPoints}>
+    <BottomSheetModal
+      ref={reference}
+      index={0}
+      snapPoints={snapPoints}
+      backgroundStyle={styles.modal}
+    >
       <View style={styles.container}>
         <Text style={styles.modalHeading}>Selecione o tipo de cadastro</Text>
         <View style={styles.actions}>
@@ -41,6 +46,11 @@ const CreateAccountTypeModal: React.FC<Props> = ({ reference }) => {
   );
 };
 const styles = StyleSheet.create({
+  modal: {
+    backgroundColor: Colors.lightGrey,
+    borderTopStartRadius: 40,
+    borderTopEndRadius: 40,
+  },
   container: {
     paddingVertical: 30,
     paddingHorizontal: 42,
