@@ -1,14 +1,20 @@
 import React, { useState } from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 import { Formik, FormikHelpers } from "formik";
-import * as yup from "yup";
+import DateTimePicker, {
+  AndroidEvent,
+  WindowsDatePickerChangeEvent,
+} from "@react-native-community/datetimepicker";
 
 import TextField from "../input/TextField";
 import ErrorText from "./ErrorText";
 import Button from "../buttons/Button";
 import Spacer from "../layout/Spacer";
 import { Colors, TextStyles } from "../../styles/appTheme";
+import { cadastroProvedorSchema } from "../../utils/validation/cadastroProvedorFormValidation";
+import TextButton from "../buttons/TextButton";
+import { formatDate } from "../../utils/dateFormatter";
 
 export type CadastroProvedorFormType = {
   fullName: string;
@@ -18,6 +24,19 @@ export type CadastroProvedorFormType = {
   personalInformation: string;
   password: string;
   passwordConfirmation: string;
+  birthDay: Date;
+};
+
+const initialValues = {
+  fullName: "",
+  birthDay: new Date(),
+  bi: "",
+  // TODO: Add habilites
+  email: "",
+  phoneNumber: "",
+  personalInformation: "",
+  password: "",
+  passwordConfirmation: "",
 };
 
 interface Props {
@@ -37,44 +56,15 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
     useState(false);
 
   const [password, setPassword] = useState("");
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const spaceBetweenInputs = 20;
 
-  const provedorSchema = yup.object({
-    fullName: yup.string().required("Nome completo não deve estar vazio"),
-    // TODO: Add regex for BI
-    bi: yup.string().required("BI não deve estar vazio"),
-    email: yup
-      .string()
-      .required("Email não deve estar vazio")
-      .email("Deve ser um email"),
-    // TODO: Add regex for phone number +244
-    phoneNumber: yup.string().required("Nº de telefone não deve estar vazio"),
-    password: yup
-      .string()
-      .required("Password não pode estar vazia")
-      .min(7, "Deve ter pelo menos 7 caracteres"),
-    // TODO: Check equality of original password
-    passwordConfirmation: yup
-      .string()
-      .required("A confirmação não pode estar vazia"),
-  });
-
   return (
     <Formik
-      initialValues={{
-        fullName: "",
-        //   TODO: Add birthday
-        bi: "",
-        // TODO: Add habilites
-        email: "",
-        phoneNumber: "",
-        personalInformation: "",
-        password: "",
-        passwordConfirmation: "",
-      }}
+      initialValues={initialValues}
       onSubmit={onSubmit}
-      validationSchema={provedorSchema}
+      validationSchema={cadastroProvedorSchema}
     >
       {({ handleChange, values, handleSubmit, errors, touched }) => {
         setFullNameError(errors.fullName && touched.fullName ? true : false);
@@ -92,6 +82,7 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
         setPassword(values.password);
         return (
           <>
+            {/* Full name */}
             <TextField
               label="Nome Completo"
               value={values.fullName}
@@ -102,8 +93,27 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
               <ErrorText>{errors.fullName}</ErrorText>
             )}
             <Spacer height={spaceBetweenInputs} />
-            {/* TODO: Add date field */}
-
+            {/* Birthday */}
+            <View style={styles.row}>
+              <TextButton
+                onPress={() => setShowDatePicker(true)}
+                text="Data de nascimento"
+              />
+              <Text style={styles.label}>{formatDate(values.birthDay)}</Text>
+            </View>
+            {showDatePicker && (
+              <DateTimePicker
+                value={values.birthDay}
+                mode="date"
+                maximumDate={new Date()}
+                onChange={(_: any, date?: Date | undefined) => {
+                  values.birthDay = date || values.birthDay;
+                  setShowDatePicker(false);
+                }}
+              />
+            )}
+            <Spacer height={spaceBetweenInputs} />
+            {/* BI */}
             <TextField
               label="BI"
               value={values.bi}
@@ -114,6 +124,7 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
             <Spacer height={spaceBetweenInputs} />
 
             {/* TODO: Add habilites chips  */}
+            {/* Email */}
             <TextField
               label="Email"
               value={values.email}
@@ -124,6 +135,7 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
               <ErrorText>{errors.email}</ErrorText>
             )}
             <Spacer height={spaceBetweenInputs} />
+            {/* Phone number */}
             <TextField
               label="Nº de Telefone"
               value={values.phoneNumber}
@@ -135,6 +147,7 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
             )}
             <Spacer height={spaceBetweenInputs} />
             {/* TODO: Add personalInformation text area */}
+            {/* Password */}
             <TextField
               label="Password"
               value={values.password}
@@ -150,6 +163,7 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
               </Text>
             )}
             <Spacer height={spaceBetweenInputs} />
+            {/* Password confirmation */}
             <TextField
               label="Confirmar a password"
               value={values.passwordConfirmation}
@@ -161,6 +175,7 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
               <ErrorText>{errors.passwordConfirmation}</ErrorText>
             )}
             <Spacer height={spaceBetweenInputs + 30} />
+            {/* Submit */}
             <Button text="Criar Conta" onPress={handleSubmit} />
           </>
         );
@@ -176,5 +191,15 @@ const styles = StyleSheet.create({
     fontSize: TextStyles.smallText.fontSize,
     fontFamily: TextStyles.smallText.font,
     color: Colors.greyText,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  label: {
+    fontFamily: TextStyles.label.font,
+    fontSize: TextStyles.label.fontSize,
+    color: Colors.black,
   },
 });
