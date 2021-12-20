@@ -12,7 +12,16 @@ const CadastroProvedor = () => {
     values: CadastroProvedorFormType,
     actions: FormikHelpers<CadastroProvedorFormType>
   ) => {
-    console.log(values);
+    const { password, passwordConfirmation } = values;
+
+    if (password !== passwordConfirmation) {
+      actions.setFieldError(
+        "passwordConfirmation",
+        "As duas passwords não são iguais"
+      );
+      return;
+    }
+    console.log(JSON.stringify(values));
   };
 
   return (
