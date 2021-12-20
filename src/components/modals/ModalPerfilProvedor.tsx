@@ -30,7 +30,10 @@ const ModalPerfilProvedor: React.FC<Props> = ({ reference }) => {
     >
       <View style={styles.container}>
         <Text style={styles.modalHeading}> Informações Gerais </Text>
-
+        <Text style={styles.modalDescricao}> Nome: </Text>
+        <Text style={styles.modalDescricao}> Idade: </Text>
+        <Text style={styles.modalDescricao}> Habilidades: </Text>
+        <Text style={styles.modalDescricao}> Biografia: </Text>
         <View style={styles.actions}>
           <ModalButton onPress={pushClientScreen} text="Fechar" />
         </View>
@@ -52,10 +55,16 @@ const styles = StyleSheet.create({
     fontFamily: TextStyles.modalHeading.font,
     fontSize: TextStyles.modalHeading.fontSize,
     lineHeight: TextStyles.modalHeading.lineHeight,
+
     textAlign: "center",
   },
+  modalDescricao: {
+    margin: 15,
+    fontWeight: "bold",
+    fontSize: 16,
+  },
   actions: {
-    marginTop: 300,
+    marginTop: 100,
     width: "100%",
   },
 });
