@@ -1,14 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
 
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { FormikHelpers } from "formik";
 
 import { loginImage } from "../styles/imageConstants";
 import { Colors, TextStyles } from "../styles/appTheme";
-import CreateAccountTypeModal from "../components/modals/CreateAccountTypeModal";
 import LoginForm from "../components/forms/LoginForm";
-import { useCustomBottomSheetModal } from "../hooks/useCustomBottomSheetModal";
 
 type FormType = {
   email: string;
@@ -24,24 +21,15 @@ const Login = () => {
     console.log({ email, password });
   };
 
-  const { reference, onModalShown } = useCustomBottomSheetModal();
-
   return (
-    <BottomSheetModalProvider>
-      <View>
-        <ScrollView style={styles.container}>
-          <Image source={loginImage} style={styles.image} />
-          <Text style={styles.heading1}>Bem-vindo de Volta</Text>
-          <Text style={styles.heading2}>Sentimos a sua falta</Text>
-          <LoginForm onSubmit={onLogin} />
-          <Text style={styles.paragraph}>Não possui uma conta?</Text>
-          <Text style={styles.linkText} onPress={onModalShown}>
-            Cadastre já
-          </Text>
-        </ScrollView>
-      </View>
-      <CreateAccountTypeModal reference={reference} />
-    </BottomSheetModalProvider>
+    <View>
+      <ScrollView style={styles.container}>
+        <Image source={loginImage} style={styles.image} />
+        <Text style={styles.heading1}>Bem-vindo de Volta</Text>
+        <Text style={styles.heading2}>Sentimos a sua falta</Text>
+        <LoginForm onSubmit={onLogin} />
+      </ScrollView>
+    </View>
   );
 };
 
