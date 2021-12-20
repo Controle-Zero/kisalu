@@ -25,7 +25,7 @@ const PerfilProvedor = () => {
           </View>
         </View>
         <View style={styles.buttonsContainer}>
-          <Button width={"50%"} text="Mais detalhadas" onPress={onModalShown} />
+          <Button width={"50%"} text="Mais detalhada" onPress={onModalShown} />
           <Spacer width={30} />
           <Button width={"50%"} text="Pedir serviço" onPress={onModalShown} />
         </View>
