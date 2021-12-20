@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { View } from "react-native";
 
 import { Formik, FormikHelpers } from "formik";
-import * as yup from "yup";
 
 import Button from "../buttons/Button";
 import TextField from "../input/TextField";
 import Spacer from "../layout/Spacer";
 import ErrorText from "./ErrorText";
+import { loginSchema } from "../../utils/validation/loginFormValidation";
 
 interface Props {
   onSubmit: (
@@ -15,17 +15,6 @@ interface Props {
     actions: FormikHelpers<{ email: string; password: string }>
   ) => void;
 }
-
-const loginSchema = yup.object({
-  email: yup
-    .string()
-    .required("Email não deve estar vazio")
-    .email("Deve ser um email"),
-  password: yup
-    .string()
-    .required("Password não deve estar vazia")
-    .min(7, "Deve ter pelo menos 7 caracteres"),
-});
 
 const LoginForm: React.FC<Props> = ({ onSubmit }) => {
   const [emailError, setEmailError] = useState(false);
