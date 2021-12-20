@@ -19,7 +19,7 @@ function AuthStackRoute() {
     },
   };
   return (
-    <AuthStack.Navigator initialRouteName="Welcome">
+    /* <AuthStack.Navigator initialRouteName="Welcome">
       <AuthStack.Screen
         name="Welcome"
         component={Welcome}
@@ -39,8 +39,10 @@ function AuthStackRoute() {
         name="CadastroProvedor"
         component={CadastroProvedor}
         options={screensHeaderOptions}
-      />
+      /> 
     </AuthStack.Navigator>
+    */
+    <PerfilProvedor />
   );
 }
 
