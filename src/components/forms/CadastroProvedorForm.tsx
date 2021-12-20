@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import { Formik, FormikHelpers } from "formik";
-import DateTimePicker, {
-  AndroidEvent,
-  WindowsDatePickerChangeEvent,
-} from "@react-native-community/datetimepicker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import TextField from "../input/TextField";
 import ErrorText from "./ErrorText";
@@ -55,7 +52,6 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
   const [passwordConfirmationError, setPasswordConfirmationError] =
     useState(false);
 
-  const [password, setPassword] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const spaceBetweenInputs = 20;
@@ -79,7 +75,6 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
             ? true
             : false
         );
-        setPassword(values.password);
         return (
           <>
             {/* Full name */}
@@ -129,6 +124,7 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
               label="Email"
               value={values.email}
               onChangeText={handleChange("email")}
+              keyboardType="email-address"
               hasError={emailError}
             />
             {errors.email && touched.email && (
@@ -137,13 +133,14 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
             <Spacer height={spaceBetweenInputs} />
             {/* Phone number */}
             <TextField
+              keyboardType="phone-pad"
               label="Nº de Telefone"
               value={values.phoneNumber}
               onChangeText={handleChange("phoneNumber")}
               hasError={phoneNumberError}
             />
             {errors.phoneNumber && touched.phoneNumber && (
-              <ErrorText>{errors.email}</ErrorText>
+              <ErrorText>{errors.phoneNumber}</ErrorText>
             )}
             <Spacer height={spaceBetweenInputs} />
             {/* TODO: Add personalInformation text area */}
