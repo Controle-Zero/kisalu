@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import CadastroCliente from "../screens/CadastroCliente";
 import CadastroProvedor from "../screens/CadastroProvedor";
+import DashboardProvedor from "../screens/DashboardProvedor";
 import Login from "../screens/Login";
 import Welcome from "../screens/Welcome";
 
