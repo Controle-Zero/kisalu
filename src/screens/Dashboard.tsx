@@ -1,10 +1,17 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useContext } from "react";
+import { View, Text, StyleSheet, Button } from "react-native";
+import AuthContext from "../context/auth";
 
 const Dashboard = () => {
+  const { signOut } = useContext(AuthContext);
+  function onSignOut() {
+    signOut();
+  }
+
   return (
     <View style={styles.view}>
       <Text style={styles.text}>Dashboard</Text>
+      <Button title="Sign out" onPress={onSignOut} />
     </View>
   );
 };
@@ -16,6 +23,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignContent: "center",
     justifyContent: "center",
+    paddingHorizontal: 10,
   },
   text: {
     fontSize: 40,
