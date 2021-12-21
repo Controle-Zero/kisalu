@@ -1,7 +1,8 @@
 import React from "react";
-import { View, ScrollView, StyleSheet, Text } from "react-native";
+import { View, ScrollView, StyleSheet, Text, Image } from "react-native";
+
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { Image } from "react-native";
+
 import Button from "../components/buttons/Button";
 import Spacer from "../components/layout/Spacer";
 import { useCustomBottomSheetModal } from "../hooks/useCustomBottomSheetModal";

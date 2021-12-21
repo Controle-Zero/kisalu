@@ -1,12 +1,13 @@
+import React from "react";
+
 import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
 } from "@react-navigation/native-stack";
-import React from "react";
+
 import CadastroCliente from "../screens/CadastroCliente";
 import CadastroProvedor from "../screens/CadastroProvedor";
 import Login from "../screens/Login";
-import PerfilProvedor from "../screens/PerfilProvedor";
 import Welcome from "../screens/Welcome";
 
 const AuthStack = createNativeStackNavigator();
@@ -45,4 +46,3 @@ function AuthStackRoute() {
 }
 
 export default AuthStackRoute;
-

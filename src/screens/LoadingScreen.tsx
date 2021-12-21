@@ -1,6 +1,6 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
-import { ActivityIndicator } from "react-native-paper";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
+
 import { Colors } from "../styles/appTheme";
 
 const LoadingScreen = () => {

@@ -1,10 +1,11 @@
-import { FormikHelpers } from "formik";
 import React from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
+
+import { FormikHelpers } from "formik";
+
 import CadastroClienteForm, {
   CadastroClienteFormType,
 } from "../components/forms/CadastroClienteForm";
-
 import { Colors, TextStyles } from "../styles/appTheme";
 
 const CadastroCliente = () => {

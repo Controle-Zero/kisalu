@@ -3,7 +3,6 @@ import { Text, StyleSheet, GestureResponderEvent } from "react-native";
 
 import { TouchableHighlight } from "@gorhom/bottom-sheet";
 import { Colors, TextStyles } from "../../styles/appTheme";
-import dropShadow from "../../styles/dropShadow";
 
 interface Props {
   isPrimary?: boolean;
