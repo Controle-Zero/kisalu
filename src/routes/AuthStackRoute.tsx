@@ -5,6 +5,7 @@ import {
 import React from "react";
 import CadastroCliente from "../screens/CadastroCliente";
 import CadastroProvedor from "../screens/CadastroProvedor";
+import DashboardProvedor from "../screens/DashboardProvedor";
 import Login from "../screens/Login";
 import PerfilProvedor from "../screens/PerfilProvedor";
 import Welcome from "../screens/Welcome";
@@ -42,7 +43,7 @@ function AuthStackRoute() {
       /> 
     </AuthStack.Navigator>
     */
-    <PerfilProvedor />
+    <DashboardProvedor />
   );
 }
 
