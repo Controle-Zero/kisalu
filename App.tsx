@@ -9,7 +9,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 
 import Routes from "./src/routes";
-import AuthContext from "./src/context/auth";
+import AuthContext, { AuthProvider } from "./src/context/auth";
 
 export default function App() {
   // Carrega as fontes
@@ -23,13 +23,9 @@ export default function App() {
   if (!fontsLoaded) return <AppLoading />;
   return (
     <NavigationContainer>
-      <AuthContext.Provider
-        value={{
-          signed: true,
-        }}
-      >
+      <AuthProvider>
         <Routes />
-      </AuthContext.Provider>
+      </AuthProvider>
     </NavigationContainer>
   );
 }

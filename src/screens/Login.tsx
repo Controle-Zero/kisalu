@@ -6,7 +6,6 @@ import { FormikHelpers } from "formik";
 import { loginImage } from "../styles/imageConstants";
 import { Colors, TextStyles } from "../styles/appTheme";
 import LoginForm from "../components/forms/LoginForm";
-import { signIn } from "../services/auth";
 import AuthContext from "../context/auth";
 
 type FormType = {
@@ -15,15 +14,14 @@ type FormType = {
 };
 
 const Login = () => {
-  const { signed } = useContext(AuthContext);
+  const { signed, signIn } = useContext(AuthContext);
+  console.log(signed);
   async function onLogin(
     { email, password }: FormType,
     actions: FormikHelpers<FormType>
   ) {
     actions.resetForm();
-    const response = await signIn();
-    console.log(response);
-    console.log(signed);
+    await signIn();
   }
 
   return (
