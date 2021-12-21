@@ -4,6 +4,7 @@ import { TouchableOpacity, Text, Pressable } from "react-native";
 import { ButtonGroup } from "react-native-elements/dist/buttons/ButtonGroup";
 import { TextInput } from "react-native-gesture-handler";
 import Spacer from "../components/layout/Spacer";
+import TextField from "../components/input/TextField";
 
 const DashboardProvedor = () => {
   const onLogin = () => {
@@ -88,6 +89,7 @@ const DashboardProvedor = () => {
             style={styles.menuicon}
           ></Image>
         </TouchableOpacity>
+
         <Spacer width={60} />
         <TouchableOpacity style={styles.menubtnwrapper}>
           <Image
