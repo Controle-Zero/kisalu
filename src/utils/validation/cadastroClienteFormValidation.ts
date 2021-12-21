@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const cadastroProvedorSchema = yup.object({
+export const cadastroClienteSchema = yup.object({
   fullName: yup.string().required("Nome completo não deve estar vazio"),
   bi: yup
     .string()
@@ -21,6 +21,7 @@ export const cadastroProvedorSchema = yup.object({
     .string()
     .required("Password não pode estar vazia")
     .min(7, "Deve ter pelo menos 7 caracteres"),
+  // TODO: Check equality of original password
   passwordConfirmation: yup
     .string()
     .required("A confirmação não pode estar vazia"),
