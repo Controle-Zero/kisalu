@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
 
 import { FormikHelpers } from "formik";
@@ -7,6 +7,7 @@ import { loginImage } from "../styles/imageConstants";
 import { Colors, TextStyles } from "../styles/appTheme";
 import LoginForm from "../components/forms/LoginForm";
 import { signIn } from "../services/auth";
+import AuthContext from "../context/auth";
 
 type FormType = {
   email: string;
@@ -14,6 +15,7 @@ type FormType = {
 };
 
 const Login = () => {
+  const { signed } = useContext(AuthContext);
   async function onLogin(
     { email, password }: FormType,
     actions: FormikHelpers<FormType>
@@ -21,6 +23,7 @@ const Login = () => {
     actions.resetForm();
     const response = await signIn();
     console.log(response);
+    console.log(signed);
   }
 
   return (
