@@ -21,7 +21,6 @@ export const cadastroProvedorSchema = yup.object({
     .string()
     .required("Password não pode estar vazia")
     .min(7, "Deve ter pelo menos 7 caracteres"),
-  // TODO: Check equality of original password
   passwordConfirmation: yup
     .string()
     .required("A confirmação não pode estar vazia"),
