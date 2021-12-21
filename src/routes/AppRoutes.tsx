@@ -9,6 +9,9 @@ import Dashboard from "../screens/Dashboard";
 
 const AppStack = createNativeStackNavigator();
 
+// TODO: Alterar o AppBar das rotas
+
+// TODO: Adicionar rota do DashboardProvedor
 const AppRoutes = () => {
   return (
     <AppStack.Navigator>

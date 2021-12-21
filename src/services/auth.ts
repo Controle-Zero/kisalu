@@ -1,3 +1,4 @@
+// A interface de resposta do backend
 interface Response {
   token: string;
   user: {
@@ -6,6 +7,7 @@ interface Response {
   };
 }
 
+// TODO: Usar axios para login
 export function signIn(): Promise<Response> {
   return new Promise((resolve) => {
     setTimeout(() => {

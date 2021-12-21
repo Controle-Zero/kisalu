@@ -9,7 +9,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 
 import Routes from "./src/routes";
-import AuthContext, { AuthProvider } from "./src/context/auth";
+import { AuthProvider } from "./src/context/auth";
 
 export default function App() {
   // Carrega as fontes
@@ -21,6 +21,8 @@ export default function App() {
 
   // Se as fontes não carregarem, apresenta a aplicação a carregar
   if (!fontsLoaded) return <AppLoading />;
+  // Passando o NavigationContainer para navegação e AuthProvider para autenticação
+  // O Routes armazena todas as rotas
   return (
     <NavigationContainer>
       <AuthProvider>

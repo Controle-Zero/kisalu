@@ -14,14 +14,14 @@ type FormType = {
 };
 
 const Login = () => {
-  const { signed, signIn } = useContext(AuthContext);
-  console.log(signed);
+  const { signIn } = useContext(AuthContext);
   async function onLogin(
     { email, password }: FormType,
     actions: FormikHelpers<FormType>
   ) {
-    actions.resetForm();
+    // TODO: Terminar a autenticação
     await signIn();
+    actions.resetForm();
   }
 
   return (

@@ -4,6 +4,8 @@ import AuthContext from "../context/auth";
 
 const Dashboard = () => {
   const { signOut } = useContext(AuthContext);
+
+  //TODO: Ver se posso meter mais alguma coisa
   function onSignOut() {
     signOut();
   }
