@@ -1,4 +1,6 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import * as auth from "../services/auth";
 
@@ -25,17 +27,35 @@ export const AuthProvider: React.FC = ({ children }) => {
   // Estado do utilizador
   const [user, setUser] = useState<object | null>(null);
 
+  useEffect(() => {
+    async function loadStoredData() {
+      const storageUser = await AsyncStorage.getItem("@UnionServices:user");
+      const storageToken = await AsyncStorage.getItem("@UnionServices:token");
+
+      if (storageUser && storageToken) {
+        setUser(JSON.parse(storageUser));
+      }
+    }
+
+    loadStoredData();
+  }, []);
+
   // Método de iniciar sessão
   async function signIn() {
     //   TODO: Melhorar a lógica deste método
     const response = await auth.signIn();
     setUser(response.user);
+    await AsyncStorage.setItem(
+      "@UnionServices:user",
+      JSON.stringify(response.user)
+    );
+    await AsyncStorage.setItem("@UnionServices:token", response.token);
   }
 
   // Método para finalizar a sessão
   function signOut() {
     // É necessário apenas colocar o utilizador como null
-    setUser(null);
+    AsyncStorage.clear().then(() => setUser(null));
   }
 
   // Retorna o componente do Provedor com os dados
