@@ -1,9 +1,6 @@
 import React from "react";
 
-import {
-  createNativeStackNavigator,
-  NativeStackNavigationOptions,
-} from "@react-navigation/native-stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import CadastroCliente from "../screens/CadastroCliente";
 import CadastroProvedor from "../screens/CadastroProvedor";
@@ -13,33 +10,29 @@ import Welcome from "../screens/Welcome";
 const AuthStack = createNativeStackNavigator();
 
 function AuthStackRoute() {
-  const screensHeaderOptions: NativeStackNavigationOptions = {
-    headerShown: false,
-    contentStyle: {
-      backgroundColor: "#fff",
-    },
-  };
   return (
     <AuthStack.Navigator initialRouteName="Welcome">
       <AuthStack.Screen
         name="Welcome"
         component={Welcome}
-        options={screensHeaderOptions}
+        options={{
+          headerShown: false,
+        }}
       />
       <AuthStack.Screen
         name="Login"
         component={Login}
-        options={screensHeaderOptions}
+        options={{ title: "" }}
       />
       <AuthStack.Screen
         name="CadastroCliente"
         component={CadastroCliente}
-        options={screensHeaderOptions}
+        options={{ title: "" }}
       />
       <AuthStack.Screen
         name="CadastroProvedor"
         component={CadastroProvedor}
-        options={screensHeaderOptions}
+        options={{ title: "" }}
       />
     </AuthStack.Navigator>
   );
