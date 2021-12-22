@@ -1,3 +1,4 @@
+import Atividade from "./Atividade";
 export default interface Cliente {
   id?: string;
   bi: string;
@@ -7,5 +8,5 @@ export default interface Cliente {
   email: string;
   telefone: string;
   password: string;
-  //   atividades?: Atividade[];
+  atividades?: Atividade[];
 }
