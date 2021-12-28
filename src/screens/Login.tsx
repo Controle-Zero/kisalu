@@ -11,16 +11,17 @@ import AuthContext from "../context/auth";
 type FormType = {
   email: string;
   password: string;
+  userType: "client" | "provider";
 };
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);
   async function onLogin(
-    { email, password }: FormType,
+    { email, password, userType }: FormType,
     actions: FormikHelpers<FormType>
   ) {
     // TODO: Terminar a autenticação
-    await signIn();
+    console.log({ email, password, userType });
     actions.resetForm();
   }
 
