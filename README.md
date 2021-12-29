@@ -9,3 +9,7 @@ npm install
 ```
 
 Then to run the app, run `npm start`. It will run Expo and open a new page on the browser running Expo
+
+## API
+
+- [Uservices API](https://github.com/RegiReis7/uservices-api)
