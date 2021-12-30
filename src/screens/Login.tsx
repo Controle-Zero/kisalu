@@ -6,7 +6,7 @@ import { FormikHelpers } from "formik";
 import { loginImage } from "../styles/imageConstants";
 import { Colors, TextStyles } from "../styles/appTheme";
 import LoginForm from "../components/forms/LoginForm";
-import AuthContext from "../context/auth";
+import useAuth from "../contexts/AuthContext";
 
 type FormType = {
   email: string;
@@ -15,14 +15,15 @@ type FormType = {
 };
 
 const Login = () => {
-  const { signIn } = useContext(AuthContext);
+  const { signIn, error } = useAuth();
+
   async function onLogin(
     { email, password, userType }: FormType,
     actions: FormikHelpers<FormType>
   ) {
     // TODO: Terminar a autenticação
-    console.log({ email, password, userType });
     actions.resetForm();
+    await signIn(email, password, userType);
   }
 
   return (
