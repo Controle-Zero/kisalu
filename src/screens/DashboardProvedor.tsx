@@ -1,16 +1,10 @@
 import React from "react";
 import { View, Image, StyleSheet, ScrollView } from "react-native";
 import { TouchableOpacity, Text, Pressable } from "react-native";
-import { ButtonGroup } from "react-native-elements/dist/buttons/ButtonGroup";
 import { TextInput } from "react-native-gesture-handler";
 import Spacer from "../components/layout/Spacer";
-import TextField from "../components/input/TextField";
 
 const DashboardProvedor = () => {
-  const onLogin = () => {
-    console.log("Hello World");
-  };
-
   return (
     <View>
       <ScrollView style={styles.container}>

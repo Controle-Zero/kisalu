@@ -1,8 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
+import { View } from "react-native";
+import useAuth from "../contexts/AuthContext";
 
-import AppRoutes from "./AppRoutes";
-import AuthRoutes from "./AuthStackRoute";
-import AuthContext from "../context/auth";
+import LoadingScreen from "../screens/LoadingScreen";
+import AuthRoutes from "./AuthRoute";
+import ClienteRoutes from "./ClienteRoutes";
+import ProvedorRoutes from "./ProvedorRoutes";
 
 /**
  * Tem dois tipos de rotas:
@@ -12,9 +15,22 @@ import AuthContext from "../context/auth";
 
 // Armazena todas as rotas da aplicação
 const Routes: React.FC = () => {
-  const { signed } = useContext(AuthContext);
+  const { signed, loading, user, error } = useAuth();
 
-  return signed ? <AppRoutes /> : <AuthRoutes />;
+  if (loading) {
+    return <LoadingScreen />;
+  }
+
+  if (error) {
+    alert(error);
+    return <AuthRoutes />;
+  }
+
+  if (signed) {
+    return user?.type === "client" ? <ClienteRoutes /> : <ProvedorRoutes />;
+  } else {
+    return <AuthRoutes />;
+  }
 };
 
 export default Routes;
