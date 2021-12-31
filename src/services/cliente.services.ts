@@ -19,8 +19,8 @@ export async function criarCliente(cliente: Cliente) {
   return await postCliente(cliente);
 }
 
-export async function retornarCliente(email: string, token: string): Promise<Cliente> {
-  const cliente = await getCliente(email, token);
+export async function retornarCliente(token: string): Promise<Cliente> {
+  const cliente = await getCliente(token);
   return cliente;
 }
 
