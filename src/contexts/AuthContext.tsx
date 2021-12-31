@@ -62,7 +62,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       if (userType == "client") {
         const token = await ClienteService.loginCliente(email, password);
         await AsyncStorage.setItem("@UnionServices:token", token);
-        const cliente = await ClienteService.retornarCliente(email, token);
+        const cliente = await ClienteService.retornarCliente(token);
         console.log(cliente);
         await AsyncStorage.setItem(
           "@UnionServices:user",
