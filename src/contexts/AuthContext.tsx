@@ -2,17 +2,16 @@ import React, { createContext, useState, useEffect, useContext } from "react";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import * as auth from "../services/auth";
+import * as ClienteService from "../services/cliente.services";
+import Cliente from "../models/Cliente";
+import Provedor from "../models/Provedor";
 
-interface User {
-  name: string;
-  type: "client" | "provider";
-  email: string;
-}
+type User = Cliente | Provedor | null;
 
 interface AuthContextType {
   signed: boolean;
   user: User | null;
+  userType: "client" | "provider";
   loading: boolean;
   signIn(
     email: string,
@@ -26,28 +25,31 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown | null>(null);
+  const [userTypeState, setUserTypeState] = useState<"client" | "provider">(
+    "client"
+  );
 
-  useEffect(() => {
-    async function loadStorageData() {
-      try {
-        const storageUser = await AsyncStorage.getItem("@UnionServices:user");
-        const storageToken = await AsyncStorage.getItem("@UnionServices:token");
+  // useEffect(() => {
+  //   async function loadStorageData() {
+  //     try {
+  //       const storageUser = await AsyncStorage.getItem("@UnionServices:user");
+  //       const storageToken = await AsyncStorage.getItem("@UnionServices:token");
 
-        if (storageUser && storageToken) {
-          setUser(JSON.parse(storageUser));
-        }
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    }
+  //       if (storageUser && storageToken) {
+  //         setUser(JSON.parse(storageUser));
+  //       }
+  //     } catch (error) {
+  //       setError(error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
 
-    loadStorageData();
-  }, []);
+  //   loadStorageData();
+  // }, []);
 
   async function signIn(
     email: string,
@@ -56,14 +58,21 @@ export const AuthProvider: React.FC = ({ children }) => {
   ) {
     setLoading(true);
     try {
-      const response = await auth.signIn({ email, password, userType });
-      await AsyncStorage.setItem(
-        "@UnionServices:user",
-        JSON.stringify({ ...response.user, userType })
-      );
-      await AsyncStorage.setItem("@UnionServices:token", response.token);
-      setError(null);
-      setUser(response.user);
+      setUserTypeState(userType);
+      if (userType == "client") {
+        const token = await ClienteService.loginCliente(email, password);
+        await AsyncStorage.setItem("@UnionServices:token", token);
+        const cliente = await ClienteService.retornarCliente(email, token);
+        console.log(cliente);
+        await AsyncStorage.setItem(
+          "@UnionServices:user",
+          JSON.stringify(cliente)
+        );
+        setError(null);
+        setUser(cliente);
+      } else {
+        // TODO: Provedor
+      }
     } catch (error) {
       setError(error);
     } finally {
@@ -85,7 +94,15 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signed: !!user, user, error, loading, signIn, signOut }}
+      value={{
+        signed: !!user,
+        user,
+        error,
+        loading,
+        signIn,
+        signOut,
+        userType: userTypeState,
+      }}
     >
       {children}
     </AuthContext.Provider>
@@ -96,48 +113,3 @@ export default function useAuth() {
   const context = useContext(AuthContext);
   return context;
 }
-
-// const AuthContext = createContext<AuthContextType>({} as AuthContextType);
-
-// export const AuthProvider: React.FC = ({ children }) => {
-//   const [user, setUser] = useState<object | null>(null);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     async function loadStorageData() {
-//       const storageUser = await AsyncStorage.getItem("user");
-//       const storageToken = await AsyncStorage.getItem("token");
-
-//       if (storageToken && storageUser) {
-//         setUser(JSON.parse(storageUser));
-//         setLoading(false);
-//       }
-//     }
-
-//     loadStorageData();
-//   }, []);
-
-//   async function signIn() {
-//     const response = await auth.signIn();
-//     setUser(response.user);
-
-//     AsyncStorage.setItem("user", JSON.stringify(response.user));
-//     AsyncStorage.setItem("token", response.token);
-//   }
-
-//   function signOut() {
-//     AsyncStorage.clear().then(() => {
-//       setUser(null);
-//     });
-//   }
-
-//   return (
-//     <AuthContext.Provider
-//       value={{ signed: !!user, user, signIn, signOut, loading }}
-//     >
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// };
-
-// export default AuthContext;

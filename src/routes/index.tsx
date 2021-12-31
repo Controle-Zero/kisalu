@@ -15,7 +15,7 @@ import ProvedorRoutes from "./ProvedorRoutes";
 
 // Armazena todas as rotas da aplicação
 const Routes: React.FC = () => {
-  const { signed, loading, user, error } = useAuth();
+  const { signed, loading, user, error, userType } = useAuth();
 
   if (loading) {
     return <LoadingScreen />;
@@ -27,7 +27,7 @@ const Routes: React.FC = () => {
   }
 
   if (signed) {
-    return user?.type === "client" ? <ClienteRoutes /> : <ProvedorRoutes />;
+    return userType === "client" ? <ClienteRoutes /> : <ProvedorRoutes />;
   } else {
     return <AuthRoutes />;
   }
