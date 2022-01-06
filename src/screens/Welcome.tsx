@@ -9,8 +9,9 @@ import Button from "../components/buttons/Button";
 import Spacer from "../components/layout/Spacer";
 import CreateAccountTypeModal from "../components/modals/CreateAccountTypeModal";
 import { useCustomBottomSheetModal } from "../hooks/useCustomBottomSheetModal";
+import { AuthNavProps } from "../routes/types/AuthParamsList";
 
-export default function Welcome({ navigation }) {
+export default function Welcome({ navigation }: AuthNavProps<"Welcome">) {
   const { reference, onModalShown } = useCustomBottomSheetModal();
 
   const openLogin = () => {

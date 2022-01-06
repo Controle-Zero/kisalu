@@ -6,8 +6,9 @@ import CadastroCliente from "../screens/CadastroCliente";
 import CadastroProvedor from "../screens/CadastroProvedor";
 import Login from "../screens/Login";
 import Welcome from "../screens/Welcome";
+import { AuthParamsList } from "./types/AuthParamsList";
 
-const AuthStack = createNativeStackNavigator();
+const AuthStack = createNativeStackNavigator<AuthParamsList>();
 
 function AuthRoute() {
   return (
