@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-const DashboardCliente = () => {
+const Home = () => {
   return (
     <View>
-      <Text>Dashboard Cliente</Text>
+      <Text>Home</Text>
     </View>
   );
 };
 
-export default DashboardCliente;
+export default Home;

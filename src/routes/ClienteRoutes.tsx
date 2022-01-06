@@ -1,22 +1,46 @@
 import React from "react";
 
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-import DashboardCliente from "../screens/DashboardCliente";
+import Home from "../screens/Client/Home";
+import Atividades from "../screens/Client/Atividades";
+import Perfil from "../screens/Client/Perfil";
+import { ClienteParamsList } from "./types/ClienteParamsList";
+import { Colors } from "../styles/appTheme";
 
-const ClienteStack = createNativeStackNavigator();
+const BottomTab = createBottomTabNavigator<ClienteParamsList>();
 
-// TODO: Alterar o AppBar das rotas
-
-// TODO: Adicionar rota do DashboardProvedor
 const ClienteRoutes = () => {
   return (
-    <ClienteStack.Navigator initialRouteName="DashboardCliente">
-      <ClienteStack.Screen
-        name="DashboardCliente"
-        component={DashboardCliente}
-      />
-    </ClienteStack.Navigator>
+    <BottomTab.Navigator
+      initialRouteName="Home"
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ size, color }) => {
+          let iconName = "";
+
+          switch (route.name) {
+            case "Home":
+              iconName = "home";
+              break;
+            case "Atividades":
+              iconName = "list";
+              break;
+            case "Perfil":
+              iconName = "person-circle-outline";
+              break;
+          }
+
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: Colors.primary,
+        tabBarInactiveTintColor: "gray",
+      })}
+    >
+      <BottomTab.Screen name="Home" component={Home} />
+      <BottomTab.Screen name="Atividades" component={Atividades} />
+      <BottomTab.Screen name="Perfil" component={Perfil} />
+    </BottomTab.Navigator>
   );
 };
 

@@ -32,24 +32,24 @@ export const AuthProvider: React.FC = ({ children }) => {
     "client"
   );
 
-  // useEffect(() => {
-  //   async function loadStorageData() {
-  //     try {
-  //       const storageUser = await AsyncStorage.getItem("@UnionServices:user");
-  //       const storageToken = await AsyncStorage.getItem("@UnionServices:token");
+  useEffect(() => {
+    async function loadStorageData() {
+      try {
+        const storageUser = await AsyncStorage.getItem("@UnionServices:user");
+        const storageToken = await AsyncStorage.getItem("@UnionServices:token");
 
-  //       if (storageUser && storageToken) {
-  //         setUser(JSON.parse(storageUser));
-  //       }
-  //     } catch (error) {
-  //       setError(error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
+        if (storageUser && storageToken) {
+          setUser(JSON.parse(storageUser));
+        }
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-  //   loadStorageData();
-  // }, []);
+    loadStorageData();
+  }, []);
 
   async function signIn(
     email: string,
