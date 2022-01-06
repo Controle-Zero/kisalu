@@ -21,6 +21,7 @@ export type CadastroClienteFormType = {
   password: string;
   passwordConfirmation: string;
   birthDay: Date;
+  address: string;
 };
 
 const initialValues = {
@@ -31,6 +32,7 @@ const initialValues = {
   phoneNumber: "",
   password: "",
   passwordConfirmation: "",
+  address: "",
 };
 
 interface Props {
@@ -48,6 +50,7 @@ const CadastroClienteForm: React.FC<Props> = ({ onSubmit }) => {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordConfirmationError, setPasswordConfirmationError] =
     useState(false);
+  const [addressError, setAddressError] = useState(false);
 
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -72,6 +75,9 @@ const CadastroClienteForm: React.FC<Props> = ({ onSubmit }) => {
             ? true
             : false
         );
+        setAddressError(
+          errors.address && touched.passwordConfirmation ? true : false
+        );
         return (
           <>
             {/* Full name */}
@@ -80,10 +86,9 @@ const CadastroClienteForm: React.FC<Props> = ({ onSubmit }) => {
               value={values.fullName}
               onChangeText={handleChange("fullName")}
               hasError={fullNameError}
+              placeholder="O seu nome completo"
             />
-            {errors.fullName && touched.fullName && (
-              <ErrorText>{errors.fullName}</ErrorText>
-            )}
+            {fullNameError && <ErrorText>{errors.fullName}</ErrorText>}
             <Spacer height={spaceBetweenInputs} />
             {/* Birthday */}
             <View style={styles.row}>
@@ -104,6 +109,16 @@ const CadastroClienteForm: React.FC<Props> = ({ onSubmit }) => {
                 }}
               />
             )}
+            {/* Morada */}
+            <Spacer height={spaceBetweenInputs} />
+            <TextField
+              label="Morada"
+              value={values.address}
+              onChangeText={handleChange("address")}
+              hasError={addressError}
+              placeholder="Província, Município, Rua"
+            />
+            {addressError && <ErrorText>{errors.address}</ErrorText>}
             <Spacer height={spaceBetweenInputs} />
             {/* BI */}
             <TextField
@@ -111,10 +126,10 @@ const CadastroClienteForm: React.FC<Props> = ({ onSubmit }) => {
               value={values.bi}
               onChangeText={handleChange("bi")}
               hasError={biError}
+              placeholder="O seu número do BI"
             />
-            {errors.bi && touched.bi && <ErrorText>{errors.bi}</ErrorText>}
+            {biError && <ErrorText>{errors.bi}</ErrorText>}
             <Spacer height={spaceBetweenInputs} />
-
             {/* Email */}
             <TextField
               label="Email"
@@ -122,10 +137,9 @@ const CadastroClienteForm: React.FC<Props> = ({ onSubmit }) => {
               onChangeText={handleChange("email")}
               keyboardType="email-address"
               hasError={emailError}
+              placeholder="exemplo@exemplo.com"
             />
-            {errors.email && touched.email && (
-              <ErrorText>{errors.email}</ErrorText>
-            )}
+            {emailError && <ErrorText>{errors.email}</ErrorText>}
             <Spacer height={spaceBetweenInputs} />
             {/* Phone number */}
             <TextField
@@ -134,10 +148,9 @@ const CadastroClienteForm: React.FC<Props> = ({ onSubmit }) => {
               value={values.phoneNumber}
               onChangeText={handleChange("phoneNumber")}
               hasError={phoneNumberError}
+              placeholder="XXX XXX XXX"
             />
-            {errors.phoneNumber && touched.phoneNumber && (
-              <ErrorText>{errors.phoneNumber}</ErrorText>
-            )}
+            {phoneNumberError && <ErrorText>{errors.phoneNumber}</ErrorText>}
             <Spacer height={spaceBetweenInputs} />
             {/* Password */}
             <TextField
@@ -147,7 +160,7 @@ const CadastroClienteForm: React.FC<Props> = ({ onSubmit }) => {
               hasError={passwordError}
               secureText
             />
-            {errors.password && touched.password ? (
+            {passwordError ? (
               <ErrorText>{errors.password}</ErrorText>
             ) : (
               <Text style={styles.small}>
@@ -163,10 +176,10 @@ const CadastroClienteForm: React.FC<Props> = ({ onSubmit }) => {
               secureText
               hasError={passwordConfirmationError}
             />
-            {errors.passwordConfirmation && touched.passwordConfirmation && (
+            {passwordConfirmationError && (
               <ErrorText>{errors.passwordConfirmation}</ErrorText>
             )}
-            <Spacer height={spaceBetweenInputs + 30} />
+            <Spacer height={spaceBetweenInputs + 10} />
             {/* Submit */}
             <Button text="Criar Conta" onPress={handleSubmit} />
           </>
