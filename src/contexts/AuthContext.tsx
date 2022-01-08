@@ -76,7 +76,6 @@ export const AuthProvider: React.FC = ({ children }) => {
       } else {
         throw new Error("Tipo de utilizador inválido");
       }
-      console.log(user);
       await AsyncStorage.setItem("@UnionServices:token", token);
       await AsyncStorage.setItem("@UnionServices:user", JSON.stringify(user));
       setError(null);
@@ -89,7 +88,6 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   function signOut() {
-    console.log("Sign Out");
     AsyncStorage.clear().then(() => {
       setUser(null);
       setError(null);
@@ -119,12 +117,10 @@ export const AuthProvider: React.FC = ({ children }) => {
       descricao: description,
       idCategorias: [],
     };
-    console.log(newProvider);
 
-    let response;
     setLoading(true);
     try {
-      response = await ProvedorService.criarProvedor(newProvider);
+      await ProvedorService.criarProvedor(newProvider);
       // TODO: Provavelmente isso não deve estar aqui...
       alert("Conta Criada com sucesso!");
       await signIn(email, password, "provider");
@@ -153,8 +149,6 @@ export const AuthProvider: React.FC = ({ children }) => {
       telefone: phoneNumber,
       atividades: [],
     };
-
-    console.log(newClient);
 
     setLoading(true);
     try {
