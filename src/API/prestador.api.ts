@@ -1,9 +1,6 @@
 import axios from "axios";
-import dotenv from "dotenv";
 import Prestador from "../models/Provedor";
 import apiConfig from "./apiConfig";
-
-dotenv.config();
 
 export async function getTokenPrestador(email: string, password: string) {
   const body = { email, password };
