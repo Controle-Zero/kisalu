@@ -15,7 +15,7 @@ type FormType = {
 };
 
 const Login = () => {
-  const { signIn, error } = useAuth();
+  const { signIn } = useAuth();
 
   async function onLogin(
     { email, password, userType }: FormType,

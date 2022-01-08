@@ -1,42 +1,55 @@
-import axios from "axios";
-import dotenv from "dotenv";
+import axios, { AxiosError } from "axios";
 import Prestador from "../models/Provedor";
 import apiConfig from "./apiConfig";
 
-dotenv.config();
-
 export async function getTokenPrestador(email: string, password: string) {
   const body = { email, password };
-  const response = await axios.post(
-    `${apiConfig.baseUrl}/prestador/login`,
-    body
-  );
-  return response;
+  try {
+    const response = await axios.post(
+      `${apiConfig.baseUrl}/prestador/login`,
+      body
+    );
+    return response;
+  } catch (error) {
+    throw new Error((error as AxiosError).response?.data.mensagem as string);
+  }
 }
 
 export async function postPrestador(prestador: Prestador) {
-  const response = await axios.post(
-    `${apiConfig.baseUrl}/prestador`,
-    prestador
-  );
-  return response.data;
+  try {
+    const response = await axios.post(
+      `${apiConfig.baseUrl}/prestador`,
+      prestador
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error((error as AxiosError).response?.data.mensagem as string);
+  }
 }
 
 export async function getPrestador(token: string) {
-  const response = await axios.get(`${apiConfig.baseUrl}/prestador`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.data;
+  try {
+    const response = await axios.get(`${apiConfig.baseUrl}/prestador`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error((error as AxiosError).response?.data.mensagem as string);
+  }
 }
 
 export async function putPrestador(prestador: Prestador, token: string) {
-  const response = await axios.put(`${apiConfig.baseUrl}/prestador`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    prestador,
-  });
-  return response.data;
+  try {
+    const response = await axios.put(`${apiConfig.baseUrl}/prestador`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      prestador,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error((error as AxiosError).response?.data.mensagem as string);
+  }
 }

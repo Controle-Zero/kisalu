@@ -12,28 +12,32 @@ import { Colors, TextStyles } from "../../styles/appTheme";
 import { cadastroProvedorSchema } from "../../utils/validation/cadastroProvedorFormValidation";
 import TextButton from "../buttons/TextButton";
 import { formatDate } from "../../utils/dateFormatter";
+import TextArea from "../input/TextArea";
 
 export type CadastroProvedorFormType = {
   fullName: string;
   bi: string;
   email: string;
   phoneNumber: string;
-  personalInformation: string;
   password: string;
   passwordConfirmation: string;
   birthDay: Date;
+  address: string;
+  iban: string;
+  description: string;
 };
 
 const initialValues = {
   fullName: "",
   birthDay: new Date(),
   bi: "",
-  // TODO: Add habilites
   email: "",
   phoneNumber: "",
-  personalInformation: "",
   password: "",
   passwordConfirmation: "",
+  address: "",
+  iban: "",
+  description: "",
 };
 
 interface Props {
@@ -51,6 +55,9 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordConfirmationError, setPasswordConfirmationError] =
     useState(false);
+  const [addressError, setAddressError] = useState(false);
+  const [ibanError, setIbanError] = useState(false);
+  const [descriptionError, setDescriptionError] = useState(false);
 
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -75,6 +82,11 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
             ? true
             : false
         );
+        setAddressError(errors.address && touched.address ? true : false);
+        setIbanError(errors.iban && touched.iban ? true : false);
+        setDescriptionError(
+          errors.description && touched.description ? true : false
+        );
         return (
           <>
             {/* Full name */}
@@ -83,10 +95,9 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
               value={values.fullName}
               onChangeText={handleChange("fullName")}
               hasError={fullNameError}
+              placeholder="O seu nome completo"
             />
-            {errors.fullName && touched.fullName && (
-              <ErrorText>{errors.fullName}</ErrorText>
-            )}
+            {fullNameError && <ErrorText>{errors.fullName}</ErrorText>}
             <Spacer height={spaceBetweenInputs} />
             {/* Birthday */}
             <View style={styles.row}>
@@ -108,17 +119,25 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
               />
             )}
             <Spacer height={spaceBetweenInputs} />
+            <TextField
+              label="Morada"
+              value={values.address}
+              onChangeText={handleChange("address")}
+              hasError={addressError}
+              placeholder="Província, Município, Rua"
+            />
+            {addressError && <ErrorText>{errors.address}</ErrorText>}
+            <Spacer height={spaceBetweenInputs} />
             {/* BI */}
             <TextField
               label="BI"
               value={values.bi}
               onChangeText={handleChange("bi")}
               hasError={biError}
+              placeholder="O seu número do BI"
             />
-            {errors.bi && touched.bi && <ErrorText>{errors.bi}</ErrorText>}
+            {biError && <ErrorText>{errors.bi}</ErrorText>}
             <Spacer height={spaceBetweenInputs} />
-
-            {/* TODO: Add habilites chips  */}
             {/* Email */}
             <TextField
               label="Email"
@@ -126,10 +145,9 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
               onChangeText={handleChange("email")}
               keyboardType="email-address"
               hasError={emailError}
+              placeholder="exemplo@exemplo.com"
             />
-            {errors.email && touched.email && (
-              <ErrorText>{errors.email}</ErrorText>
-            )}
+            {emailError && <ErrorText>{errors.email}</ErrorText>}
             <Spacer height={spaceBetweenInputs} />
             {/* Phone number */}
             <TextField
@@ -138,12 +156,29 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
               value={values.phoneNumber}
               onChangeText={handleChange("phoneNumber")}
               hasError={phoneNumberError}
+              placeholder="XXX XXX XXX"
             />
-            {errors.phoneNumber && touched.phoneNumber && (
-              <ErrorText>{errors.phoneNumber}</ErrorText>
-            )}
+            {phoneNumberError && <ErrorText>{errors.phoneNumber}</ErrorText>}
             <Spacer height={spaceBetweenInputs} />
-            {/* TODO: Add personalInformation text area */}
+            <TextField
+              label="IBAN"
+              value={values.iban}
+              onChangeText={handleChange("iban")}
+              hasError={ibanError}
+              placeholder="AO06.XXXX.XXXX.XXXX.XXXX.XXXX.X"
+            />
+            {ibanError && <ErrorText>{errors.iban}</ErrorText>}
+            <Spacer height={spaceBetweenInputs} />
+            {/* Descrição */}
+            <TextArea
+              label="Descrição"
+              value={values.description}
+              onChangeText={handleChange("description")}
+              hasError={descriptionError}
+              placeholder="Conte-nos sobre o que faz..."
+            />
+            {descriptionError && <ErrorText>{errors.description}</ErrorText>}
+            <Spacer height={spaceBetweenInputs} />
             {/* Password */}
             <TextField
               label="Password"
@@ -152,7 +187,7 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
               hasError={passwordError}
               secureText
             />
-            {errors.password && touched.password ? (
+            {passwordError ? (
               <ErrorText>{errors.password}</ErrorText>
             ) : (
               <Text style={styles.small}>
@@ -168,7 +203,7 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
               secureText
               hasError={passwordConfirmationError}
             />
-            {errors.passwordConfirmation && touched.passwordConfirmation && (
+            {passwordConfirmationError && (
               <ErrorText>{errors.passwordConfirmation}</ErrorText>
             )}
             <Spacer height={spaceBetweenInputs + 30} />

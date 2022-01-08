@@ -7,8 +7,11 @@ import CadastroClienteForm, {
   CadastroClienteFormType,
 } from "../components/forms/CadastroClienteForm";
 import { Colors, TextStyles } from "../styles/appTheme";
+import useAuth from "../contexts/AuthContext";
 
 const CadastroCliente = () => {
+  const { signUpClient } = useAuth();
+
   const onCadastrarCliente = (
     values: CadastroClienteFormType,
     actions: FormikHelpers<CadastroClienteFormType>
@@ -22,7 +25,7 @@ const CadastroCliente = () => {
       );
       return;
     }
-    console.log(JSON.stringify(values));
+    signUpClient(values);
   };
 
   return (
@@ -46,9 +49,6 @@ export default CadastroCliente;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.lightPrimary,
-    // TODO: Remove this after done styling the form
-    borderBottomColor: "black",
-    borderBottomWidth: 1,
   },
   heading1: {
     fontFamily: TextStyles.heading1.fontMedium,

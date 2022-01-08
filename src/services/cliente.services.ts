@@ -1,18 +1,9 @@
-import {
-  postCliente,
-  getCliente,
-  getTokenCliente,
-} from "../API/cliente.api";
+import { postCliente, getCliente, getTokenCliente } from "../API/cliente.api";
 import Cliente from "../models/Cliente";
-
 
 export async function loginCliente(email: string, password: string) {
   const response = await getTokenCliente(email, password);
-  if (response.status === 200) {
-    return response.data.token;
-  } else {
-    throw new Error("Dados incorretos");
-  }
+  return response.data.token;
 }
 
 export async function criarCliente(cliente: Cliente) {
@@ -24,6 +15,6 @@ export async function retornarCliente(token: string): Promise<Cliente> {
   return cliente;
 }
 
-// export async function actualizarCliente(cliente: Cliente) {
+// export async function atualizarCliente(cliente: Cliente) {
 //   return await putCliente(cliente);
 // }
