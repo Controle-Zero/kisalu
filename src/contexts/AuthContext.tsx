@@ -81,6 +81,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       setError(null);
       setUser(user);
     } catch (error) {
+      console.error(error);
       setError(error);
     } finally {
       setLoading(false);
@@ -126,8 +127,8 @@ export const AuthProvider: React.FC = ({ children }) => {
       await signIn(email, password, "provider");
     } catch (error) {
       console.error(error);
+      setError(error);
     }
-    setLoading(false);
   }
 
   async function signUpClient({
@@ -157,6 +158,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       await signIn(email, password, "client");
     } catch (error) {
       console.error(error);
+      setError(error);
     }
     setLoading(false);
   }
