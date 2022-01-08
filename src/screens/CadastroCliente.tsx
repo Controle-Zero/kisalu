@@ -10,7 +10,7 @@ import { Colors, TextStyles } from "../styles/appTheme";
 import useAuth from "../contexts/AuthContext";
 
 const CadastroCliente = () => {
-  const {} = useAuth();
+  const { signUpClient } = useAuth();
 
   const onCadastrarCliente = (
     values: CadastroClienteFormType,
@@ -25,7 +25,7 @@ const CadastroCliente = () => {
       );
       return;
     }
-    console.log(JSON.stringify(values));
+    signUpClient(values);
   };
 
   return (

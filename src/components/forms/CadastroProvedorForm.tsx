@@ -67,7 +67,7 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
     <Formik
       initialValues={initialValues}
       onSubmit={onSubmit}
-      // validationSchema={cadastroProvedorSchema}
+      validationSchema={cadastroProvedorSchema}
     >
       {({ handleChange, values, handleSubmit, errors, touched }) => {
         setFullNameError(errors.fullName && touched.fullName ? true : false);

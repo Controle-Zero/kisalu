@@ -134,7 +134,38 @@ export const AuthProvider: React.FC = ({ children }) => {
     setLoading(false);
   }
 
-  async function signUpClient(clientData: CadastroProvedorFormType) {}
+  async function signUpClient({
+    address,
+    bi,
+    birthDay,
+    email,
+    fullName,
+    password,
+    phoneNumber,
+  }: CadastroClienteFormType) {
+    const newClient: Cliente = {
+      bi,
+      nome: fullName,
+      dataNasc: dayjs(birthDay).format("YYYY/MM/DD"),
+      email,
+      morada: address,
+      password,
+      telefone: phoneNumber,
+      atividades: [],
+    };
+
+    console.log(newClient);
+
+    setLoading(true);
+    try {
+      await ClienteService.criarCliente(newClient);
+      alert("Conta criada com sucesso");
+      await signIn(email, password, "client");
+    } catch (error) {
+      console.error(error);
+    }
+    setLoading(false);
+  }
 
   return (
     <AuthContext.Provider
