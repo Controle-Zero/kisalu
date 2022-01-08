@@ -19,7 +19,6 @@ export type CadastroProvedorFormType = {
   bi: string;
   email: string;
   phoneNumber: string;
-  personalInformation: string;
   password: string;
   passwordConfirmation: string;
   birthDay: Date;
@@ -32,10 +31,8 @@ const initialValues = {
   fullName: "",
   birthDay: new Date(),
   bi: "",
-  // TODO: Add habilites
   email: "",
   phoneNumber: "",
-  personalInformation: "",
   password: "",
   passwordConfirmation: "",
   address: "",
@@ -70,7 +67,7 @@ const CadastroProvedorForm: React.FC<Props> = ({ onSubmit }) => {
     <Formik
       initialValues={initialValues}
       onSubmit={onSubmit}
-      validationSchema={cadastroProvedorSchema}
+      // validationSchema={cadastroProvedorSchema}
     >
       {({ handleChange, values, handleSubmit, errors, touched }) => {
         setFullNameError(errors.fullName && touched.fullName ? true : false);

@@ -7,8 +7,10 @@ import CadastroProvedorForm, {
   CadastroProvedorFormType,
 } from "../components/forms/CadastroProvedorForm";
 import { Colors, TextStyles } from "../styles/appTheme";
+import useAuth from "../contexts/AuthContext";
 
 const CadastroProvedor = () => {
+  const { signUpProvider } = useAuth();
   const onCadastrarProvedor = (
     values: CadastroProvedorFormType,
     actions: FormikHelpers<CadastroProvedorFormType>
@@ -22,7 +24,7 @@ const CadastroProvedor = () => {
       );
       return;
     }
-    console.log(JSON.stringify(values));
+    signUpProvider(values);
   };
 
   return (
