@@ -14,8 +14,8 @@ type User = Cliente | Provedor | null;
 
 interface AuthContextType {
   signed: boolean;
-  user: User | null;
-  userType: "client" | "provider";
+  user: User;
+  userType: string;
   loading: boolean;
   signIn(
     email: string,
@@ -34,18 +34,20 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<User>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown | null>(null);
-  const [userTypeState, setUserTypeState] = useState<"client" | "provider">(
-    "client"
-  );
+  const [userTypeState, setUserTypeState] = useState<string>("");
 
   useEffect(() => {
     async function loadStorageData() {
       try {
         const storageUser = await AsyncStorage.getItem("@UnionServices:user");
         const storageToken = await AsyncStorage.getItem("@UnionServices:token");
+        const userType = (await AsyncStorage.getItem(
+          "@UnionServices:userType"
+        )) as string;
 
         if (storageUser && storageToken) {
           setUser(JSON.parse(storageUser));
+          setUserTypeState(userType);
         }
       } catch (error) {
         setError(error);
@@ -78,6 +80,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       }
       await AsyncStorage.setItem("@UnionServices:token", token);
       await AsyncStorage.setItem("@UnionServices:user", JSON.stringify(user));
+      await AsyncStorage.setItem("@UnionServices:userType", userType);
       setError(null);
       setUser(user);
     } catch (error) {
@@ -122,7 +125,6 @@ export const AuthProvider: React.FC = ({ children }) => {
     setLoading(true);
     try {
       await ProvedorService.criarProvedor(newProvider);
-      // TODO: Provavelmente isso não deve estar aqui...
       alert("Conta Criada com sucesso!");
       await signIn(email, password, "provider");
     } catch (error) {
