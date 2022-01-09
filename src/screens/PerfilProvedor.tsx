@@ -8,10 +8,10 @@ import Spacer from "../components/layout/Spacer";
 import { useCustomBottomSheetModal } from "../hooks/useCustomBottomSheetModal";
 import ModalPerfilProvedor from "../components/modals/ModalPerfilProvedor";
 import useAuth from "../contexts/AuthContext";
-
+import Provedor from "../models/Provedor";
 const PerfilProvedor = () => {
   const { reference, onModalShown } = useCustomBottomSheetModal();
-  const { user } = useAuth();
+  const user = useAuth().user as Provedor;
   console.log(user);
   return (
     <BottomSheetModalProvider>
@@ -22,9 +22,9 @@ const PerfilProvedor = () => {
             source={require("../assets/images/photoprofile.jpg")}
           />
           <View style={styles.descricao}>
-            <Text style={styles.nomeUser}> Kelman Dias dos Santos </Text>
+            <Text style={styles.nomeUser}> {user?.nome} </Text>
             <Text style={styles.age}> 22 ANOS</Text>
-            <Text style={styles.detalhesUser}> Sou estudante e trabalho</Text>
+            <Text style={styles.detalhesUser}> {user.descricao} </Text>
           </View>
         </View>
         <View style={styles.buttonsContainer}>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   buttonsContainer: {
-    padding: 20,
+    padding: 30,
     justifyContent: "center",
     flexDirection: "row",
     alignItems: "center",
@@ -93,7 +93,6 @@ const styles = StyleSheet.create({
   },
   habilidadestext: {
     marginLeft: 10,
-    marginTop: 10,
     fontSize: 20,
     fontWeight: "bold",
   },
