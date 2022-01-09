@@ -29,12 +29,15 @@ export async function postPrestador(prestador: Prestador) {
 
 export async function getPrestador(token: string) {
   try {
-    const response = await axios.get(`${apiConfig.baseUrl}/prestador`, {
+    const response = await axios.get<{
+      prestador: Prestador;
+      sucesso: boolean;
+    }>(`${apiConfig.baseUrl}/prestador`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data;
+    return response.data.prestador;
   } catch (error) {
     throw new Error((error as AxiosError).response?.data.mensagem as string);
   }

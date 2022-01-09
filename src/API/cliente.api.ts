@@ -43,12 +43,15 @@ export async function postCliente(cliente: Cliente) {
 
 export async function getCliente(token: string) {
   try {
-    const response = await axios.get<Cliente>(`${apiConfig.baseUrl}/cliente`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
+    const response = await axios.get<{ cliente: Cliente; sucesso: boolean }>(
+      `${apiConfig.baseUrl}/cliente`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.cliente;
   } catch (error) {
     throw new Error((error as AxiosError).response?.data.mensagem as string);
   }
