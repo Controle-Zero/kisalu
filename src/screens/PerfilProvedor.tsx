@@ -9,10 +9,12 @@ import { useCustomBottomSheetModal } from "../hooks/useCustomBottomSheetModal";
 import ModalPerfilProvedor from "../components/modals/ModalPerfilProvedor";
 import useAuth from "../contexts/AuthContext";
 import Provedor from "../models/Provedor";
+
 const PerfilProvedor = () => {
   const { reference, onModalShown } = useCustomBottomSheetModal();
-  const user = useAuth().user as Provedor;
-  console.log(user);
+  const { user: utilizador, signOut } = useAuth();
+  const user = utilizador as Provedor;
+
   return (
     <BottomSheetModalProvider>
       <ScrollView style={styles.containermaster}>
@@ -46,6 +48,7 @@ const PerfilProvedor = () => {
         <Text style={styles.habilidadestext}> Classificações</Text>
         <View style={styles.espaco}></View>
         <Text style={styles.habilidadestext}> Comentarios</Text>
+        <Button text="SAIR" onPress={signOut} />
       </ScrollView>
       <ModalPerfilProvedor reference={reference} />
     </BottomSheetModalProvider>
