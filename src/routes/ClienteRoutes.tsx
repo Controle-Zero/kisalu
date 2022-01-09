@@ -43,6 +43,7 @@ const ClienteRoutes = () => {
           height: 60,
           paddingVertical: 10,
         },
+        headerShown: false,
       })}
       backBehavior="none"
     >
