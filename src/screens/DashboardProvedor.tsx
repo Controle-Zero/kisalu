@@ -1,41 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Image, StyleSheet, ScrollView } from "react-native";
 import { TouchableOpacity, Text, Pressable } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
+import TextField from "../components/input/TextField";
 import Spacer from "../components/layout/Spacer";
 
 const DashboardProvedor = () => {
+  const [search, setSearch] = useState("");
+
+  function pesquisar(text: string) {
+    setSearch(text);
+  }
+
   return (
     <View>
       <ScrollView style={styles.container}>
-        <View style={styles.button}>
-          <TouchableOpacity>
-            <Image
-              source={require("../assets/images/back.png")}
-              style={styles.topicon}
-            ></Image>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.perfilphoto}>
-            <Image
-              source={require("../assets/images/dog.jpg")}
-              style={styles.topicon}
-            ></Image>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.searchandfilter}>
-          <TextInput
-            placeholder=" Trabalhos por fazer"
-            style={styles.searchbutton}
-          />
-          <TouchableOpacity style={styles.perfilphoto}>
-            <Image
-              source={require("../assets/images/filter.png")}
-              style={styles.filter}
-            ></Image>
-          </TouchableOpacity>
-        </View>
-
+        <TextField
+          label="  "
+          value={search}
+          onChangeText={pesquisar}
+          placeholder="Pesquisar"
+        />
         <View style={styles.worknotification}>
           <Text style={styles.texttopnotification}>
             Notificações de trabalho
@@ -75,30 +60,13 @@ const DashboardProvedor = () => {
           <View style={styles.eventos}></View>
         </View>
       </ScrollView>
-
-      <View style={styles.menu}>
-        <TouchableOpacity style={styles.menubtnwrapper}>
-          <Image
-            source={require("../assets/images/home.png")}
-            style={styles.menuicon}
-          ></Image>
-        </TouchableOpacity>
-
-        <Spacer width={60} />
-        <TouchableOpacity style={styles.menubtnwrapper}>
-          <Image
-            source={require("../assets/images/user.png")}
-            style={styles.menuicon}
-          ></Image>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#60DBDA",
+    backgroundColor: "#fff",
     padding: 10,
     height: "100%",
   },

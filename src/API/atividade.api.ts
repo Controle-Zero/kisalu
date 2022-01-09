@@ -1,9 +1,7 @@
 import axios from "axios";
-import dotenv from "dotenv";
+
 import Atividade from "../models/Atividade";
 import apiConfig from "./apiConfig";
-
-dotenv.config();
 
 export async function postAtividade(atividade: Atividade, token: string) {
   const response = await axios.post(`${apiConfig.baseUrl}/atividade`, {
