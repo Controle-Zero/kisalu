@@ -7,10 +7,12 @@ import Button from "../components/buttons/Button";
 import Spacer from "../components/layout/Spacer";
 import { useCustomBottomSheetModal } from "../hooks/useCustomBottomSheetModal";
 import ModalPerfilProvedor from "../components/modals/ModalPerfilProvedor";
+import useAuth from "../contexts/AuthContext";
 
 const PerfilProvedor = () => {
   const { reference, onModalShown } = useCustomBottomSheetModal();
-
+  const { user } = useAuth();
+  console.log(user);
   return (
     <BottomSheetModalProvider>
       <ScrollView style={styles.containermaster}>
@@ -54,12 +56,12 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     marginLeft: 30,
-    marginTop: 100,
   },
   profilephoto: {
+    marginTop: "5%",
     borderRadius: 100,
-    height: 120,
-    width: 120,
+    height: 100,
+    width: 100,
   },
   descricao: {
     marginLeft: 10,
