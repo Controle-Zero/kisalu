@@ -43,6 +43,7 @@ export default function Welcome({ navigation }: AuthNavProps<"Welcome">) {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: "5%",
     paddingTop: 50,
     paddingHorizontal: 37,
     alignItems: "center",
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     color: Colors.greyText,
   },
   buttonsContainer: {
-    marginTop: 50,
+    marginTop: "25%",
     width: "100%",
   },
 });
