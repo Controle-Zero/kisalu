@@ -1,8 +1,12 @@
 import { RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import Categoria from "../../../models/Categoria";
 
 export type HomeParamsList = {
   HomeScreen: undefined;
+  ProvidersList: {
+    category: Categoria;
+  };
 };
 
 export type HomeNavProps<T extends keyof HomeParamsList> = {

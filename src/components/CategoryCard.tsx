@@ -1,32 +1,55 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import React, { FC } from "react";
 import Categoria from "../models/Categoria";
-import { Colors } from "../styles/appTheme";
+import { Colors, TextStyles } from "../styles/appTheme";
 
 interface Props {
   category: Categoria;
   onPress?: () => void;
 }
 
-const CategoryCard: FC<Props> = ({ category }) => {
-  const { imageUrl, titulo } = category;
+const CategoryCard: FC<Props> = ({ category, onPress }) => {
+  const { imageUrl, titulo, prestadores } = category;
   return (
-    <View style={style.container}>
+    <Pressable
+      onPress={onPress}
+      style={style.container}
+      android_ripple={{ color: "#f0f0f0" }}
+    >
       <Image style={style.image} source={{ uri: imageUrl }} />
-      <Text>{titulo}</Text>
-    </View>
+      <View style={style.textContainer}>
+        <Text style={style.text}>{titulo}</Text>
+        <Text style={style.small}>Possui {prestadores.length}</Text>
+      </View>
+    </Pressable>
   );
 };
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: Colors.secondary,
     alignItems: "center",
-    padding: 15,
+    flexDirection: "row",
+    backgroundColor: Colors.secondary,
+    borderRadius: 10,
   },
   image: {
-    width: 100,
-    height: 70,
+    width: 150,
+    height: 90,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+  },
+  text: {
+    color: Colors.white,
+    fontSize: TextStyles.paragraph.fontSize,
+    fontFamily: TextStyles.paragraph.font,
+  },
+  small: {
+    color: Colors.white,
+    fontSize: TextStyles.smallText.fontSize,
+    fontFamily: TextStyles.smallText.font,
+  },
+  textContainer: {
+    marginLeft: 15,
   },
 });
 

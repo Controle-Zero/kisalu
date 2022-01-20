@@ -86,10 +86,6 @@ const Home: (navProps: HomeNavProps<"HomeScreen">) => JSX.Element = ({
     getActivities();
   }, [searchQuery]);
 
-  function handleAddActivity() {
-    navigation.navigate("CreateActivity");
-  }
-
   return (
     <View style={style.container}>
       <TextInput
@@ -100,23 +96,36 @@ const Home: (navProps: HomeNavProps<"HomeScreen">) => JSX.Element = ({
         placeholder="Pesquisar serviços..."
         left={<TextInput.Icon name="briefcase-search" color="#757575" />}
         activeOutlineColor={Colors.primary}
+        style={style.input}
       />
       {isLoading ? (
         <LoadingScreen />
       ) : (
         <FlatList
           data={categories}
-          renderItem={({ item }) => <CategoryCard category={item} />}
+          renderItem={({ item }) => (
+            <CategoryCard
+              category={item}
+              onPress={() =>
+                navigation.navigate("ProvidersList", {
+                  category: item,
+                })
+              }
+            />
+          )}
           ItemSeparatorComponent={() => <Spacer height={20} />}
         />
       )}
 
-      <FAB icon="plus" style={style.fab} onPress={handleAddActivity} />
+      <FAB icon="plus" style={style.fab} />
     </View>
   );
 };
 
 const style = StyleSheet.create({
+  input: {
+    marginBottom: 10,
+  },
   container: {
     padding: "5%",
     flex: 1,
