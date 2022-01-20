@@ -4,7 +4,7 @@ import { TouchableOpacity, Text, Pressable } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import TextField from "../components/input/TextField";
 import Spacer from "../components/layout/Spacer";
-
+import { FAB } from "react-native-paper";
 const DashboardProvedor = () => {
   const [search, setSearch] = useState("");
 
@@ -59,6 +59,12 @@ const DashboardProvedor = () => {
           <Text style={styles.texttopnotification}>Extras</Text>
           <View style={styles.eventos}></View>
         </View>
+        <FAB
+          style={styles.addhab}
+          small
+          icon="plus"
+          onPress={() => console.log("Pressed")}
+        />
       </ScrollView>
     </View>
   );
@@ -233,6 +239,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 10,
     shadowOffset: { width: 2, height: 7 },
+  },
+  addhab: {
+    position: "absolute",
+    margin: 20,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "#60DBDA",
   },
 });
 

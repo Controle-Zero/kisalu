@@ -29,7 +29,7 @@ const style = StyleSheet.create({
   container: {
     alignItems: "center",
     flexDirection: "row",
-    backgroundColor: Colors.secondary,
+    backgroundColor: Colors.primary,
     borderRadius: 10,
   },
   image: {

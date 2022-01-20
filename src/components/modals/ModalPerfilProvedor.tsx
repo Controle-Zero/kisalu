@@ -5,7 +5,7 @@ import { BottomSheetModal, useBottomSheetModal } from "@gorhom/bottom-sheet";
 import { useNavigation } from "@react-navigation/native";
 import { Colors, TextStyles } from "../../styles/appTheme";
 import ModalButton from "../buttons/ModalButton";
-
+import Spacer from "../layout/Spacer";
 interface Props {
   reference: React.Ref<BottomSheetModal>;
 }
@@ -16,7 +16,7 @@ const ModalPerfilProvedor: React.FC<Props> = ({ reference }) => {
   const { dismiss } = useBottomSheetModal();
 
   // Define o espaço da tela que o modal irá ocupar em percentagem
-  const snapPoints = ["70%"];
+  const snapPoints = ["50%"];
 
   const pushClientScreen = () => {
     dismiss();
@@ -29,13 +29,15 @@ const ModalPerfilProvedor: React.FC<Props> = ({ reference }) => {
       backgroundStyle={styles.modal}
     >
       <View style={styles.container}>
-        <Text style={styles.modalHeading}> Informações Gerais </Text>
-        <Text style={styles.modalDescricao}> Nome: </Text>
-        <Text style={styles.modalDescricao}> Idade: </Text>
-        <Text style={styles.modalDescricao}> Habilidades: </Text>
-        <Text style={styles.modalDescricao}> Biografia: </Text>
+        <Text style={styles.modalHeading}> Pedir Serviço </Text>
+        <Text style={styles.modalDescricao}>
+          OBS: É do direito do provedor rejeitar ou aceitar a sua requisição.
+          Receberá uma notificação com a resposta correspondente
+        </Text>
         <View style={styles.actions}>
-          <ModalButton onPress={pushClientScreen} text="Fechar" />
+          <ModalButton onPress={pushClientScreen} text="Concordo" />
+          <Spacer width={30} />
+          <ModalButton onPress={pushClientScreen} text="Não concordo" />
         </View>
       </View>
     </BottomSheetModal>
@@ -64,8 +66,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   actions: {
-    marginTop: 100,
+    marginTop: 40,
     width: "100%",
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

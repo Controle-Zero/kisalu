@@ -24,7 +24,7 @@ function PerfilProvedor({ route }: HomeNavProps<"ProviderProfile">) {
         <View style={styles.container}>
           <Image
             style={styles.profilephoto}
-            source={require("../assets/images/photoprofile.jpg")}
+            source={require("../assets/images/profile.jpg")}
           />
           <View style={styles.descricao}>
             <Text style={styles.nomeUser}> {user?.nome} </Text>
@@ -33,11 +33,11 @@ function PerfilProvedor({ route }: HomeNavProps<"ProviderProfile">) {
           </View>
         </View>
         <View style={styles.buttonsContainer}>
-          <Button width={"50%"} text="Mais detalhada" onPress={onModalShown} />
-          <Spacer width={30} />
+          {/* <Button width={"50%"} text="Mais detalhada" onPress={onModalShown} /> */}
+          {/* <Spacer width={30} /> */}
           <Button width={"50%"} text="Pedir serviço" onPress={onModalShown} />
         </View>
-        <Text style={styles.habilidadestext}> Outras habilidades</Text>
+        <Text style={styles.habilidadestext}> Outras Categorias</Text>
         <View style={styles.habilidades}>
           <Image
             style={styles.iconhabilidade}
@@ -51,7 +51,7 @@ function PerfilProvedor({ route }: HomeNavProps<"ProviderProfile">) {
         <Text style={styles.habilidadestext}> Classificações</Text>
         <View style={styles.espaco}></View>
         <Text style={styles.habilidadestext}> Comentarios</Text>
-        <Button text="SAIR" onPress={signOut} />
+        {/* <Button text="SAIR" onPress={signOut} /> */}
       </ScrollView>
       <ModalPerfilProvedor reference={reference} />
     </BottomSheetModalProvider>
@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
     width: 100,
   },
   descricao: {
-    marginLeft: 10,
-    marginTop: 30,
+    marginLeft: 15,
+    marginTop: 35,
   },
   nomeUser: {
     padding: 2,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   buttonsContainer: {
-    padding: 30,
+    padding: 10,
     justifyContent: "center",
     flexDirection: "row",
     alignItems: "center",
