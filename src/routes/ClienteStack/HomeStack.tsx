@@ -10,7 +10,6 @@ const NativeHomeStack = createNativeStackNavigator<HomeParamsList>();
 
 function HomeStack() {
   const { user } = useAuth();
-  console.log(user);
   return (
     <NativeHomeStack.Navigator initialRouteName="HomeScreen">
       <NativeHomeStack.Screen
