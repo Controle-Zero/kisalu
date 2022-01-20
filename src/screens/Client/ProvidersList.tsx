@@ -8,7 +8,7 @@ import { Colors } from "../../styles/appTheme";
 
 const ProvidersList: (
   navigationProps: HomeNavProps<"ProvidersList">
-) => JSX.Element = ({ route }) => {
+) => JSX.Element = ({ route, navigation }) => {
   const { prestadores } = route.params.category;
 
   function getRandomColor() {
@@ -23,7 +23,11 @@ const ProvidersList: (
     <View style={{ flex: 1 }}>
       <FlatList
         renderItem={({ item: { prestador } }) => (
-          <TouchableRipple onPress={() => {}}>
+          <TouchableRipple
+            onPress={() =>
+              navigation.navigate("ProviderProfile", { provider: prestador })
+            }
+          >
             <List.Item
               left={({}) => (
                 <Avatar.Icon
