@@ -1,13 +1,18 @@
 import io from "socket.io-client";
+import APIConfig from "../API/apiConfig";
 
-export function initConnection(idProvedor?: string, idCliente?: string) {
-  const socket = io("http://localhost:8080/atividadeNsp", {
+interface SocketParams {
+  idProvedor?: string;
+  idCliente?: string;
+}
+
+export function initConnection({ idProvedor, idCliente }: SocketParams) {
+  const socket = io(`${APIConfig.baseUrl}/atividadeNsp`, {
     path: "/websocket/",
     auth: {
       idCliente,
       idProvedor,
     },
-    autoConnect: false,
   });
 
   return socket;

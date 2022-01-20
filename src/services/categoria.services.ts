@@ -1,7 +1,11 @@
 import { getCategorias } from "../API/categoria.api";
 import Categoria from "../models/Categoria";
 
-export async function retornarCategorias(): Promise<Categoria[]> {
-  const categorias: Categoria[] = await getCategorias();
+interface Response {
+  categorias: Categoria[];
+}
+
+export async function retornarCategorias(): Promise<Response> {
+  const categorias: Response = await getCategorias();
   return categorias;
 }

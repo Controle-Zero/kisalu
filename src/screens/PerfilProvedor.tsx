@@ -9,11 +9,14 @@ import { useCustomBottomSheetModal } from "../hooks/useCustomBottomSheetModal";
 import ModalPerfilProvedor from "../components/modals/ModalPerfilProvedor";
 import useAuth from "../contexts/AuthContext";
 import Provedor from "../models/Provedor";
+import { HomeNavProps } from "../routes/types/Cliente/HomeParamsList";
 
-const PerfilProvedor = () => {
+function PerfilProvedor({ route }: HomeNavProps<"ProviderProfile">) {
   const { reference, onModalShown } = useCustomBottomSheetModal();
-  const { user: utilizador, signOut } = useAuth();
-  const user = utilizador as Provedor;
+  const { user: utilizador, signOut, userType } = useAuth();
+  let user;
+  if (userType === "client") user = route.params.provider;
+  else user = utilizador as Provedor;
 
   return (
     <BottomSheetModalProvider>
@@ -53,7 +56,7 @@ const PerfilProvedor = () => {
       <ModalPerfilProvedor reference={reference} />
     </BottomSheetModalProvider>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
