@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet, View, Text } from "react-native";
 import { TextInput, FAB } from "react-native-paper";
 import { Colors } from "../../styles/appTheme";
+import LoadingScreen from "../LoadingScreen";
 
 const fakeData = [
   {
@@ -52,19 +53,23 @@ interface Data {
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [activities, setActivities] = useState<Data[]>([]);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    const arr = fakeData.filter((activity) => {
-      if (!searchQuery) return activity;
-      else if (
-        activity.title
-          .toLocaleLowerCase()
-          .includes(searchQuery.toLocaleLowerCase())
-      )
-        return activity;
-    });
-    setActivities(arr);
-    console.log(arr);
+    setLoading(true);
+    setTimeout(() => {
+      const filteredActivities = fakeData.filter((activity) => {
+        if (!searchQuery) return activity;
+        else if (
+          activity.title
+            .toLocaleLowerCase()
+            .includes(searchQuery.toLocaleLowerCase())
+        )
+          return activity;
+      });
+      setActivities(filteredActivities);
+      setLoading(false);
+    }, 800);
   }, [searchQuery]);
 
   function handleAddActivity() {
@@ -82,10 +87,15 @@ const Home = () => {
         left={<TextInput.Icon name="briefcase-search" color="#757575" />}
         activeOutlineColor={Colors.primary}
       />
-      <FlatList
-        data={activities}
-        renderItem={({ item }) => <Text>{item.title}</Text>}
-      />
+      {isLoading ? (
+        <LoadingScreen />
+      ) : (
+        <FlatList
+          data={activities}
+          renderItem={({ item }) => <Text>{item.title}</Text>}
+        />
+      )}
+
       <FAB icon="plus" style={style.fab} onPress={handleAddActivity} />
     </View>
   );
