@@ -61,26 +61,24 @@ interface Data {
 const Home: (navProps: HomeNavProps<"HomeScreen">) => JSX.Element = ({
   navigation,
 }) => {
-  const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
-  const [activities, setActivities] = useState<Data[]>([]);
   const [isLoading, setLoading] = useState(false);
   const [categories, setCategories] = useState<Categoria[]>([]);
 
   useEffect(() => {
     setLoading(true);
     async function getActivities() {
-      const data = (await retornarCategorias()).categorias;
-      const cats = data.filter((cat) => {
-        if (!searchQuery) return cat;
+      const response = (await retornarCategorias()).categorias;
+      const filteredCategories = response.filter((category) => {
+        if (!searchQuery) return category;
         else if (
-          cat.titulo
+          category.titulo
             .toLocaleLowerCase()
             .includes(searchQuery.toLocaleLowerCase())
         )
-          return cat;
+          return category;
       });
-      setCategories(cats);
+      setCategories(filteredCategories);
       setLoading(false);
     }
     getActivities();
@@ -116,8 +114,6 @@ const Home: (navProps: HomeNavProps<"HomeScreen">) => JSX.Element = ({
           ItemSeparatorComponent={() => <Spacer height={20} />}
         />
       )}
-
-      <FAB icon="plus" style={style.fab} />
     </View>
   );
 };
@@ -129,11 +125,6 @@ const style = StyleSheet.create({
   container: {
     padding: "5%",
     flex: 1,
-  },
-  fab: {
-    position: "absolute",
-    bottom: 30,
-    right: 30,
   },
 });
 
