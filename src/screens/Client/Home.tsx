@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet, View, Text } from "react-native";
 import { TextInput, FAB } from "react-native-paper";
+import CategoryCard from "../../components/CategoryCard";
+import Spacer from "../../components/layout/Spacer";
+import { initConnection } from "../../config/webSocket";
+import useAuth from "../../contexts/AuthContext";
+import Categoria from "../../models/Categoria";
+import Prestador from "../../models/Provedor";
+import { HomeNavProps } from "../../routes/types/Cliente/HomeParamsList";
+import { retornarCategorias } from "../../services/categoria.services";
 import { Colors } from "../../styles/appTheme";
 import LoadingScreen from "../LoadingScreen";
 
@@ -50,30 +58,36 @@ interface Data {
   dateAdded: number;
 }
 
-const Home = () => {
+const Home: (navProps: HomeNavProps<"HomeScreen">) => JSX.Element = ({
+  navigation,
+}) => {
+  const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [activities, setActivities] = useState<Data[]>([]);
   const [isLoading, setLoading] = useState(false);
+  const [categories, setCategories] = useState<Categoria[]>([]);
 
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {
-      const filteredActivities = fakeData.filter((activity) => {
-        if (!searchQuery) return activity;
+    async function getActivities() {
+      const data = (await retornarCategorias()).categorias;
+      const cats = data.filter((cat) => {
+        if (!searchQuery) return cat;
         else if (
-          activity.title
+          cat.titulo
             .toLocaleLowerCase()
             .includes(searchQuery.toLocaleLowerCase())
         )
-          return activity;
+          return cat;
       });
-      setActivities(filteredActivities);
+      setCategories(cats);
       setLoading(false);
-    }, 800);
+    }
+    getActivities();
   }, [searchQuery]);
 
   function handleAddActivity() {
-    console.log("FAB clicked");
+    navigation.navigate("CreateActivity");
   }
 
   return (
@@ -91,8 +105,9 @@ const Home = () => {
         <LoadingScreen />
       ) : (
         <FlatList
-          data={activities}
-          renderItem={({ item }) => <Text>{item.title}</Text>}
+          data={categories}
+          renderItem={({ item }) => <CategoryCard category={item} />}
+          ItemSeparatorComponent={() => <Spacer height={20} />}
         />
       )}
 
