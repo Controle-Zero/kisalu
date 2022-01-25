@@ -1,30 +1,32 @@
 import React from "react";
-import { View, Text } from "react-native";
-import Button from "../../components/buttons/Button";
+import { View, StyleSheet } from "react-native";
+
+import ProfileHeader from "../../components/ProfileHeader";
 import useAuth from "../../contexts/AuthContext";
-import { TextStyles } from "../../styles/appTheme";
+import Cliente from "../../models/Cliente";
+import { Colors } from "../../styles/appTheme";
 
 const Perfil = () => {
   const { signOut, user } = useAuth();
+  const { nome } = user as Cliente;
 
   function handleSignOut() {
     signOut();
   }
+
   return (
-    <View style={{ flex: 1, justifyContent: "center", paddingHorizontal: 20 }}>
-      <Button onPress={handleSignOut} text="Sign Out" />
-      <Text
-        style={{
-          fontSize: TextStyles.heading2.fontSize,
-          textAlign: "center",
-          marginTop: 20,
-          fontFamily: TextStyles.heading2.font,
-        }}
-      >
-        {user?.nome}
-      </Text>
+    <View style={style.container}>
+      <ProfileHeader name={nome} profileImage="dog.jpg" />
     </View>
   );
 };
+
+const style = StyleSheet.create({
+  container: {
+    paddingTop: 60,
+    flex: 1,
+    backgroundColor: Colors.lightPrimary,
+  },
+});
 
 export default Perfil;
