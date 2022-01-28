@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Button from "../../components/buttons/Button";
@@ -71,9 +71,8 @@ const Perfil = () => {
       <View style={style.innerContainer}>
         <Text style={style.heading2}>Informações Detalhadas</Text>
         {profileData.map(({ icon, label, text }, index) => (
-          <>
+          <Fragment key={index}>
             <ListTile
-              key={index}
               label={label}
               icon={icon}
               text={text}
@@ -81,7 +80,7 @@ const Perfil = () => {
               iconColor={Colors.secondary}
             />
             <Spacer height={spaceBetweenTiles} />
-          </>
+          </Fragment>
         ))}
         <Button
           onPress={handleSignOut}
