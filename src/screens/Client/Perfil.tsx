@@ -2,19 +2,63 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Button from "../../components/buttons/Button";
-import IconTextButton from "../../components/buttons/IconTextButton";
 import Spacer from "../../components/layout/Spacer";
+import ListTile from "../../components/ListTile";
 
 import ProfileHeader from "../../components/ProfileHeader";
 import useAuth from "../../contexts/AuthContext";
 import Cliente from "../../models/Cliente";
 import { Colors, TextStyles } from "../../styles/appTheme";
+import { formatDate } from "../../utils/dateFormatter";
+
+const Icons = {
+  birthDate: "calendar-blank",
+  address: "home",
+  email: "email",
+  phone: "phone",
+  bi: "card-bulleted",
+};
 
 const Perfil = () => {
   const { signOut, user } = useAuth();
-  const { nome } = user as Cliente;
+  const {
+    nome,
+    dataNasc: unformattedDate,
+    bi,
+    email,
+    morada,
+    telefone,
+  } = user as Cliente;
 
-  const space = 10;
+  const formattedBirthDate = formatDate(new Date(unformattedDate));
+  const spaceBetweenTiles = 10;
+  const profileData = [
+    {
+      label: "Email",
+      text: email,
+      icon: Icons.email,
+    },
+    {
+      label: "Data de nascimento",
+      text: formattedBirthDate,
+      icon: Icons.birthDate,
+    },
+    {
+      label: "BI",
+      text: bi,
+      icon: Icons.bi,
+    },
+    {
+      label: "Morada",
+      text: morada,
+      icon: Icons.address,
+    },
+    {
+      label: "Telefone",
+      text: telefone,
+      icon: Icons.phone,
+    },
+  ];
 
   function handleSignOut() {
     signOut();
@@ -25,34 +69,19 @@ const Perfil = () => {
       <ProfileHeader name={nome} profileImage="dog.jpg" />
       <View style={style.innerContainer}>
         <Text style={style.heading2}>Informações Detalhadas</Text>
-        <IconTextButton
-          icon="account"
-          text="Nome"
-          onPress={() => {}}
-          iconColor="#029AEF"
-        />
-        <Spacer height={space} />
-        <IconTextButton
-          icon="calendar-blank"
-          text="Data de Nascimento"
-          onPress={() => {}}
-          iconColor="#5E2129"
-        />
-        <Spacer height={space} />
-        <IconTextButton
-          icon="email"
-          text="Email"
-          onPress={() => {}}
-          iconColor="#0078CF"
-        />
-        <Spacer height={space} />
-        <IconTextButton
-          icon="cellphone"
-          text="Telefone"
-          onPress={() => {}}
-          iconColor="#FFA500"
-        />
-        <Spacer height={space} />
+        {profileData.map(({ icon, label, text }, index) => (
+          <>
+            <ListTile
+              key={index}
+              label={label}
+              icon={icon}
+              text={text}
+              iconBackgroundColor={Colors.lightPrimary}
+              iconColor={Colors.secondary}
+            />
+            <Spacer height={spaceBetweenTiles} />
+          </>
+        ))}
         <Button onPress={handleSignOut} text="Sair" />
         <Spacer height={20} />
       </View>
