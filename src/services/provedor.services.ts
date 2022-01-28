@@ -2,6 +2,7 @@ import {
   postPrestador,
   getTokenPrestador,
   getPrestador,
+  postCategorias,
 } from "../API/prestador.api";
 import Prestador from "../models/Provedor";
 
@@ -21,6 +22,13 @@ export async function criarProvedor(provedor: Prestador) {
 export async function retornarProvedor(token: string): Promise<Prestador> {
   const provedor: Prestador = await getPrestador(token);
   return provedor;
+}
+
+export async function adicionarCategoriasProvedor(
+  idCategorias: string[],
+  token: string
+) {
+  return await postCategorias(idCategorias, token);
 }
 
 /*export async function actualizarProvedor(provedor: Prestador) {
