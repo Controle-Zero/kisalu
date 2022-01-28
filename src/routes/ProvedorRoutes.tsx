@@ -1,20 +1,20 @@
 import React from "react";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import DashboardProvedor from "../screens/DashboardProvedor";
-import PerfilProvedor from "../screens/PerfilProvedor";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import { Colors, TextStyles } from "../styles/appTheme";
-import Appbar from "../components/appbar/Appbar";
-
+import Icon from "react-native-vector-icons/Ionicons";
 import useAuth from "../contexts/AuthContext";
+import { ProviderParamsList } from "./types/ProviderParamsList";
+import { Colors, TextStyles } from "../styles/appTheme";
+import Home from "../screens/Provider/Home";
+import Perfil from "../screens/Provider/Perfil";
 
-const BottomTab = createBottomTabNavigator();
+const BottomTab = createBottomTabNavigator<ProviderParamsList>();
+
 const ProvedorRoutes = () => {
   const { user } = useAuth();
-
   return (
     <BottomTab.Navigator
+      initialRouteName="Home"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ size, color }) => {
           let iconName = "";
@@ -27,12 +27,10 @@ const ProvedorRoutes = () => {
               iconName = "person-circle-outline";
               break;
           }
-
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return <Icon name={iconName} size={size} color={color} />;
         },
-
-        tabBarActiveTintColor: Colors.white,
-        tabBarInactiveTintColor: Colors.secondary,
+        tabBarActiveTintColor: Colors.primary,
+        tabBarInactiveTintColor: "gray",
         tabBarLabelStyle: {
           fontSize: TextStyles.smallText.fontSize,
           fontFamily: TextStyles.smallText.font,
@@ -40,17 +38,13 @@ const ProvedorRoutes = () => {
         tabBarStyle: {
           height: 60,
           paddingVertical: 10,
-          backgroundColor: Colors.primary,
         },
+        headerShown: false,
       })}
       backBehavior="none"
     >
-      <BottomTab.Screen
-        name="Home"
-        component={DashboardProvedor}
-        options={{ header: () => <Appbar title={user?.nome} /> }}
-      />
-      <BottomTab.Screen name="Perfil" component={PerfilProvedor} />
+      <BottomTab.Screen name="Home" component={Home} />
+      <BottomTab.Screen name="Perfil" component={Perfil} />
     </BottomTab.Navigator>
   );
 };

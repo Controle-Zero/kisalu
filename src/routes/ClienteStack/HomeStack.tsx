@@ -7,7 +7,7 @@ import { HomeParamsList } from "../types/Cliente/HomeParamsList";
 import Home from "../../screens/Client/Home";
 import useAuth from "../../contexts/AuthContext";
 import ProvidersList from "../../screens/Client/ProvidersList";
-import PerfilProvedor from "../../screens/PerfilProvedor";
+import PerfilProvedor from "../../screens/Provider/Perfil";
 import Spacer from "../../components/layout/Spacer";
 
 const NativeHomeStack = createNativeStackNavigator<HomeParamsList>();
