@@ -1,7 +1,7 @@
 import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import React, { FC } from "react";
-import Categoria from "../models/Categoria";
-import { Colors, TextStyles } from "../styles/appTheme";
+import Categoria from "../../models/Categoria";
+import { Colors, TextStyles } from "../../styles/appTheme";
 
 interface Props {
   category: Categoria;

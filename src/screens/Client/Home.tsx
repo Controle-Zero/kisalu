@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, View } from "react-native";
 
 import { TextInput } from "react-native-paper";
 
-import CategoryCard from "../../components/CategoryCard";
+import CategoryCard from "../../components/cards/CategoryCard";
 import Spacer from "../../components/layout/Spacer";
 import Categoria from "../../models/Categoria";
 import { HomeNavProps } from "../../routes/types/Cliente/HomeParamsList";
