@@ -56,12 +56,12 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     paddingVertical: 20,
     paddingHorizontal: 26,
+    marginHorizontal: "2%",
   },
   contentContainer: {
     flexDirection: "row",
     justifyContent: "center",
     marginBottom: 14,
-    // paddingHorizontal: 20,
   },
   actionsContainer: {
     flexDirection: "row",
