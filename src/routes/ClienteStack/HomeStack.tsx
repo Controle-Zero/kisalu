@@ -1,12 +1,14 @@
-import React from "react";
+import React, { FC } from "react";
 
+import { Avatar } from "react-native-paper";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import { HomeParamsList } from "../types/Cliente/HomeParamsList";
 import Home from "../../screens/Client/Home";
 import useAuth from "../../contexts/AuthContext";
-import AppBar from "../../components/appbar/Appbar";
 import ProvidersList from "../../screens/Client/ProvidersList";
 import PerfilProvedor from "../../screens/PerfilProvedor";
+import Spacer from "../../components/layout/Spacer";
 
 const NativeHomeStack = createNativeStackNavigator<HomeParamsList>();
 
@@ -18,9 +20,8 @@ function HomeStack() {
         name="HomeScreen"
         component={Home}
         options={{
-          header: ({ options }) => {
-            return <AppBar title={user?.nome} />;
-          },
+          title: user?.nome,
+          headerLeft: () => <HeaderLeft />,
         }}
       />
       <NativeHomeStack.Screen
@@ -40,5 +41,12 @@ function HomeStack() {
     </NativeHomeStack.Navigator>
   );
 }
+
+const HeaderLeft: FC = () => (
+  <>
+    <Avatar.Image size={35} source={require("../../assets/images/dog.jpg")} />
+    <Spacer width={20} />
+  </>
+);
 
 export default HomeStack;
