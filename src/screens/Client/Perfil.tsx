@@ -17,6 +17,7 @@ const Icons = {
   email: "email",
   phone: "phone",
   bi: "card-bulleted",
+  logout: "logout",
 };
 
 const Perfil = () => {
@@ -82,7 +83,12 @@ const Perfil = () => {
             <Spacer height={spaceBetweenTiles} />
           </>
         ))}
-        <Button onPress={handleSignOut} text="Sair" />
+        <Button
+          onPress={handleSignOut}
+          text="Sair"
+          icon={Icons.logout}
+          width="60%"
+        />
         <Spacer height={20} />
       </View>
     </ScrollView>
