@@ -2,7 +2,7 @@ import {
   postPrestador,
   getTokenPrestador,
   getPrestador,
-  postCategorias,
+  putCategorias,
 } from "../API/prestador.api";
 import Prestador from "../models/Provedor";
 
@@ -28,7 +28,7 @@ export async function adicionarCategoriasProvedor(
   idCategorias: string[],
   token: string
 ) {
-  return await postCategorias(idCategorias, token);
+  return await putCategorias(idCategorias, token);
 }
 
 /*export async function actualizarProvedor(provedor: Prestador) {

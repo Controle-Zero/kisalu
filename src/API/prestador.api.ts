@@ -57,7 +57,7 @@ export async function putPrestador(prestador: Prestador, token: string) {
   }
 }
 
-export async function postCategorias(idCategorias: string[], token: string) {
+export async function putCategorias(idCategorias: string[], token: string) {
   try {
     const response = await axios.put(
       `${apiConfig.baseUrl}/prestador/categorias`,
