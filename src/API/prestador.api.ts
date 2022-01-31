@@ -56,3 +56,20 @@ export async function putPrestador(prestador: Prestador, token: string) {
     throw new Error((error as AxiosError).response?.data.mensagem as string);
   }
 }
+
+export async function putCategorias(idCategorias: string[], token: string) {
+  try {
+    const response = await axios.put(
+      `${apiConfig.baseUrl}/prestador/categorias`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        idCategorias,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error((error as AxiosError).response?.data.mensagem as string);
+  }
+}
