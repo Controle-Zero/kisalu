@@ -11,7 +11,10 @@ interface Props {
 const ProfileHeader: FC<Props> = ({ name, profileImage }) => {
   return (
     <View style={styles.container}>
-      <Avatar.Image size={70} source={require(`../assets/images/dog.jpg`)} />
+      <Avatar.Image
+        size={70}
+        source={require(`../assets/images/no-profile.png`)}
+      />
       <Text style={styles.text}>{name}</Text>
     </View>
   );

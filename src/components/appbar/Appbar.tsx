@@ -11,7 +11,10 @@ interface Props {
 const AppBar: React.FC<Props> = ({ title }) => {
   return (
     <View style={styles.appBar}>
-      <Avatar.Image size={45} source={require("../../assets/images/dog.jpg")} />
+      <Avatar.Image
+        size={45}
+        source={require("../../assets/images/no-profile.png")}
+      />
       <Text style={styles.titleSection}>{title}</Text>
     </View>
   );

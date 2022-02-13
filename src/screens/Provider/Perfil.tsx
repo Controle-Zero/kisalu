@@ -89,7 +89,7 @@ export default function Perfil() {
 
   return (
     <ScrollView style={styles.container}>
-      <ProfileHeader name={nome} profileImage="dog.jpg" />
+      <ProfileHeader name={nome} profileImage="no-profile.png" />
       <View style={styles.innerContainer}>
         <AboutMe description={descricao} />
         <Details profileData={profileData} />

@@ -12,6 +12,8 @@ import { Colors, TextStyles } from "../../styles/appTheme";
 const Atividades = () => {
   const { user } = useAuth();
 
+  console.log(user?.atividades);
+
   return (
     <View>
       <FlatList

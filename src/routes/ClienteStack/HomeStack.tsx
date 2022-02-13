@@ -44,7 +44,10 @@ function HomeStack() {
 
 const HeaderLeft: FC = () => (
   <>
-    <Avatar.Image size={35} source={require("../../assets/images/dog.jpg")} />
+    <Avatar.Image
+      size={35}
+      source={require("../../assets/images/no-profile.png")}
+    />
     <Spacer width={20} />
   </>
 );
