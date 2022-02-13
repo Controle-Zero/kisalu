@@ -5,6 +5,7 @@ import {
   putCategorias,
 } from "../API/prestador.api";
 import Prestador from "../models/Provedor";
+import Atividade from "../models/Atividade";
 
 export async function loginProvedor(email: string, password: string) {
   const response = await getTokenPrestador(email, password);
@@ -29,6 +30,13 @@ export async function adicionarCategoriasProvedor(
   token: string
 ) {
   return await putCategorias(idCategorias, token);
+}
+
+export async function retornarAtividades(
+  token: string
+): Promise<Atividade[] | undefined> {
+  const atividades: Atividade[] = (await getPrestador(token)).atividades ?? [];
+  return atividades;
 }
 
 /*export async function actualizarProvedor(provedor: Prestador) {

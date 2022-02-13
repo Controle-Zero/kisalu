@@ -5,7 +5,7 @@ export default interface Atividade {
   valorAssociado: number;
   numRef: number;
   estado: string;
-  idPrestador: string;
-  idCliente: string;
-  idCategoria: string;
+  prestadorId: string;
+  clienteId: string;
+  categoriaId: string;
 }
