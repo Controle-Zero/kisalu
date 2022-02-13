@@ -1,20 +1,47 @@
 import React, { FC, useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { RadioButton, TextInput } from "react-native-paper";
 import { Colors, TextStyles } from "../../styles/appTheme";
 import { retornarCategorias } from "../../services/categoria.services";
-import Categoria from "../../models/Categoria";
+import RadioForm from "react-native-simple-radio-button";
+import Button from "../../components/buttons/Button";
+import Spacer from "../../components/layout/Spacer";
+import { ScrollView } from "react-native-gesture-handler";
+
+// Typing of the radio button item
+type RadioButtonProps = {
+  label: string;
+  value: string;
+};
 
 const SelectService: FC = () => {
-  const [categories, setCategories] = useState<Categoria[]>([]);
-  const [checked, setChecked] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
+  // The list of radio button itens
+  const [radioButtonItems, setRadioButtonItems] = useState<RadioButtonProps[]>(
+    []
+  );
+  // The selected radio button item state
+  const [checkedValue, setCheckedValue] = useState("");
+
+  // Handles when the user confirms its category
+  const handleSelectCategory = () => {
+    if (!checkedValue) {
+      alert("Selecione uma categoria");
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
+      // Get all of the categories
       const data = await retornarCategorias();
-      console.log(data);
-      setCategories(data);
+      const radioProps: RadioButtonProps[] = [];
+      // Sorts and adds the categories to the radio button list
+      data
+        .sort((categoryA, categoryB) =>
+          categoryA.titulo.localeCompare(categoryB.titulo)
+        )
+        .forEach(({ id, titulo }) =>
+          radioProps.push({ label: titulo, value: id })
+        );
+      setRadioButtonItems(radioProps);
     };
     fetchData();
   }, []);
@@ -26,17 +53,20 @@ const SelectService: FC = () => {
         Clique na categoria que na qual tens competência para que possas ser
         encontrado
       </Text>
-      <TextInput
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-        autoComplete={false}
-        mode="flat"
-        placeholder="Pesquisar serviços..."
-        left={<TextInput.Icon name="briefcase-search" color="#757575" />}
-        activeUnderlineColor={Colors.primary}
-        style={styles.input}
-      />
-      <View style={styles.innerContainer}></View>
+      <View style={styles.innerContainer}>
+        <Button onPress={handleSelectCategory} text="Confirmar" width="50%" />
+        <Spacer height={20} />
+        <ScrollView style={{ height: "65%" }}>
+          <RadioForm
+            buttonColor={Colors.primary}
+            radio_props={radioButtonItems}
+            initial={0}
+            onPress={(value) => {
+              setCheckedValue(value);
+            }}
+          />
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -57,18 +87,12 @@ const styles = StyleSheet.create({
   },
   container: { paddingTop: 40, backgroundColor: Colors.lightPrimary },
   innerContainer: {
-    minHeight: "80%",
     marginTop: 10,
     paddingVertical: 40,
     paddingHorizontal: 37,
     backgroundColor: Colors.white,
     borderTopStartRadius: 40,
     borderTopEndRadius: 40,
-  },
-  input: {
-    marginBottom: 10,
-    backgroundColor: Colors.lightPrimary,
-    marginHorizontal: "10%",
   },
 });
 
