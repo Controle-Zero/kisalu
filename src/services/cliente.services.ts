@@ -18,7 +18,7 @@ export async function retornarCliente(token: string): Promise<Cliente> {
 
 export async function retornarAtividades(
   token: string
-): Promise<Atividade[] | undefined> {
+): Promise<Atividade[]> {
   const atividades: Atividade[] = (await getCliente(token)).atividades ?? [];
   return atividades;
 }

@@ -32,9 +32,7 @@ export async function adicionarCategoriasProvedor(
   return await putCategorias(idCategorias, token);
 }
 
-export async function retornarAtividades(
-  token: string
-): Promise<Atividade[] | undefined> {
+export async function retornarAtividades(token: string): Promise<Atividade[]> {
   const atividades: Atividade[] = (await getPrestador(token)).atividades ?? [];
   return atividades;
 }
