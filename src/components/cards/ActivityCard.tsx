@@ -3,10 +3,13 @@ import React, { FC } from "react";
 import Button from "../buttons/Button";
 import Spacer from "../layout/Spacer";
 import { Colors, TextStyles } from "../../styles/appTheme";
+import Atividade from "../../models/Atividade";
 
-interface Props {}
+interface Props {
+  activity: Atividade;
+}
 
-const ActivityCard: FC<Props> = ({}) => {
+const ActivityCard: FC<Props> = ({ activity }) => {
   return (
     <View style={styles.container}>
       <Content>
