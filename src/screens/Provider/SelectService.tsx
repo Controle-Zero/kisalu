@@ -1,11 +1,14 @@
 import React, { FC, useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Colors, TextStyles } from "../../styles/appTheme";
-import { retornarCategorias } from "../../services/categoria.services";
+import * as CategoriaServices from "../../services/categoria.services";
 import RadioForm from "react-native-simple-radio-button";
 import Button from "../../components/buttons/Button";
 import Spacer from "../../components/layout/Spacer";
 import { ScrollView } from "react-native-gesture-handler";
+import useAuth from "../../contexts/AuthContext";
+import * as ProvedorServices from "../../services/provedor.services";
+import { ProfileNavProps } from "../../routes/types/Provider/ProfileParamsList";
 
 // Typing of the radio button item
 type RadioButtonProps = {
@@ -13,7 +16,10 @@ type RadioButtonProps = {
   value: string;
 };
 
-const SelectService: FC = () => {
+const SelectService: (
+  navProps: ProfileNavProps<"SelectServiceScreen">
+) => JSX.Element = ({ navigation }) => {
+  const { token } = useAuth();
   // The list of radio button itens
   const [radioButtonItems, setRadioButtonItems] = useState<RadioButtonProps[]>(
     []
@@ -22,16 +28,23 @@ const SelectService: FC = () => {
   const [checkedValue, setCheckedValue] = useState("");
 
   // Handles when the user confirms its category
-  const handleSelectCategory = () => {
+  const handleSelectCategory = async () => {
     if (!checkedValue) {
       alert("Selecione uma categoria");
+      return;
     }
+    await ProvedorServices.adicionarCategoriasProvedor(
+      [...checkedValue],
+      token
+    );
+    alert("Categoria adicionado no seu perfil");
+    navigation.navigate("ProfileScreen");
   };
 
   useEffect(() => {
     const fetchData = async () => {
       // Get all of the categories
-      const data = await retornarCategorias();
+      const data = await CategoriaServices.retornarCategorias();
       const radioProps: RadioButtonProps[] = [];
       // Sorts and adds the categories to the radio button list
       data
@@ -42,6 +55,7 @@ const SelectService: FC = () => {
           radioProps.push({ label: titulo, value: id })
         );
       setRadioButtonItems(radioProps);
+      setCheckedValue(radioProps[0].value);
     };
     fetchData();
   }, []);
