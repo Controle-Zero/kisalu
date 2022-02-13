@@ -26,6 +26,7 @@ interface AuthContextType {
   signUpProvider(providerData: CadastroProvedorFormType): Promise<void>;
   signUpClient(clientData: CadastroClienteFormType): Promise<void>;
   error: unknown | null;
+  token: string;
 }
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
@@ -35,6 +36,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown | null>(null);
   const [userTypeState, setUserTypeState] = useState<string>("");
+  const [userToken, setUserToken] = useState("");
 
   useEffect(() => {
     async function loadStorageData() {
@@ -47,6 +49,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
         if (storageUser && storageToken) {
           setUser(JSON.parse(storageUser));
+          setUserToken(storageToken);
           setUserTypeState(userType);
         }
       } catch (error) {
@@ -83,6 +86,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       await AsyncStorage.setItem("@UnionServices:userType", userType);
       setError(null);
       setUser(user);
+      setUserToken(token);
     } catch (error) {
       console.error(error);
       setError(error);
@@ -95,6 +99,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     AsyncStorage.clear().then(() => {
       setUser(null);
       setError(null);
+      setUserToken("");
     });
   }
 
@@ -177,6 +182,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         signUpClient,
         signUpProvider,
         userType: userTypeState,
+        token: userToken,
       }}
     >
       {children}
