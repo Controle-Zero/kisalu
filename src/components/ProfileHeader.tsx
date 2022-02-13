@@ -4,11 +4,10 @@ import { Avatar } from "react-native-paper";
 import { TextStyles } from "../styles/appTheme";
 
 interface Props {
-  profileImage: string;
   name: string;
 }
 
-const ProfileHeader: FC<Props> = ({ name, profileImage }) => {
+const ProfileHeader: FC<Props> = ({ name }) => {
   return (
     <View style={styles.container}>
       <Avatar.Image
