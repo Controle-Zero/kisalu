@@ -15,7 +15,7 @@ const Atividades = () => {
   return (
     <View>
       <FlatList
-        data={user?.atividades}
+        data={[]}
         renderItem={({ item: activity }) => (
           <ActivityCard activity={activity} />
         )}
@@ -32,7 +32,7 @@ const Atividades = () => {
 
 const ListEmpty = () => (
   <View style={emptyActivitiesStyle.container}>
-    <NoDataSVG width={213} height={208} />
+    <NoDataSVG style={emptyActivitiesStyle.image} />
     <Spacer height={50} />
     <Text style={emptyActivitiesStyle.text}>Não possui atividades</Text>
   </View>
@@ -46,6 +46,10 @@ const emptyActivitiesStyle = StyleSheet.create({
   text: {
     fontFamily: TextStyles.heading1.fontRegular,
     fontSize: 24,
+  },
+  image: {
+    height: 208,
+    width: "60%",
   },
 });
 
