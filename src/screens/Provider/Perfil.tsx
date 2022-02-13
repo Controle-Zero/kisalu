@@ -11,6 +11,8 @@ import { Colors, TextStyles } from "../../styles/appTheme";
 import ListTile from "../../components/ListTile";
 import Spacer from "../../components/layout/Spacer";
 import Button from "../../components/buttons/Button";
+import { FAB } from "react-native-paper";
+import { ProfileNavProps } from "../../routes/types/Provider/ProfileParamsList";
 
 const Icons = {
   birthDate: "calendar-blank",
@@ -29,7 +31,9 @@ type ProfileDataType = {
   icon: string;
 }[];
 
-export default function Perfil() {
+const Perfil: (navProps: ProfileNavProps<"ProfileScreen">) => JSX.Element = ({
+  navigation,
+}) => {
   const { user, signOut } = useAuth();
   const {
     nome,
@@ -88,24 +92,31 @@ export default function Perfil() {
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <ProfileHeader name={nome} profileImage="no-profile.png" />
-      <View style={styles.innerContainer}>
-        <AboutMe description={descricao} />
-        <Details profileData={profileData} />
-        <Rating rating={classificacao} />
-        <Spacer height={20} />
-        <Button
-          onPress={handleSignOut}
-          text="Sair"
-          icon={Icons.logout}
-          width="60%"
-        />
-        <Spacer height={20} />
-      </View>
-    </ScrollView>
+    <>
+      <ScrollView style={styles.container}>
+        <ProfileHeader name={nome} />
+        <View style={styles.innerContainer}>
+          <AboutMe description={descricao} />
+          <Details profileData={profileData} />
+          <Rating rating={classificacao} />
+          <Spacer height={20} />
+          <Button
+            onPress={handleSignOut}
+            text="Sair"
+            icon={Icons.logout}
+            width="60%"
+          />
+          <Spacer height={20} />
+        </View>
+      </ScrollView>
+      <FAB
+        icon="plus"
+        onPress={() => navigation.navigate("SelectServiceScreen")}
+        style={styles.fab}
+      />
+    </>
   );
-}
+};
 
 const AboutMe: FC<{ description: string }> = ({ description }) => (
   <>
@@ -171,4 +182,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: TextStyles.heading1.fontMedium,
   },
+  fab: {
+    position: "absolute",
+    margin: 30,
+    right: 0,
+    bottom: 0,
+    backgroundColor: Colors.primary,
+  },
 });
+
+export default Perfil;

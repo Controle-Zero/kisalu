@@ -6,7 +6,7 @@ import useAuth from "../contexts/AuthContext";
 import { ProviderParamsList } from "./types/ProviderParamsList";
 import { Colors, TextStyles } from "../styles/appTheme";
 import Home from "../screens/Provider/Home";
-import Perfil from "../screens/Provider/Perfil";
+import ProfileStack from "./ProviderStack/ProfileStack";
 
 const BottomTab = createBottomTabNavigator<ProviderParamsList>();
 
@@ -44,7 +44,7 @@ const ProvedorRoutes = () => {
       backBehavior="none"
     >
       <BottomTab.Screen name="Home" component={Home} />
-      <BottomTab.Screen name="Perfil" component={Perfil} />
+      <BottomTab.Screen name="Perfil" component={ProfileStack} />
     </BottomTab.Navigator>
   );
 };
