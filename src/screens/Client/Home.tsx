@@ -21,7 +21,7 @@ const Home: (navProps: HomeNavProps<"HomeScreen">) => JSX.Element = ({
   useEffect(() => {
     setLoading(true);
     async function getActivities() {
-      const response = (await retornarCategorias()).categorias;
+      const response = await retornarCategorias();
       const filteredCategories = response.filter((category) => {
         if (!searchQuery) return category;
         else if (
