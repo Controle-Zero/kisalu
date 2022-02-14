@@ -6,15 +6,17 @@ import {
   Modal,
   Pressable,
 } from "react-native";
+
 import ProfileHeader from "../../components/ProfileHeader";
 import Button from "../../components/buttons/Button";
 import Spacer from "../../components/layout/Spacer";
 import ListTile from "../../components/ListTile";
 import { Colors, TextStyles } from "../../styles/appTheme";
-import React, { Fragment, useState } from "react";
+import React, { FC, Fragment, useState } from "react";
 import { HomeNavProps } from "../../routes/types/Cliente/HomeParamsList";
 import TextArea from "../../components/input/TextArea";
 import useAuth from "../../contexts/AuthContext";
+import * as Socket from "../../config/webSocket";
 
 const ClientProvedor: (
   navProps: HomeNavProps<"ProviderProfile">
@@ -36,12 +38,20 @@ const ClientProvedor: (
   const { nome, email, telefone, descricao, estado } = route.params.provider;
 
   const handleActivityRequest = () => {
-    console.log(
-      `User ${user?.nome} requested the ${
-        route.params.provider.nome
-      } for the service ${"None"} with the following description:`
-    );
-    console.log(text);
+    const idCliente = user?.id;
+    const idProvedor = route.params.provider.id;
+    const idCategoria = route.params.categoryId;
+
+    const socket = Socket.initConnection({
+      idCliente,
+      idProvedor,
+    });
+    socket.emit(`request:${route.params.provider.id}`, {
+      idCliente,
+      idProvedor,
+      idCategoria,
+      descricao: text,
+    });
     setModal2Open(false);
   };
 
