@@ -1,11 +1,12 @@
-import React, { FC, useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+
+import RadioForm from "react-native-simple-radio-button";
+
 import { Colors, TextStyles } from "../../styles/appTheme";
 import * as CategoriaServices from "../../services/categoria.services";
-import RadioForm from "react-native-simple-radio-button";
 import Button from "../../components/buttons/Button";
 import Spacer from "../../components/layout/Spacer";
-import { ScrollView } from "react-native-gesture-handler";
 import useAuth from "../../contexts/AuthContext";
 import * as ProvedorServices from "../../services/provedor.services";
 import { ProfileNavProps } from "../../routes/types/Provider/ProfileParamsList";
@@ -19,7 +20,7 @@ type RadioButtonProps = {
 const SelectService: (
   navProps: ProfileNavProps<"SelectServiceScreen">
 ) => JSX.Element = ({ navigation }) => {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   // The list of radio button itens
   const [radioButtonItems, setRadioButtonItems] = useState<RadioButtonProps[]>(
     []
@@ -36,7 +37,7 @@ const SelectService: (
     console.log(checkedValue);
 
     await ProvedorServices.adicionarCategoriasProvedor([checkedValue], token);
-    alert("Categoria adicionado no seu perfil");
+    alert("Categoria adicionada no seu perfil");
     navigation.navigate("ProfileScreen");
   };
 
@@ -45,8 +46,14 @@ const SelectService: (
       // Get all of the categories
       const data = await CategoriaServices.retornarCategorias();
       const radioProps: RadioButtonProps[] = [];
-      // Sorts and adds the categories to the radio button list
+      // Filter only the available categories, sorts them and adds the categories to the radio button list
       data
+        .filter(
+          (category) =>
+            !category.prestadores.some(
+              ({ prestador }: any) => prestador.id === user?.id
+            )
+        )
         .sort((categoryA, categoryB) =>
           categoryA.titulo.localeCompare(categoryB.titulo)
         )
