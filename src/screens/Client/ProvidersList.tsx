@@ -41,12 +41,12 @@ const ProvidersList: (
                 />
               )}
               title={prestador.nome}
-              description={`Avaliação: ${prestador.rate}\nNº de Avaliações: ${prestador.numAvaliacoes}`}
             />
           </TouchableRipple>
         )}
         data={prestadores}
         ItemSeparatorComponent={() => <Spacer height={10} />}
+        keyExtractor={({ prestador }) => prestador.id}
       />
     </View>
   );

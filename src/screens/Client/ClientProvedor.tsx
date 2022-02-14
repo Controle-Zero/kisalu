@@ -9,18 +9,18 @@ import {
 } from "react-native";
 import ProfileHeader from "../../components/ProfileHeader";
 import Button from "../../components/buttons/Button";
-import useAuth from "../../contexts/AuthContext";
-import Cliente from "../../models/Cliente";
 import Spacer from "../../components/layout/Spacer";
 import ListTile from "../../components/ListTile";
 import { Colors, TextStyles } from "../../styles/appTheme";
 import React, { Fragment, useState } from "react";
+import { HomeNavProps } from "../../routes/types/Cliente/HomeParamsList";
 
-const ClientProvedor = () => {
-  const { signOut, user } = useAuth();
+const ClientProvedor: (
+  navProps: HomeNavProps<"ProviderProfile">
+) => JSX.Element = ({ route }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modal2Open, setModal2Open] = useState(false);
-  const [text, setText] = useState(" ");
+  const [text, setText] = useState("");
 
   const Icons = {
     birthDate: "calendar-blank",
@@ -30,14 +30,9 @@ const ClientProvedor = () => {
     bi: "card-bulleted",
     logout: "logout",
   };
-  const {
-    nome,
-    dataNasc: unformattedDate,
-    bi,
-    email,
-    morada,
-    telefone,
-  } = user as Cliente;
+
+  const { nome, email, telefone, descricao, estado } = route.params.provider;
+
   const spaceBetweenTiles = 10;
   const profileData = [
     {
@@ -45,16 +40,15 @@ const ClientProvedor = () => {
       text: email,
       icon: Icons.email,
     },
-
     {
-      label: "BI",
-      text: bi,
-      icon: Icons.bi,
+      label: "Telefone",
+      text: telefone,
+      icon: Icons.phone,
     },
     {
-      label: "Morada",
-      text: morada,
-      icon: Icons.address,
+      label: "Estado",
+      text: estado,
+      icon: Icons.bi,
     },
   ];
 
@@ -110,7 +104,8 @@ const ClientProvedor = () => {
         </View>
       </Modal>
 
-      <ProfileHeader name={"Almir Major"} profileImage="no-profile.png" />
+      <ProfileHeader name={nome} profileImage="no-profile.png" />
+      <Spacer height={10} />
       <Button
         onPress={() => setModalOpen(true)}
         text="Entrar em contacto"
@@ -124,7 +119,7 @@ const ClientProvedor = () => {
             <ListTile
               label={label}
               icon={icon}
-              text={text}
+              text={text || "Sem estado"}
               iconBackgroundColor={Colors.lightPrimary}
               iconColor={Colors.secondary}
             />
