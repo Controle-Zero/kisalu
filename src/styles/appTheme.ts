@@ -10,6 +10,11 @@ export const TextStyles = {
     fontSize: 22,
     lineHeight: 37,
   },
+  heading3: {
+    font: "Poppins_400Regular",
+    fontSize: 18,
+    lineHeight: 37,
+  },
   button: {
     font: "Poppins_400Regular",
     fontSize: 18,
