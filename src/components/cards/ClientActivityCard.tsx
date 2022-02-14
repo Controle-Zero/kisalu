@@ -9,7 +9,7 @@ interface Props {
   activity: Atividade;
 }
 
-const ActivityCard: FC<Props> = ({ activity }) => {
+const ClientActivityCard: FC<Props> = ({ activity }) => {
   return (
     <View style={styles.container}>
       <Content>
@@ -51,7 +51,7 @@ const Actions: FC = ({ children }) => (
   <View style={styles.actionsContainer}>{children}</View>
 );
 
-export default ActivityCard;
+export default ClientActivityCard;
 
 const styles = StyleSheet.create({
   container: {

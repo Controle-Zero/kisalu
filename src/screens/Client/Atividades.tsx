@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
 import NoDataSVG from "../../assets/svg/NoDataSVG";
-import ActivityCard from "../../components/cards/ActivityCard";
+import ClientActivityCard from "../../components/cards/ClientActivityCard";
 import Spacer from "../../components/layout/Spacer";
 import useAuth from "../../contexts/AuthContext";
 import Atividade from "../../models/Atividade";
@@ -19,7 +19,7 @@ const Atividades = () => {
       <FlatList
         data={[]}
         renderItem={({ item: activity }) => (
-          <ActivityCard activity={activity} />
+          <ClientActivityCard activity={activity} />
         )}
         ItemSeparatorComponent={() => <Spacer height={26} />}
         endFillColor={Colors.primary}
