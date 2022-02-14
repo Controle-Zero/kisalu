@@ -9,7 +9,7 @@ import { Colors } from "../../styles/appTheme";
 const ProvidersList: (
   navigationProps: HomeNavProps<"ProvidersList">
 ) => JSX.Element = ({ route, navigation }) => {
-  const { prestadores } = route.params.category;
+  const { prestadores, id } = route.params.category;
 
   function getRandomColor() {
     let randomColor = "";
@@ -25,7 +25,10 @@ const ProvidersList: (
         renderItem={({ item: { prestador } }) => (
           <TouchableRipple
             onPress={() =>
-              navigation.navigate("ProviderProfile", { provider: prestador })
+              navigation.navigate("ProviderProfile", {
+                provider: prestador,
+                categoryId: id,
+              })
             }
           >
             <List.Item

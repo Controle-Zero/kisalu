@@ -116,7 +116,7 @@ const ClientProvedor: (
         </View>
       </Modal>
 
-      <ProfileHeader name={nome} profileImage="no-profile.png" />
+      <ProfileHeader name={nome} />
       <Spacer height={10} />
       <Button
         onPress={() => setModalOpen(true)}
@@ -139,10 +139,19 @@ const ClientProvedor: (
           </Fragment>
         ))}
         <Spacer height={10} />
+        <AboutMe description={descricao} />
       </View>
     </ScrollView>
   );
 };
+
+const AboutMe: FC<{ description: string }> = ({ description }) => (
+  <>
+    <Text style={styles.heading2}>Sobre Mim</Text>
+    <Text>{description}</Text>
+    <Spacer height={10} />
+  </>
+);
 
 const styles = StyleSheet.create({
   container: {

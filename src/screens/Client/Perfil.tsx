@@ -67,7 +67,7 @@ const Perfil = () => {
 
   return (
     <ScrollView style={style.container}>
-      <ProfileHeader name={nome} profileImage="no-profile.png" />
+      <ProfileHeader name={nome} />
       <View style={style.innerContainer}>
         <Text style={style.heading2}>Informações Detalhadas</Text>
         {profileData.map(({ icon, label, text }, index) => (
