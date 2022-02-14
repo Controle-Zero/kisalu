@@ -74,18 +74,32 @@ const SelectService: (
         encontrado
       </Text>
       <View style={styles.innerContainer}>
-        <Button onPress={handleSelectCategory} text="Confirmar" width="50%" />
-        <Spacer height={20} />
-        <ScrollView style={{ height: "65%" }}>
-          <RadioForm
-            buttonColor={Colors.primary}
-            radio_props={radioButtonItems}
-            initial={0}
-            onPress={(value) => {
-              setCheckedValue(value);
-            }}
-          />
-        </ScrollView>
+        {radioButtonItems.length == 0 ? (
+          <View style={styles.noServicesContainer}>
+            <Text style={styles.noServicesText}>
+              Não existem serviços disponíveis
+            </Text>
+          </View>
+        ) : (
+          <>
+            <Button
+              onPress={handleSelectCategory}
+              text="Confirmar"
+              width="50%"
+            />
+            <Spacer height={20} />
+            <ScrollView style={{ height: "65%" }}>
+              <RadioForm
+                buttonColor={Colors.primary}
+                radio_props={radioButtonItems}
+                initial={0}
+                onPress={(value) => {
+                  setCheckedValue(value);
+                }}
+              />
+            </ScrollView>
+          </>
+        )}
       </View>
     </View>
   );
@@ -113,6 +127,15 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     borderTopStartRadius: 40,
     borderTopEndRadius: 40,
+  },
+  noServicesContainer: {
+    height: "80%",
+    justifyContent: "center",
+  },
+  noServicesText: {
+    fontSize: 20,
+    textAlign: "center",
+    fontFamily: TextStyles.heading1.fontRegular,
   },
 });
 
