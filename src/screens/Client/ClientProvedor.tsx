@@ -5,7 +5,6 @@ import {
   ScrollView,
   Modal,
   Pressable,
-  TextInput,
 } from "react-native";
 import ProfileHeader from "../../components/ProfileHeader";
 import Button from "../../components/buttons/Button";
@@ -14,10 +13,13 @@ import ListTile from "../../components/ListTile";
 import { Colors, TextStyles } from "../../styles/appTheme";
 import React, { Fragment, useState } from "react";
 import { HomeNavProps } from "../../routes/types/Cliente/HomeParamsList";
+import TextArea from "../../components/input/TextArea";
+import useAuth from "../../contexts/AuthContext";
 
 const ClientProvedor: (
   navProps: HomeNavProps<"ProviderProfile">
 ) => JSX.Element = ({ route }) => {
+  const { user } = useAuth();
   const [modalOpen, setModalOpen] = useState(false);
   const [modal2Open, setModal2Open] = useState(false);
   const [text, setText] = useState("");
@@ -32,6 +34,16 @@ const ClientProvedor: (
   };
 
   const { nome, email, telefone, descricao, estado } = route.params.provider;
+
+  const handleActivityRequest = () => {
+    console.log(
+      `User ${user?.nome} requested the ${
+        route.params.provider.nome
+      } for the service ${"None"} with the following description:`
+    );
+    console.log(text);
+    setModal2Open(false);
+  };
 
   const spaceBetweenTiles = 10;
   const profileData = [
@@ -54,7 +66,7 @@ const ClientProvedor: (
 
   return (
     <ScrollView style={styles.container}>
-      <Modal visible={modalOpen} animationType="slide">
+      <Modal visible={modalOpen} animationType="fade">
         <View style={styles.container1}>
           <Text style={styles.modalHeading}>Pedir serviço</Text>
           <Text style={styles.descricao}>
@@ -69,7 +81,7 @@ const ClientProvedor: (
                 setModalOpen(false);
               }}
             >
-              <Text> Sim</Text>
+              <Text>Sim</Text>
             </Pressable>
             <Spacer width={20} />
             <Pressable style={styles.btn} onPress={() => setModalOpen(false)}>
@@ -86,14 +98,14 @@ const ClientProvedor: (
             Faça uma breve descrição do que pretende para que o prestador possa
             fazer um orçamento estimado
           </Text>
-
-          <TextInput
-            style={styles.input}
-            placeholder="Escreva"
+          <TextArea
+            label=""
+            value={text}
+            placeholder="Escreva a sua necessidade"
             onChangeText={(val) => setText(val)}
           />
           <View style={styles.actions}>
-            <Pressable style={styles.btn} onPress={() => setModal2Open(true)}>
+            <Pressable style={styles.btn} onPress={handleActivityRequest}>
               <Text>Requisitar</Text>
             </Pressable>
             <Spacer width={20} />
@@ -175,12 +187,11 @@ const styles = StyleSheet.create({
     height: "20%",
   },
   container1: {
-    paddingVertical: 30,
     paddingHorizontal: 42,
-    marginTop: "50%",
+    marginTop: "30%",
   },
   btn: {
-    height: 30,
+    height: 40,
     width: "45%",
     backgroundColor: Colors.primary,
     borderRadius: 10,
