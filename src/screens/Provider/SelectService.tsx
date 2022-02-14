@@ -33,10 +33,9 @@ const SelectService: (
       alert("Selecione uma categoria");
       return;
     }
-    await ProvedorServices.adicionarCategoriasProvedor(
-      [...checkedValue],
-      token
-    );
+    console.log(checkedValue);
+
+    await ProvedorServices.adicionarCategoriasProvedor([checkedValue], token);
     alert("Categoria adicionado no seu perfil");
     navigation.navigate("ProfileScreen");
   };

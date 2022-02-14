@@ -62,10 +62,12 @@ export async function putCategorias(idCategorias: string[], token: string) {
     const response = await axios.put(
       `${apiConfig.baseUrl}/prestador/categorias`,
       {
+        idCategorias,
+      },
+      {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        idCategorias,
       }
     );
     return response.data;
