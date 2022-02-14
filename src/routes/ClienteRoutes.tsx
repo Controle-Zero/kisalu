@@ -8,6 +8,7 @@ import { ClienteParamsList } from "./types/ClienteParamsList";
 import { Colors, TextStyles } from "../styles/appTheme";
 import HomeStack from "./ClienteStack/HomeStack";
 import ActivityStack from "./ClienteStack/ActivityStack";
+import ClientProvedor from "../screens/Client/ClientProvedor";
 
 const BottomTab = createBottomTabNavigator<ClienteParamsList>();
 
