@@ -7,10 +7,13 @@ import NoDataSVG from "../../assets/svg/NoDataSVG";
 import * as ProvedorServices from "../../services/provedor.services";
 import useAuth from "../../contexts/AuthContext";
 import ProviderActivityCard from "../../components/cards/ProviderActivityCard";
+import { useCustomBottomSheetModal } from "../../hooks/useCustomBottomSheetModal";
+import BudgetModal from "../../components/modals/BudgetModal";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 const Home = () => {
   const [activities, setActivities] = useState<Atividade[]>([]);
-
+  const { reference, onModalShown } = useCustomBottomSheetModal();
   const { token } = useAuth();
   useEffect(() => {
     const fetchData = async () => {
@@ -22,33 +25,42 @@ const Home = () => {
   }, []);
 
   const handleApplyActivity = (activityId: string) => {
+    onModalShown();
     console.log(activityId);
   };
 
   const handleRejectActivity = (activityId: string) => {
     console.log(activityId);
   };
+
+  const handleActivityBudget = (budget: string) => {
+    console.log(budget);
+  };
+
   return (
-    <View>
-      <Spacer height={10} />
-      <Text style={style.heading1}>Atividades</Text>
-      <FlatList
-        data={activities}
-        renderItem={({ item: activity }) => (
-          <ProviderActivityCard
-            activity={activity}
-            onApplyActivity={handleApplyActivity}
-            onRejectActivity={handleRejectActivity}
-          />
-        )}
-        ItemSeparatorComponent={() => <Spacer height={26} />}
-        endFillColor={Colors.primary}
-        ListHeaderComponent={() => <Spacer height={10} />}
-        ListFooterComponent={() => <Spacer height={60} />}
-        keyExtractor={(activity) => (activity as Atividade).id}
-        ListEmptyComponent={() => <ListEmpty />}
-      />
-    </View>
+    <BottomSheetModalProvider>
+      <View>
+        <Spacer height={10} />
+        <Text style={style.heading1}>Atividades</Text>
+        <FlatList
+          data={activities}
+          renderItem={({ item: activity }) => (
+            <ProviderActivityCard
+              activity={activity}
+              onApplyActivity={handleApplyActivity}
+              onRejectActivity={handleRejectActivity}
+            />
+          )}
+          ItemSeparatorComponent={() => <Spacer height={26} />}
+          endFillColor={Colors.primary}
+          ListHeaderComponent={() => <Spacer height={10} />}
+          ListFooterComponent={() => <Spacer height={60} />}
+          keyExtractor={(activity) => (activity as Atividade).id}
+          ListEmptyComponent={() => <ListEmpty />}
+        />
+      </View>
+      <BudgetModal reference={reference} onBudgetApply={handleActivityBudget} />
+    </BottomSheetModalProvider>
   );
 };
 
