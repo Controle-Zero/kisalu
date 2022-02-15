@@ -4,22 +4,39 @@ import Button from "../buttons/Button";
 import Spacer from "../layout/Spacer";
 import { Colors, TextStyles } from "../../styles/appTheme";
 import Atividade from "../../models/Atividade";
+import useAuth from "../../contexts/AuthContext";
+import Cliente from "../../models/Cliente";
+import { formatDate } from "../../utils/dateFormatter";
 
 interface Props {
   activity: Atividade;
 }
 
 const ClientActivityCard: FC<Props> = ({ activity }) => {
+  const {
+    Categoria: { titulo },
+    Prestador: { nome },
+    estado,
+    valorAssociado,
+    dataCriado,
+  } = activity;
+  const { user } = useAuth();
+  const { morada } = user as Cliente;
+
   return (
     <View style={styles.container}>
       <Content>
-        <LeftContent />
-        <RightContent />
+        <LeftContent name={nome} categoryName={titulo} localizacao={morada} />
+        <RightContent
+          dataCriada={formatDate(new Date(dataCriado))}
+          estado={estado}
+          valorAssociado={valorAssociado}
+        />
       </Content>
       <Actions>
         <Button text="Cancelar" width="40%" onPress={() => {}} />
-        <Spacer width={10} />
-        <Button text="Ver mais" width="40%" onPress={() => {}} />
+        {/* <Spacer width={10} /> */}
+        {/* <Button text="Aceitar" width="40%" onPress={() => {}} /> */}
       </Actions>
     </View>
   );
@@ -29,21 +46,46 @@ const Content: FC = ({ children }) => (
   <View style={styles.contentContainer}>{children}</View>
 );
 
-const LeftContent: FC = () => (
+interface LeftContentProps {
+  name: string;
+  categoryName: string;
+  localizacao: string;
+}
+
+const LeftContent: FC<LeftContentProps> = ({
+  name,
+  categoryName,
+  localizacao,
+}) => (
   <View style={styles.content}>
-    <Text style={[styles.text, styles.textPrimaryColor]}>Categoria</Text>
-    <Text style={styles.text}>Nome do Provedor</Text>
-    <Text style={styles.text}>Localização</Text>
+    <Text style={[styles.text, styles.textPrimaryColor]}>{categoryName}</Text>
+    <Text style={styles.text}>{name}</Text>
+    <Text style={styles.text}>{localizacao}</Text>
   </View>
 );
 
-const RightContent: FC = () => (
+interface RightContentProps {
+  estado: string;
+  valorAssociado: number;
+  dataCriada: string;
+}
+
+const RightContent: FC<RightContentProps> = ({
+  dataCriada,
+  estado,
+  valorAssociado,
+}) => (
   <View style={[styles.content, { alignItems: "flex-end" }]}>
     <Text style={styles.text}>
-      Estado: <Text style={styles.textPrimaryColor}>Ativa</Text>
+      Estado: <Text style={styles.textPrimaryColor}>{estado}</Text>
     </Text>
-    <Text style={styles.text}>xx,xx Kzs/h</Text>
-    <Text style={styles.text}>Data</Text>
+    {estado !== "PENDENTE" ? (
+      <Text style={styles.text}>{valorAssociado} Kzs</Text>
+    ) : (
+      <Text style={styles.text}>Valor não informado</Text>
+    )}
+
+    <Text style={styles.text}>{dataCriada}</Text>
   </View>
 );
 

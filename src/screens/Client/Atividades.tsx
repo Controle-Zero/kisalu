@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
@@ -7,17 +7,28 @@ import ClientActivityCard from "../../components/cards/ClientActivityCard";
 import Spacer from "../../components/layout/Spacer";
 import useAuth from "../../contexts/AuthContext";
 import Atividade from "../../models/Atividade";
+import { retornarAtividades } from "../../services/cliente.services";
 import { Colors, TextStyles } from "../../styles/appTheme";
 
 const Atividades = () => {
-  const { user } = useAuth();
+  const { token } = useAuth();
+  const [activities, setActivities] = useState<Atividade[]>([]);
 
-  console.log(user?.atividades);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await retornarAtividades(token);
+      console.log(data);
+
+      setActivities(data);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <View>
       <FlatList
-        data={[]}
+        data={activities}
         renderItem={({ item: activity }) => (
           <ClientActivityCard activity={activity} />
         )}
@@ -25,7 +36,7 @@ const Atividades = () => {
         endFillColor={Colors.primary}
         ListHeaderComponent={() => <Spacer height={10} />}
         ListFooterComponent={() => <Spacer height={10} />}
-        keyExtractor={(activity) => (activity as Atividade).categoriaId}
+        keyExtractor={(activity) => (activity as Atividade).id}
         ListEmptyComponent={() => <ListEmpty />}
       />
     </View>
