@@ -1,9 +1,11 @@
+import Cliente from "./Cliente";
+
 export default interface Atividade {
   Categoria: {
     id: string;
     titulo: string;
   };
-  Prestador: {
+  Prestador?: {
     bi: string;
     email: string;
     iban: string;
@@ -12,11 +14,12 @@ export default interface Atividade {
     rate: number;
     telefone: string;
   };
+  Cliente?: Cliente;
   id: string;
   dataCriado: Date;
   dataFinalizado: Date;
   valorAssociado: number;
-  idCliente?: string;
   numRef: number;
   estado: string;
+  descricao: string;
 }

@@ -43,7 +43,11 @@ const ProvedorRoutes = () => {
       })}
       backBehavior="none"
     >
-      <BottomTab.Screen name="Home" component={Home} />
+      <BottomTab.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShown: true, headerTitle: user?.nome }}
+      />
       <BottomTab.Screen name="Perfil" component={ProfileStack} />
     </BottomTab.Navigator>
   );

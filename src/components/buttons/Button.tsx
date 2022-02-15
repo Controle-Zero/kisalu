@@ -8,6 +8,8 @@ import Spacer from "../layout/Spacer";
 interface Props {
   text: string;
   isPrimaryColor?: boolean;
+  textColor?: string;
+  color?: string;
   width?: number | string;
   icon?: string;
   onPress: () => void;
@@ -18,6 +20,8 @@ const Button: FC<Props> = ({
   isPrimaryColor = true,
   width = "100%",
   icon,
+  color = Colors.primary,
+  textColor = Colors.black,
   onPress,
 }) => {
   const styles = StyleSheet.create({
@@ -25,7 +29,7 @@ const Button: FC<Props> = ({
       borderRadius: 10,
       paddingVertical: 2,
       paddingHorizontal: 15,
-      backgroundColor: isPrimaryColor ? Colors.primary : Colors.secondary,
+      backgroundColor: isPrimaryColor ? color : Colors.secondary,
       width,
       shadowColor: Colors.black,
       shadowOffset: {
@@ -43,7 +47,7 @@ const Button: FC<Props> = ({
       fontFamily: TextStyles.button.font,
       fontSize: 14,
       lineHeight: TextStyles.button.lineHeight,
-      color: isPrimaryColor ? Colors.black : Colors.white,
+      color: isPrimaryColor ? textColor : Colors.white,
       textAlign: "center",
     },
     icon: {
