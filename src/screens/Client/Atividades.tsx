@@ -9,28 +9,43 @@ import useAuth from "../../contexts/AuthContext";
 import Atividade from "../../models/Atividade";
 import { retornarAtividades } from "../../services/cliente.services";
 import { Colors, TextStyles } from "../../styles/appTheme";
+import * as WebSocket from "../../config/webSocket";
 
 const Atividades = () => {
   const { token } = useAuth();
   const [activities, setActivities] = useState<Atividade[]>([]);
+  const socket = WebSocket.initConnection({
+    idCliente: undefined,
+    idProvedor: undefined,
+  });
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await retornarAtividades(token);
-      console.log(data);
-
       setActivities(data);
     };
 
     fetchData();
-  }, []);
+  }, [token]);
+
+  const handleActivityCancel = (activityId: string) => {
+    const newActivity = activities.find(
+      (activity) => activity.id === activityId
+    );
+    if (!newActivity) return;
+    newActivity.estado = "CANCELADA";
+    socket.emit("response", newActivity);
+  };
 
   return (
     <View>
       <FlatList
         data={activities}
         renderItem={({ item: activity }) => (
-          <ClientActivityCard activity={activity} />
+          <ClientActivityCard
+            activity={activity}
+            onActivityCancel={handleActivityCancel}
+          />
         )}
         ItemSeparatorComponent={() => <Spacer height={26} />}
         endFillColor={Colors.primary}

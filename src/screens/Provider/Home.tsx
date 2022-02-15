@@ -47,7 +47,15 @@ const Home = () => {
     socket.emit("response", newActivity);
   };
 
-  const handleRejectActivity = (activityId: string) => {};
+  const handleRejectActivity = (activityId: string) => {
+    const newActivity = activities.find(
+      (activity) => activity.id === activityId
+    );
+    if (!newActivity) return;
+    newActivity.estado = "CANCELADA";
+    console.log(newActivity);
+    socket.emit("response", newActivity);
+  };
 
   const handleActivityBudget = (strBudget: string) => {
     budget = Number.parseFloat(strBudget);

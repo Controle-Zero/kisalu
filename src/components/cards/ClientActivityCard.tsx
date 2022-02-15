@@ -10,15 +10,17 @@ import { formatDate } from "../../utils/dateFormatter";
 
 interface Props {
   activity: Atividade;
+  onActivityCancel: (activityId: string) => void;
 }
 
-const ClientActivityCard: FC<Props> = ({ activity }) => {
+const ClientActivityCard: FC<Props> = ({ activity, onActivityCancel }) => {
   const {
     Categoria: { titulo },
     Prestador: { nome },
     estado,
     valorAssociado,
     dataCriado,
+    id,
   } = activity;
   const { user } = useAuth();
   const { morada } = user as Cliente;
@@ -34,7 +36,13 @@ const ClientActivityCard: FC<Props> = ({ activity }) => {
         />
       </Content>
       <Actions>
-        <Button text="Cancelar" width="40%" onPress={() => {}} />
+        <Button
+          text="Cancelar"
+          width="40%"
+          onPress={() => {
+            onActivityCancel(id);
+          }}
+        />
         {/* <Spacer width={10} /> */}
         {/* <Button text="Aceitar" width="40%" onPress={() => {}} /> */}
       </Actions>

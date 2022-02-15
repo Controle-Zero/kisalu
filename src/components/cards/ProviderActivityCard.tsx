@@ -25,6 +25,7 @@ const ProviderActivityCard: FC<Props> = ({
     descricao,
     dataCriado,
     id,
+    estado,
   } = activity;
   const { nome, morada } = Cliente as Cliente;
 
@@ -44,11 +45,13 @@ const ProviderActivityCard: FC<Props> = ({
         </Text>
       </View>
       <View style={styles.actionsContainer}>
-        <Button
-          text="Aplicar"
-          onPress={() => onApplyActivity(id)}
-          width="40%"
-        />
+        {estado !== "ATIVA" && (
+          <Button
+            text="Aplicar"
+            onPress={() => onApplyActivity(id)}
+            width="40%"
+          />
+        )}
         <Spacer width={20} />
         <Button
           text="Rejeitar"
