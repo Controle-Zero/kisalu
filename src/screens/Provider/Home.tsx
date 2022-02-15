@@ -21,6 +21,13 @@ const Home = () => {
     fetchData();
   }, []);
 
+  const handleApplyActivity = (activityId: string) => {
+    console.log(activityId);
+  };
+
+  const handleRejectActivity = (activityId: string) => {
+    console.log(activityId);
+  };
   return (
     <View>
       <Spacer height={10} />
@@ -28,7 +35,11 @@ const Home = () => {
       <FlatList
         data={activities}
         renderItem={({ item: activity }) => (
-          <ProviderActivityCard activity={activity} />
+          <ProviderActivityCard
+            activity={activity}
+            onApplyActivity={handleApplyActivity}
+            onRejectActivity={handleRejectActivity}
+          />
         )}
         ItemSeparatorComponent={() => <Spacer height={26} />}
         endFillColor={Colors.primary}

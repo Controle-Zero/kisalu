@@ -10,14 +10,21 @@ import Spacer from "../layout/Spacer";
 
 interface Props {
   activity: Atividade;
+  onApplyActivity: (activityId: string) => void;
+  onRejectActivity: (activityId: string) => void;
 }
 
-const ProviderActivityCard: FC<Props> = ({ activity }) => {
+const ProviderActivityCard: FC<Props> = ({
+  activity,
+  onApplyActivity,
+  onRejectActivity,
+}) => {
   const {
     Categoria: { titulo },
     Cliente,
     descricao,
     dataCriado,
+    id,
   } = activity;
   const { nome, morada } = Cliente as Cliente;
 
@@ -39,7 +46,7 @@ const ProviderActivityCard: FC<Props> = ({ activity }) => {
       <View style={styles.actionsContainer}>
         <Button
           text="Aplicar"
-          onPress={() => console.log("Apply")}
+          onPress={() => onApplyActivity(id)}
           width="40%"
         />
         <Spacer width={20} />
@@ -47,7 +54,7 @@ const ProviderActivityCard: FC<Props> = ({ activity }) => {
           text="Rejeitar"
           color={Colors.danger}
           textColor={Colors.white}
-          onPress={() => console.log("Ver mais")}
+          onPress={() => onRejectActivity(id)}
           width="40%"
         />
       </View>
