@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Colors, TextStyles } from "../../styles/appTheme";
 import Spacer from "../../components/layout/Spacer";
 import Atividade from "../../models/Atividade";
@@ -10,11 +10,17 @@ import ProviderActivityCard from "../../components/cards/ProviderActivityCard";
 import { useCustomBottomSheetModal } from "../../hooks/useCustomBottomSheetModal";
 import BudgetModal from "../../components/modals/BudgetModal";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import * as Socket from "../../config/webSocket";
 
 const Home = () => {
   const [activities, setActivities] = useState<Atividade[]>([]);
+  let budget = useRef(0).current;
   const { reference, onModalShown } = useCustomBottomSheetModal();
   const { token } = useAuth();
+  const socket = Socket.initConnection({
+    idProvedor: undefined,
+    idCliente: undefined,
+  });
   useEffect(() => {
     const fetchData = async () => {
       const data = await ProvedorServices.retornarAtividades(token);
@@ -22,19 +28,29 @@ const Home = () => {
       setActivities(data);
     };
     fetchData();
-  }, []);
+  }, [token]);
 
   const handleApplyActivity = (activityId: string) => {
     onModalShown();
-    console.log(activityId);
-  };
-
-  const handleRejectActivity = (activityId: string) => {
-    console.log(activityId);
-  };
-
-  const handleActivityBudget = (budget: string) => {
     console.log(budget);
+    const newActivity = activities.find(
+      (activity) => activity.id === activityId
+    );
+    if (!newActivity) return;
+    if (budget <= 0) {
+      alert("Orçamento zerado. Digite um orçamento");
+      return;
+    }
+    newActivity.estado = "ATIVA";
+    newActivity.valorAssociado = budget;
+    console.log(newActivity);
+    socket.emit("response", newActivity);
+  };
+
+  const handleRejectActivity = (activityId: string) => {};
+
+  const handleActivityBudget = (strBudget: string) => {
+    budget = Number.parseFloat(strBudget);
   };
 
   return (
