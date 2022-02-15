@@ -23,7 +23,7 @@ const Button: FC<Props> = ({
   const styles = StyleSheet.create({
     container: {
       borderRadius: 10,
-      paddingVertical: 8,
+      paddingVertical: 2,
       paddingHorizontal: 15,
       backgroundColor: isPrimaryColor ? Colors.primary : Colors.secondary,
       width,
@@ -41,7 +41,7 @@ const Button: FC<Props> = ({
     },
     text: {
       fontFamily: TextStyles.button.font,
-      fontSize: TextStyles.button.fontSize,
+      fontSize: 14,
       lineHeight: TextStyles.button.lineHeight,
       color: isPrimaryColor ? Colors.black : Colors.white,
       textAlign: "center",
