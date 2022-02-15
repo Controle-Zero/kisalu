@@ -10,7 +10,7 @@ import Atividade from "../models/Atividade";
 export async function loginProvedor(email: string, password: string) {
   const response = await getTokenPrestador(email, password);
   if (response.status === 200) {
-    return response.data.token;
+    return response.data.generatedToken;
   } else {
     throw new Error("Dados incorretos");
   }

@@ -38,18 +38,25 @@ const ClientProvedor: (
   const { nome, email, telefone, descricao, estado } = route.params.provider;
 
   const handleActivityRequest = () => {
-    const idCliente = user?.id;
-    const idProvedor = route.params.provider.id;
-    const idCategoria = route.params.categoryId;
+    const clienteId = user?.id;
+    const prestadorId = route.params.provider.id;
+    const categoriaId = route.params.categoryId;
+
+    console.log({
+      idCliente: clienteId,
+      idProvedor: prestadorId,
+      idCategoria: categoriaId,
+      text,
+    });
 
     const socket = Socket.initConnection({
-      idCliente,
-      idProvedor,
+      idCliente: clienteId,
+      idProvedor: prestadorId,
     });
-    socket.emit(`request:${route.params.provider.id}`, {
-      idCliente,
-      idProvedor,
-      idCategoria,
+    socket.emit(`request:${prestadorId}`, {
+      clienteId,
+      prestadorId,
+      categoriaId,
       descricao: text,
     });
     setModal2Open(false);

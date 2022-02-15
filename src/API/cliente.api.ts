@@ -3,7 +3,7 @@ import Cliente from "../models/Cliente";
 import apiConfig from "./apiConfig";
 
 interface TokenClienteResponse {
-  token: string;
+  generatedToken: string;
   refreshToken: {
     id: string;
     expiraEm: number;

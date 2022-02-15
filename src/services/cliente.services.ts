@@ -4,7 +4,7 @@ import Atividade from "../models/Atividade";
 
 export async function loginCliente(email: string, password: string) {
   const response = await getTokenCliente(email, password);
-  return response.data.token;
+  return response.data.generatedToken;
 }
 
 export async function criarCliente(cliente: Cliente) {
@@ -16,9 +16,7 @@ export async function retornarCliente(token: string): Promise<Cliente> {
   return cliente;
 }
 
-export async function retornarAtividades(
-  token: string
-): Promise<Atividade[]> {
+export async function retornarAtividades(token: string): Promise<Atividade[]> {
   const atividades: Atividade[] = (await getCliente(token)).atividades ?? [];
   return atividades;
 }

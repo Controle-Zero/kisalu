@@ -8,4 +8,5 @@ export default interface Atividade {
   prestadorId: string;
   clienteId: string;
   categoriaId: string;
+  descricao: string;
 }
