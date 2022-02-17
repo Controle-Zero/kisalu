@@ -1,9 +1,14 @@
 import axios, { AxiosError } from "axios";
+import * as DeviceInfo from "expo-device";
 import Prestador from "../models/Provedor";
 import apiConfig from "./apiConfig";
 
 export async function getTokenPrestador(email: string, password: string) {
-  const body = { email, password };
+  const deviceData = {
+    brand: DeviceInfo.brand,
+    modelName: DeviceInfo.modelName,
+  };
+  const body = { email, password, deviceData };
   try {
     const response = await axios.post(
       `${apiConfig.baseUrl}/prestador/login`,

@@ -28,7 +28,6 @@
     "react": "^17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
-    "react-native-device-info": "^8.4.9",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-modals": "^0.22.3",
@@ -42,7 +41,8 @@
     "react-native-web": "0.17.1",
     "reanimated-bottom-sheet": "^1.0.0-alpha.22",
     "socket.io-client": "^4.4.1",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "expo-device": "~4.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
