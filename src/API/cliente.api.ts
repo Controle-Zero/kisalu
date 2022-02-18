@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import * as DeviceInfo from "expo-device";
 import Cliente from "../models/Cliente";
 import apiConfig from "./apiConfig";
 
@@ -17,7 +18,11 @@ interface PostCliente {
 }
 
 export async function getTokenCliente(email: string, password: string) {
-  const body = { email, password };
+  const deviceData = {
+    brand: DeviceInfo.brand,
+    modelName: DeviceInfo.modelName,
+  };
+  const body = { email, password, deviceData };
   try {
     const response = await axios.post<TokenClienteResponse>(
       `${apiConfig.baseUrl}/cliente/login`,

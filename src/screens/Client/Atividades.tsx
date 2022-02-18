@@ -10,6 +10,7 @@ import Atividade from "../../models/Atividade";
 import { retornarAtividades } from "../../services/cliente.services";
 import { Colors, TextStyles } from "../../styles/appTheme";
 import * as WebSocket from "../../config/webSocket";
+import DeviceInfo from "react-native-device-info"
 
 const Atividades = () => {
   const { token } = useAuth();
