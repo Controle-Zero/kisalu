@@ -4,7 +4,7 @@ import apiConfig from "./apiConfig";
 
 interface CategoriesResponse {
   categorias: Categoria[];
-  sucesso: boolean;
+  success: boolean;
 }
 
 export async function getCategorias() {
@@ -12,7 +12,7 @@ export async function getCategorias() {
     `${apiConfig.baseUrl}/categoria`
   );
 
-  if (response.data.sucesso) {
+  if (response.data.success) {
     return response.data.categorias;
   }
   throw new Error("Error fetching the categories");

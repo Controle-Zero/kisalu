@@ -16,7 +16,7 @@ export async function getTokenPrestador(email: string, password: string) {
     );
     return response;
   } catch (error) {
-    throw new Error((error as AxiosError).response?.data.mensagem as string);
+    throw new Error((error as AxiosError).response?.data.message as string);
   }
 }
 
@@ -28,7 +28,7 @@ export async function postPrestador(prestador: Prestador) {
     );
     return response.data;
   } catch (error) {
-    throw new Error((error as AxiosError).response?.data.mensagem as string);
+    throw new Error((error as AxiosError).response?.data.message as string);
   }
 }
 
@@ -36,7 +36,7 @@ export async function getPrestador(token: string) {
   try {
     const response = await axios.get<{
       prestador: Prestador;
-      sucesso: boolean;
+      success: boolean;
     }>(`${apiConfig.baseUrl}/prestador`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ export async function getPrestador(token: string) {
     });
     return response.data.prestador;
   } catch (error) {
-    throw new Error((error as AxiosError).response?.data.mensagem as string);
+    throw new Error((error as AxiosError).response?.data.message as string);
   }
 }
 
@@ -58,7 +58,7 @@ export async function putPrestador(prestador: Prestador, token: string) {
     });
     return response.data;
   } catch (error) {
-    throw new Error((error as AxiosError).response?.data.mensagem as string);
+    throw new Error((error as AxiosError).response?.data.message as string);
   }
 }
 
@@ -77,6 +77,6 @@ export async function putCategorias(idCategorias: string[], token: string) {
     );
     return response.data;
   } catch (error) {
-    throw new Error((error as AxiosError).response?.data.mensagem as string);
+    throw new Error((error as AxiosError).response?.data.message as string);
   }
 }

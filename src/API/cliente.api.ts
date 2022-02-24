@@ -13,8 +13,8 @@ interface TokenClienteResponse {
 }
 
 interface PostCliente {
-  mensagem: string;
-  sucesso: boolean;
+  message: string;
+  success: boolean;
 }
 
 export async function getTokenCliente(email: string, password: string) {
@@ -30,7 +30,7 @@ export async function getTokenCliente(email: string, password: string) {
     );
     return response;
   } catch (error) {
-    throw new Error((error as AxiosError).response?.data.mensagem as string);
+    throw new Error((error as AxiosError).response?.data.message as string);
   }
 }
 
@@ -42,13 +42,13 @@ export async function postCliente(cliente: Cliente) {
     );
     return response.data;
   } catch (error) {
-    throw new Error((error as AxiosError).response?.data.mensagem as string);
+    throw new Error((error as AxiosError).response?.data.message as string);
   }
 }
 
 export async function getCliente(token: string) {
   try {
-    const response = await axios.get<{ cliente: Cliente; sucesso: boolean }>(
+    const response = await axios.get<{ cliente: Cliente; success: boolean }>(
       `${apiConfig.baseUrl}/cliente`,
       {
         headers: {
@@ -58,7 +58,7 @@ export async function getCliente(token: string) {
     );
     return response.data.cliente;
   } catch (error) {
-    throw new Error((error as AxiosError).response?.data.mensagem as string);
+    throw new Error((error as AxiosError).response?.data.message as string);
   }
 }
 
