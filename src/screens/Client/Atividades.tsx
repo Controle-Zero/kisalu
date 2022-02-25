@@ -10,15 +10,10 @@ import Atividade from "../../models/Atividade";
 import { retornarAtividades } from "../../services/cliente.services";
 import { Colors, TextStyles } from "../../styles/appTheme";
 import * as WebSocket from "../../config/webSocket";
-import DeviceInfo from "react-native-device-info"
 
 const Atividades = () => {
   const { token } = useAuth();
   const [activities, setActivities] = useState<Atividade[]>([]);
-  const socket = WebSocket.initConnection({
-    idCliente: undefined,
-    idProvedor: undefined,
-  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +29,12 @@ const Atividades = () => {
       (activity) => activity.id === activityId
     );
     if (!newActivity) return;
+
+    const socket = WebSocket.initConnection({
+      idCliente: newActivity.Cliente?.id,
+      idProvedor: undefined,
+    });
+
     newActivity.estado = "CANCELADA";
     socket.emit("response", newActivity);
   };

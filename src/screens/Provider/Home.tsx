@@ -17,10 +17,12 @@ const Home = () => {
   let budget = useRef(0).current;
   const { reference, onModalShown } = useCustomBottomSheetModal();
   const { token } = useAuth();
+
   const socket = Socket.initConnection({
     idProvedor: undefined,
     idCliente: undefined,
   });
+  
   useEffect(() => {
     const fetchData = async () => {
       const data = await ProvedorServices.retornarAtividades(token);
@@ -41,6 +43,7 @@ const Home = () => {
       alert("Orçamento zerado. Digite um orçamento");
       return;
     }
+    
     newActivity.estado = "ATIVA";
     newActivity.valorAssociado = budget;
     console.log(newActivity);
