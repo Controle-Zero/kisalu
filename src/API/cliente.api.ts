@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import * as DeviceInfo from "expo-device";
+import * as Network from "expo-network";
 import Cliente from "../models/Cliente";
 import apiConfig from "./apiConfig";
 
@@ -21,6 +22,7 @@ export async function getTokenCliente(email: string, password: string) {
   const deviceData = {
     brand: DeviceInfo.brand,
     modelName: DeviceInfo.modelName,
+    ipAddress: await Network.getIpAddressAsync(),
   };
   const body = { email, password, deviceData };
   try {

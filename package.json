@@ -22,7 +22,9 @@
     "dayjs": "^1.10.7",
     "expo": "~43.0.2",
     "expo-app-loading": "~1.2.1",
+    "expo-device": "~4.0.3",
     "expo-font": "~10.0.3",
+    "expo-network": "^4.1.1",
     "expo-status-bar": "~1.1.0",
     "formik": "^2.2.9",
     "react": "^17.0.1",
@@ -41,8 +43,7 @@
     "react-native-web": "0.17.1",
     "reanimated-bottom-sheet": "^1.0.0-alpha.22",
     "socket.io-client": "^4.4.1",
-    "yup": "^0.32.11",
-    "expo-device": "~4.0.3"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
