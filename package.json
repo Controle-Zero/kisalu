@@ -22,6 +22,7 @@
     "dayjs": "^1.10.7",
     "expo": "~43.0.2",
     "expo-app-loading": "~1.2.1",
+    "expo-application": "^4.0.2",
     "expo-device": "~4.0.3",
     "expo-font": "~10.0.3",
     "expo-network": "^4.1.1",
