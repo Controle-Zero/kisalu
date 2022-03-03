@@ -5,10 +5,11 @@
     "slug": "union-services",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./src/assets/images/appIcon.png",
     "splash": {
-      "image": "./src/assets/splash.jpeg",
+      "image": "./src/assets/images/logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#fff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -19,7 +20,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/adaptive",
+        "foregroundImage": "./src/assets/images/appIcon.png",
         "backgroundColor": "#FFFFFF"
       }
     }
