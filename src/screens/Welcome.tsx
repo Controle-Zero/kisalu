@@ -49,9 +49,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    width: 200,
+    width: 300,
     height: 200,
-    marginBottom: 35,
   },
   heading1: {
     fontFamily: TextStyles.heading1.fontRegular,
