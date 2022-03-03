@@ -1,12 +1,18 @@
+import "react-native-get-random-values";
 import axios, { AxiosError } from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { v4 as uuid } from "uuid";
 import Prestador from "../models/Provedor";
 import { getDeviceData } from "../utils/deviceDataHandler";
 import apiConfig from "./apiConfig";
 
 export async function getTokenPrestador(email: string, password: string) {
   const deviceData = await getDeviceData();
-
+  const deviceId = uuid();
+  deviceData.uniqueID = !deviceData.uniqueID ? deviceId : deviceData.uniqueID;
+  await AsyncStorage.setItem("@UnionServices:deviceId", deviceData.uniqueID);
   const body = { email, password, deviceData };
+  console.log(body);
   try {
     const response = await axios.post(
       `${apiConfig.baseUrl}/prestador/login`,
