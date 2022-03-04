@@ -48,7 +48,9 @@
     "reanimated-bottom-sheet": "^1.0.0-alpha.22",
     "socket.io-client": "^4.4.1",
     "uuid": "^8.3.2",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "expo-file-system": "~13.0.3",
+    "react-native-webview": "11.13.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

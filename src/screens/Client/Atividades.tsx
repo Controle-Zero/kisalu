@@ -12,8 +12,11 @@ import { retornarAtividades } from "../../services/cliente.services";
 import { Colors, TextStyles } from "../../styles/appTheme";
 import * as WebSocket from "../../config/webSocket";
 import LoadingScreen from "../LoadingScreen";
+import { ActivityNavProps } from "../../routes/types/Cliente/ActivityParamsList";
 
-const Atividades = () => {
+const Atividades: (
+  navProps: ActivityNavProps<"AtividadesScreen">
+) => JSX.Element = ({ navigation }) => {
   const { token } = useAuth();
   const [activities, setActivities] = useState<Atividade[]>([]);
   const [filteredStatus, setFilteredStatus] = useState("EM CURSO");
@@ -59,6 +62,12 @@ const Atividades = () => {
     socket.emit("response", newActivity);
   };
 
+  const handleNavigateToRating = (activityId: string) => {
+    navigation.navigate("Rating", {
+      activityId,
+    });
+  };
+
   return (
     <View>
       <Text style={emptyActivitiesStyle.label}>
@@ -67,7 +76,7 @@ const Atividades = () => {
       <PickerSelect
         items={[
           { value: "EM CURSO", label: "Em curso" },
-          { value: "FINALIZADO", label: "Finalizado" },
+          { value: "FINALIZADA", label: "Finalizado" },
         ]}
         onValueChange={(newValue) => setFilteredStatus(newValue)}
         value={filteredStatus}
@@ -81,6 +90,7 @@ const Atividades = () => {
             <ClientActivityCard
               activity={activity}
               onActivityCancel={handleActivityCancel}
+              onAvaliate={handleNavigateToRating}
             />
           )}
           ItemSeparatorComponent={() => <Spacer height={26} />}

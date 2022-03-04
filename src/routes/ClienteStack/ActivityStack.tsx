@@ -7,6 +7,7 @@ import Atividades from "../../screens/Client/Atividades";
 import { ActivityParamsList } from "../types/Cliente/ActivityParamsList";
 import { Colors } from "../../styles/appTheme";
 import Spacer from "../../components/layout/Spacer";
+import Rating from "../../screens/Client/Rating";
 
 const NativeActivityStack = createNativeStackNavigator<ActivityParamsList>();
 
@@ -19,6 +20,17 @@ function ActivityStack() {
         options={{
           headerTitle: "Atividades",
           headerLeft: () => <HeaderLeft />,
+          contentStyle: {
+            borderTopColor: Colors.primary,
+            borderTopWidth: 1,
+          },
+        }}
+      />
+      <NativeActivityStack.Screen
+        name="Rating"
+        component={Rating}
+        options={{
+          headerTitle: "Avaliação",
           contentStyle: {
             borderTopColor: Colors.primary,
             borderTopWidth: 1,

@@ -42,13 +42,6 @@ const ClientProvedor: (
     const prestadorId = route.params.provider.id;
     const categoriaId = route.params.categoryId;
 
-    console.log({
-      idCliente: clienteId,
-      idProvedor: prestadorId,
-      idCategoria: categoriaId,
-      text,
-    });
-
     const socket = Socket.initConnection({
       idCliente: clienteId,
       idProvedor: prestadorId,

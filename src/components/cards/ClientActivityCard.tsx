@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { FC } from "react";
+import { WebView } from "react-native-webview";
+import React, { FC, useState } from "react";
 import Button from "../buttons/Button";
 import Spacer from "../layout/Spacer";
 import { Colors, TextStyles } from "../../styles/appTheme";
@@ -7,13 +8,19 @@ import Atividade from "../../models/Atividade";
 import useAuth from "../../contexts/AuthContext";
 import Cliente from "../../models/Cliente";
 import { formatDate } from "../../utils/dateFormatter";
+import apiConfig from "../../API/apiConfig";
 
 interface Props {
   activity: Atividade;
   onActivityCancel: (activityId: string) => void;
+  onAvaliate: (activityId: string) => void;
 }
 
-const ClientActivityCard: FC<Props> = ({ activity, onActivityCancel }) => {
+const ClientActivityCard: FC<Props> = ({
+  activity,
+  onActivityCancel,
+  onAvaliate,
+}) => {
   const {
     Categoria: { titulo },
     Prestador: { nome },
@@ -24,6 +31,19 @@ const ClientActivityCard: FC<Props> = ({ activity, onActivityCancel }) => {
   } = activity;
   const { user } = useAuth();
   const { morada } = user as Cliente;
+  const [generatePDF, setGeneratePDF] = useState(false);
+
+  const handleGenerateReport = async () => {
+    setGeneratePDF(true);
+  };
+
+  if (generatePDF) {
+    return (
+      <WebView
+        source={{ uri: `${apiConfig.baseUrl}/atividade/${id}/docPDF` }}
+      />
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -46,10 +66,12 @@ const ClientActivityCard: FC<Props> = ({ activity, onActivityCancel }) => {
           />
         ) : (
           <>
-            <Button text="Avaliar" onPress={() => console.log("Avaliar")} />
+            <Button text="Avaliar" onPress={() => onAvaliate(id)} width="40%" />
+            <Spacer width={20} />
             <Button
-              text="Gerar Comprovativo"
-              onPress={() => console.log("PDF")}
+              width="50%"
+              text="Comprovativo"
+              onPress={handleGenerateReport}
             />
           </>
         )}

@@ -1,10 +1,13 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import * as AtividadeAPI from "../../API/atividade.api";
 import React, { useState } from "react";
-import { Colors, TextStyles } from "../../styles/appTheme";
+import { TextStyles } from "../../styles/appTheme";
 import Button from "../../components/buttons/Button";
-import Button1 from "../../components/buttons/Button1";
+import { ActivityNavProps } from "../../routes/types/Cliente/ActivityParamsList";
 
-const Rating = () => {
+const Rating: (navProps: ActivityNavProps<"Rating">) => JSX.Element = ({
+  route,
+}) => {
   const [defaultRating, setdefaultRating] = useState(2);
   const [maxRating, setmaxRating] = useState([1, 2, 3, 4, 5]);
 
@@ -37,32 +40,21 @@ const Rating = () => {
       </View>
     );
   };
-  function submit() {
-    console.log(" Avaliado ");
+
+  async function submit() {
+    await AtividadeAPI.avaliarAtividade(route.params.activityId, defaultRating);
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.textstyle1}>Avalie o serviço</Text>
-
       <CustomRatingBar />
       <Text style={styles.textstyle2}>
         {defaultRating + " / " + maxRating.length}
       </Text>
-      <Text style={styles.textstyle}>O que se passou de errado ?</Text>
-      {
-        <View style={styles.wrongarea}>
-          <Button1 onPress={submit} text="Péssimo profissional" width="30%" />
-          <Button1 onPress={submit} text="Chegou tarde" width="30%" />
-          <Button1 onPress={submit} text="Roubou um artigo meu" width="30%" />
-          <Button1
-            onPress={submit}
-            text="Má comunicação entre nós"
-            width="40%"
-          />
-          <Button1 onPress={submit} text="outro assunto" width="30%" />
-        </View>
-      }
+      <Text style={styles.textstyle}>
+        Isso ajuda o provedor a ter mais credibilidade
+      </Text>
       <View style={styles.bottomView}>
         <Button onPress={submit} text="Avaliar" width="90%" />
       </View>
@@ -106,13 +98,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
-    bottom: 0,
-  },
-  wrongarea: {
-    marginTop: "10%",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
+    bottom: 60,
   },
 });
 export default Rating;
