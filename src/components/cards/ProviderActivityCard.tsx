@@ -5,19 +5,20 @@ import Atividade from "../../models/Atividade";
 import Cliente from "../../models/Cliente";
 import { formatDate } from "../../utils/dateFormatter";
 import Button from "../buttons/Button";
-import TextButton from "../buttons/TextButton";
 import Spacer from "../layout/Spacer";
 
 interface Props {
   activity: Atividade;
   onApplyActivity: (activityId: string) => void;
   onRejectActivity: (activityId: string) => void;
+  onFinalizeActivity: (activityId: string) => void;
 }
 
 const ProviderActivityCard: FC<Props> = ({
   activity,
   onApplyActivity,
   onRejectActivity,
+  onFinalizeActivity,
 }) => {
   const {
     Categoria: { titulo },
@@ -45,21 +46,39 @@ const ProviderActivityCard: FC<Props> = ({
         </Text>
       </View>
       <View style={styles.actionsContainer}>
-        {estado !== "ATIVA" && (
-          <Button
-            text="Aplicar"
-            onPress={() => onApplyActivity(id)}
-            width="40%"
-          />
+        {estado !== "ATIVA" ? (
+          <>
+            <Button
+              text="Aplicar"
+              onPress={() => onApplyActivity(id)}
+              width="40%"
+            />
+            <Spacer width={20} />
+            <Button
+              text="Rejeitar"
+              color={Colors.danger}
+              textColor={Colors.white}
+              onPress={() => onRejectActivity(id)}
+              width="40%"
+            />
+          </>
+        ) : (
+          <>
+            <Button
+              text="Finalizar"
+              onPress={() => onFinalizeActivity(id)}
+              width="40%"
+            />
+            <Spacer width={20} />
+            <Button
+              text="Cancelar"
+              color={Colors.danger}
+              textColor={Colors.white}
+              onPress={() => onRejectActivity(id)}
+              width="40%"
+            />
+          </>
         )}
-        <Spacer width={20} />
-        <Button
-          text="Rejeitar"
-          color={Colors.danger}
-          textColor={Colors.white}
-          onPress={() => onRejectActivity(id)}
-          width="40%"
-        />
       </View>
     </View>
   );

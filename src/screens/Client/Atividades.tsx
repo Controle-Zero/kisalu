@@ -23,16 +23,17 @@ const Atividades = () => {
     const fetchData = async () => {
       setIsLoading(true);
       const data = await retornarAtividades(token);
+      console.log(data);
+
       const filteredActivities = data.filter((activity) => {
-        console.log(activity.estado, filteredStatus);
         if (
           (activity.estado === "ATIVA" || activity.estado === "PENDENTE") &&
           filteredStatus === "EM CURSO"
         ) {
           return activity;
         } else if (
-          activity.estado === "COMPLETA" &&
-          filteredStatus === "FINALIZADO"
+          activity.estado === "FINALIZADA" &&
+          filteredStatus === "FINALIZADA"
         )
           return activity;
       });

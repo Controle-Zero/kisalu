@@ -36,15 +36,23 @@ const ClientActivityCard: FC<Props> = ({ activity, onActivityCancel }) => {
         />
       </Content>
       <Actions>
-        <Button
-          text="Cancelar"
-          width="40%"
-          onPress={() => {
-            onActivityCancel(id);
-          }}
-        />
-        {/* <Spacer width={10} /> */}
-        {/* <Button text="Aceitar" width="40%" onPress={() => {}} /> */}
+        {estado !== "FINALIZADA" ? (
+          <Button
+            text="Cancelar"
+            width="40%"
+            onPress={() => {
+              onActivityCancel(id);
+            }}
+          />
+        ) : (
+          <>
+            <Button text="Avaliar" onPress={() => console.log("Avaliar")} />
+            <Button
+              text="Gerar Comprovativo"
+              onPress={() => console.log("PDF")}
+            />
+          </>
+        )}
       </Actions>
     </View>
   );
