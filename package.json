@@ -33,6 +33,7 @@
     "react-native": "0.64.3",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~1.10.2",
+    "react-native-get-random-values": "^1.7.2",
     "react-native-modals": "^0.22.3",
     "react-native-paper": "^4.10.1",
     "react-native-picker-select": "^8.0.4",
@@ -46,6 +47,7 @@
     "react-select": "^5.2.2",
     "reanimated-bottom-sheet": "^1.0.0-alpha.22",
     "socket.io-client": "^4.4.1",
+    "uuid": "^8.3.2",
     "yup": "^0.32.11"
   },
   "devDependencies": {
@@ -56,6 +58,7 @@
     "@types/react-native": "~0.64.12",
     "@types/react-native-simple-radio-button": "^2.7.2",
     "@types/react-native-vector-icons": "^6.4.10",
+    "@types/uuid": "^8.3.4",
     "@types/yup": "^0.29.13",
     "typescript": "~4.3.5"
   },
