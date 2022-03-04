@@ -19,7 +19,7 @@ const Rating: (navProps: ActivityNavProps<"Rating">) => JSX.Element = ({
   const CustomRatingBar = () => {
     return (
       <View style={styles.customRatingBarStyle}>
-        {maxRating.map((item, key) => {
+        {maxRating.map((item) => {
           return (
             <TouchableOpacity
               activeOpacity={0.7}

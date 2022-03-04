@@ -5,6 +5,7 @@ import {
   ScrollView,
   Modal,
   Pressable,
+  Image,
 } from "react-native";
 
 import ProfileHeader from "../../components/ProfileHeader";
@@ -35,7 +36,8 @@ const ClientProvedor: (
     logout: "logout",
   };
 
-  const { nome, email, telefone, descricao, estado } = route.params.provider;
+  const { nome, email, telefone, descricao, estado, rate } =
+    route.params.provider;
 
   const handleActivityRequest = () => {
     const clienteId = user?.id;
@@ -148,6 +150,12 @@ const ClientProvedor: (
             <Spacer height={spaceBetweenTiles} />
           </Fragment>
         ))}
+        <Text
+          style={{ fontSize: 18, fontFamily: TextStyles.heading1.fontMedium }}
+        >
+          Classificação
+        </Text>
+        <RatingBar rating={rate as number} />
         <Spacer height={10} />
         <AboutMe description={descricao} />
       </View>
@@ -163,6 +171,28 @@ const AboutMe: FC<{ description: string }> = ({ description }) => (
   </>
 );
 
+const starImgFilled =
+  "https://raw.githubusercontent.com/tranhonghan/images/main/star_filled.png";
+const starImgCorned =
+  "https://raw.githubusercontent.com/tranhonghan/images/main/star_corner.png";
+
+const RatingBar: FC<{ rating: number }> = ({ rating }) => {
+  return (
+    <View style={styles.customRatingBarStyle}>
+      {[1, 2, 3, 4, 5].map((item, key) => {
+        return (
+          <Image
+            style={styles.starImgStyle}
+            source={
+              item <= rating ? { uri: starImgFilled } : { uri: starImgCorned }
+            }
+          />
+        );
+      })}
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     paddingTop: 40,
@@ -176,6 +206,10 @@ const styles = StyleSheet.create({
     borderTopStartRadius: 40,
     borderTopEndRadius: 40,
   },
+  customRatingBarStyle: {
+    justifyContent: "center",
+    flexDirection: "row",
+  },
   heading2: {
     fontSize: 18,
     fontFamily: TextStyles.heading1.fontMedium,
@@ -187,6 +221,11 @@ const styles = StyleSheet.create({
     lineHeight: TextStyles.modalHeading.lineHeight,
     fontWeight: "bold",
     textAlign: "center",
+  },
+  starImgStyle: {
+    height: 40,
+    width: 40,
+    resizeMode: "cover",
   },
   descricao: {
     textAlign: "center",

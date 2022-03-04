@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { FC, Fragment } from "react";
+import { StyleSheet, Text, Image, View } from "react-native";
+import React, { FC, Fragment, useEffect, useState } from "react";
 
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -13,6 +13,7 @@ import Spacer from "../../components/layout/Spacer";
 import Button from "../../components/buttons/Button";
 import { FAB } from "react-native-paper";
 import { ProfileNavProps } from "../../routes/types/Provider/ProfileParamsList";
+import { retornarProvedor } from "../../services/provedor.services";
 
 const Icons = {
   birthDate: "calendar-blank",
@@ -34,19 +35,30 @@ type ProfileDataType = {
 const Perfil: (navProps: ProfileNavProps<"ProfileScreen">) => JSX.Element = ({
   navigation,
 }) => {
-  const { user, signOut } = useAuth();
-  const {
-    nome,
-    dataNasc: unformattedDate,
-    bi,
-    email,
-    morada,
-    telefone,
-    iban,
-    descricao,
-    estado,
-    classificacao,
-  } = user as Provedor;
+  const { signOut, token } = useAuth();
+  const [
+    {
+      nome,
+      dataNasc: unformattedDate,
+      bi,
+      email,
+      morada,
+      telefone,
+      iban,
+      descricao,
+      estado,
+      rate,
+    },
+    setUser,
+  ] = useState<Provedor>({} as Provedor);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const userResponse = await retornarProvedor(token);
+      setUser(userResponse);
+    };
+    fetchData();
+  }, []);
 
   const formattedBirthDate = formatDate(new Date(unformattedDate));
   const profileData: ProfileDataType = [
@@ -98,7 +110,7 @@ const Perfil: (navProps: ProfileNavProps<"ProfileScreen">) => JSX.Element = ({
         <View style={styles.innerContainer}>
           <AboutMe description={descricao} />
           <Details profileData={profileData} />
-          <Rating rating={classificacao} />
+          <Rating rating={rate} />
           <Spacer height={20} />
           <Button
             onPress={handleSignOut}
@@ -133,10 +145,10 @@ const Rating: FC<{ rating: number | undefined }> = ({ rating }) => {
       <Text style={styles.heading2}>Classificação</Text>
       <View style={styles.ratingContainer}>
         <Spacer height={5} />
-        {rating || rating === 0 ? (
+        {!rating || rating === 0 ? (
           <Text>Sem Classificação</Text>
         ) : (
-          <Text>{rating}</Text>
+          <RatingBar rating={rating} />
         )}
       </View>
     </>
@@ -162,6 +174,28 @@ const Details: FC<{ profileData: ProfileDataType }> = ({ profileData }) => (
   </>
 );
 
+const starImgFilled =
+  "https://raw.githubusercontent.com/tranhonghan/images/main/star_filled.png";
+const starImgCorned =
+  "https://raw.githubusercontent.com/tranhonghan/images/main/star_corner.png";
+
+const RatingBar: FC<{ rating: number }> = ({ rating }) => {
+  return (
+    <View style={styles.customRatingBarStyle}>
+      {[1, 2, 3, 4, 5].map((item, key) => {
+        return (
+          <Image
+            style={styles.starImgStyle}
+            source={
+              item <= rating ? { uri: starImgFilled } : { uri: starImgCorned }
+            }
+          />
+        );
+      })}
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     paddingTop: 40,
@@ -182,12 +216,21 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: TextStyles.heading1.fontMedium,
   },
+  starImgStyle: {
+    height: 40,
+    width: 40,
+    resizeMode: "cover",
+  },
   fab: {
     position: "absolute",
     margin: 30,
     right: 0,
     bottom: 0,
     backgroundColor: Colors.primary,
+  },
+  customRatingBarStyle: {
+    justifyContent: "center",
+    flexDirection: "row",
   },
 });
 
