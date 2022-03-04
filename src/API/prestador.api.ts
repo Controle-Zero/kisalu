@@ -12,6 +12,7 @@ export async function getTokenPrestador(email: string, password: string) {
   deviceData.uniqueID = !deviceData.uniqueID ? deviceId : deviceData.uniqueID;
   await AsyncStorage.setItem("@UnionServices:deviceId", deviceData.uniqueID);
   const body = { email, password, deviceData };
+  console.log(body);
   try {
     const response = await axios.post(
       `${apiConfig.baseUrl}/prestador/login`,
