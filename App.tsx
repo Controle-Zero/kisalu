@@ -10,6 +10,9 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import Routes from "./src/routes";
 import { AuthProvider } from "./src/contexts/AuthContext";
+import { ThemeProvider } from "styled-components/native";
+
+import theme from "./src/styles/theme";
 
 export default function App() {
   // Carrega as fontes
@@ -24,10 +27,12 @@ export default function App() {
   // Passando o NavigationContainer para navegação e AuthProvider para autenticação
   // O Routes armazena todas as rotas
   return (
-    <NavigationContainer>
-      <AuthProvider>
-        <Routes />
-      </AuthProvider>
-    </NavigationContainer>
+    <ThemeProvider theme={theme}>
+      <NavigationContainer>
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }
