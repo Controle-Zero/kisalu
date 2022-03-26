@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import Button from "../../../components/buttons/Button";
+import Button from "../../../components/Button";
 import Spacer from "../../../components/layout/Spacer";
 import AppLogo from "../../../components/AppLogo";
 import CreateAccountTypeModal from "../../../components/modals/CreateAccountTypeModal";
@@ -12,8 +12,10 @@ import {
   ButtonsContainer,
   WelcomeText,
 } from "./style";
+import { ThemeContext } from "styled-components";
 
 export default function Welcome({ navigation }: AuthNavProps<"Welcome">) {
+  const { COLORS } = useContext(ThemeContext);
   const { reference, onModalShown } = useCustomBottomSheetModal();
 
   const openLogin = () => {
@@ -34,7 +36,8 @@ export default function Welcome({ navigation }: AuthNavProps<"Welcome">) {
           <Button
             onPress={onModalShown}
             text="Cadastrar"
-            isPrimaryColor={false}
+            buttonColor={COLORS.SECONDARY}
+            textColor={COLORS.WHITE}
           />
         </ButtonsContainer>
       </Container>
