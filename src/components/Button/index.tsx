@@ -3,17 +3,9 @@ import { Avatar } from "react-native-paper";
 import { ThemeContext } from "styled-components";
 import Spacer from "../layout/Spacer";
 import { ButtonContainer, ButtonText } from "./style";
+import { ButtonProps } from "./types";
 
-type Props = {
-  text: string;
-  buttonColor?: string;
-  textColor?: string;
-  width?: number | string;
-  icon?: string;
-  onPress: () => void;
-};
-
-const Button: React.FC<Props> = ({
+const Button: React.FC<ButtonProps> = ({
   buttonColor,
   onPress,
   text,
@@ -21,12 +13,10 @@ const Button: React.FC<Props> = ({
   textColor,
   width,
 }) => {
-  const {
-    COLORS: { PRIMARY, BLACK },
-  } = useContext(ThemeContext);
+  const { COLORS } = useContext(ThemeContext);
   return (
     <ButtonContainer
-      backgroundColor={buttonColor || PRIMARY}
+      backgroundColor={buttonColor || COLORS.PRIMARY}
       width={width || "100%"}
       onPress={onPress}
       android_ripple={{ color: "#f0f0f0" }}
@@ -37,7 +27,7 @@ const Button: React.FC<Props> = ({
           <Spacer width={10} />
         </>
       )}
-      <ButtonText textColor={textColor || BLACK}>{text}</ButtonText>
+      <ButtonText textColor={textColor || COLORS.BLACK}>{text}</ButtonText>
     </ButtonContainer>
   );
 };
