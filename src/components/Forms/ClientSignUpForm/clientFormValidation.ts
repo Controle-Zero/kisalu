@@ -4,7 +4,7 @@ const regexBI = /^\d{9}[A-Z]{2}\d{3}$/g;
 const regexPhoneNumber = /^(\+2449\d{8})|(9\d{8})$/g;
 const regexAddress = /^(\w+\s?)+,\s?(\w+\s?)+(,\s?((\w+\s?)+))?$/g;
 
-export const cadastroClienteSchema = yup.object({
+export const clientSignUpSchema = yup.object({
   fullName: yup.string().required("Nome completo não deve estar vazio"),
   bi: yup
     .string()

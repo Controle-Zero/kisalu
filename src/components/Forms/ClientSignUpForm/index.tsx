@@ -1,30 +1,17 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-
-import { Formik, FormikHelpers } from "formik";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { Formik } from "formik";
+import { ClientSignUpFormType, Props } from "./types";
+import { FlexRow, Label, SmallText } from "./style";
+import { clientSignUpSchema } from "./clientFormValidation";
+import TextField from "../../Input/TextField";
+import Spacer from "../../layout/Spacer";
+import ErrorText from "../ErrorText";
+import TextButton from "../../Button/TextButton";
+import * as DateFormatter from "../../../utils/dateFormatter";
+import Button from "../../Button";
 
-import TextField from "../input/TextField";
-import ErrorText from "./ErrorText";
-import Button from "../buttons/Button";
-import Spacer from "../layout/Spacer";
-import { Colors, TextStyles } from "../../styles/appTheme";
-import TextButton from "../buttons/TextButton";
-import { formatDate } from "../../utils/dateFormatter";
-import { cadastroClienteSchema } from "../../utils/validation/cadastroClienteFormValidation";
-
-export type CadastroClienteFormType = {
-  fullName: string;
-  bi: string;
-  email: string;
-  phoneNumber: string;
-  password: string;
-  passwordConfirmation: string;
-  birthDay: Date;
-  address: string;
-};
-
-const initialValues = {
+const initialValues: ClientSignUpFormType = {
   fullName: "",
   birthDay: new Date(),
   bi: "",
@@ -35,14 +22,7 @@ const initialValues = {
   address: "",
 };
 
-interface Props {
-  onSubmit: (
-    values: CadastroClienteFormType,
-    actions: FormikHelpers<CadastroClienteFormType>
-  ) => void;
-}
-
-const CadastroClienteForm: React.FC<Props> = ({ onSubmit }) => {
+const ClientSignUpForm: React.FC<Props> = ({ onSubmit }) => {
   const [fullNameError, setFullNameError] = useState(false);
   const [biError, setBiError] = useState(false);
   const [emailError, setEmailError] = useState(false);
@@ -55,32 +35,34 @@ const CadastroClienteForm: React.FC<Props> = ({ onSubmit }) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const spaceBetweenInputs = 20;
-
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={onSubmit}
-      validationSchema={cadastroClienteSchema}
+      validationSchema={clientSignUpSchema}
     >
       {({ handleChange, values, handleSubmit, errors, touched }) => {
-        setFullNameError(errors.fullName && touched.fullName ? true : false);
-        setBiError(errors.bi && touched.bi ? true : false);
-        setEmailError(errors.email && touched.email ? true : false);
-        setPhoneNumberError(
-          errors.phoneNumber && touched.phoneNumber ? true : false
-        );
-        setPasswordError(errors.password && touched.password ? true : false);
-        setPasswordConfirmationError(
-          errors.passwordConfirmation && touched.passwordConfirmation
-            ? true
-            : false
-        );
-        setAddressError(
-          errors.address && touched.passwordConfirmation ? true : false
-        );
+        const errorOnFullName = (errors.fullName &&
+          touched.fullName) as boolean;
+        const errorOnBI = (errors.bi && touched.bi) as boolean;
+        const errorOnEmail = (errors.email && touched.email) as boolean;
+        const errorOnPhoneNumber = (errors.phoneNumber &&
+          touched.phoneNumber) as boolean;
+        const errorOnPassword = (errors.password &&
+          touched.password) as boolean;
+        const errorOnPasswordConfirmation = (errors.passwordConfirmation &&
+          touched.passwordConfirmation) as boolean;
+        const errorOnAddress = (errors.address && touched.address) as boolean;
+        setFullNameError(errorOnFullName);
+        setBiError(errorOnBI);
+        setEmailError(errorOnEmail);
+        setPhoneNumberError(errorOnPhoneNumber);
+        setPasswordError(errorOnPassword);
+        setPasswordConfirmationError(errorOnPasswordConfirmation);
+        setAddressError(errorOnAddress);
+
         return (
           <>
-            {/* Full name */}
             <TextField
               label="Nome Completo"
               value={values.fullName}
@@ -88,16 +70,16 @@ const CadastroClienteForm: React.FC<Props> = ({ onSubmit }) => {
               hasError={fullNameError}
               placeholder="O seu nome completo"
             />
-            {fullNameError && <ErrorText>{errors.fullName}</ErrorText>}
+            {fullNameError && <ErrorText text={errors.fullName as string} />}
             <Spacer height={spaceBetweenInputs} />
             {/* Birthday */}
-            <View style={styles.row}>
+            <FlexRow>
               <TextButton
                 onPress={() => setShowDatePicker(true)}
                 text="Data de nascimento"
               />
-              <Text style={styles.label}>{formatDate(values.birthDay)}</Text>
-            </View>
+              <Label>{DateFormatter.formatDate(values.birthDay)}</Label>
+            </FlexRow>
             {showDatePicker && (
               <DateTimePicker
                 value={values.birthDay}
@@ -118,7 +100,7 @@ const CadastroClienteForm: React.FC<Props> = ({ onSubmit }) => {
               hasError={addressError}
               placeholder="Província, Município, Rua"
             />
-            {addressError && <ErrorText>{errors.address}</ErrorText>}
+            {addressError && <ErrorText text={errors.address as string} />}
             <Spacer height={spaceBetweenInputs} />
             {/* BI */}
             <TextField
@@ -128,7 +110,7 @@ const CadastroClienteForm: React.FC<Props> = ({ onSubmit }) => {
               hasError={biError}
               placeholder="O seu número do BI"
             />
-            {biError && <ErrorText>{errors.bi}</ErrorText>}
+            {biError && <ErrorText text={errors.bi as string} />}
             <Spacer height={spaceBetweenInputs} />
             {/* Email */}
             <TextField
@@ -139,7 +121,7 @@ const CadastroClienteForm: React.FC<Props> = ({ onSubmit }) => {
               hasError={emailError}
               placeholder="exemplo@exemplo.com"
             />
-            {emailError && <ErrorText>{errors.email}</ErrorText>}
+            {emailError && <ErrorText text={errors.email as string} />}
             <Spacer height={spaceBetweenInputs} />
             {/* Phone number */}
             <TextField
@@ -150,7 +132,9 @@ const CadastroClienteForm: React.FC<Props> = ({ onSubmit }) => {
               hasError={phoneNumberError}
               placeholder="XXX XXX XXX"
             />
-            {phoneNumberError && <ErrorText>{errors.phoneNumber}</ErrorText>}
+            {phoneNumberError && (
+              <ErrorText text={errors.phoneNumber as string} />
+            )}
             <Spacer height={spaceBetweenInputs} />
             {/* Password */}
             <TextField
@@ -161,11 +145,9 @@ const CadastroClienteForm: React.FC<Props> = ({ onSubmit }) => {
               secureText
             />
             {passwordError ? (
-              <ErrorText>{errors.password}</ErrorText>
+              <ErrorText text={errors.password as string} />
             ) : (
-              <Text style={styles.small}>
-                A password deve ter pelo menos 7 caracteres
-              </Text>
+              <SmallText>A password deve ter pelo menos 7 caracteres</SmallText>
             )}
             <Spacer height={spaceBetweenInputs} />
             {/* Password confirmation */}
@@ -177,7 +159,7 @@ const CadastroClienteForm: React.FC<Props> = ({ onSubmit }) => {
               hasError={passwordConfirmationError}
             />
             {passwordConfirmationError && (
-              <ErrorText>{errors.passwordConfirmation}</ErrorText>
+              <ErrorText text={errors.passwordConfirmation as string} />
             )}
             <Spacer height={spaceBetweenInputs + 10} />
             {/* Submit */}
@@ -189,22 +171,4 @@ const CadastroClienteForm: React.FC<Props> = ({ onSubmit }) => {
   );
 };
 
-export default CadastroClienteForm;
-
-const styles = StyleSheet.create({
-  small: {
-    fontSize: TextStyles.smallText.fontSize,
-    fontFamily: TextStyles.smallText.font,
-    color: Colors.greyText,
-  },
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  label: {
-    fontFamily: TextStyles.label.font,
-    fontSize: TextStyles.label.fontSize,
-    color: Colors.black,
-  },
-});
+export default ClientSignUpForm;
