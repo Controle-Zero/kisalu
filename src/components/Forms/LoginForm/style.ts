@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/native";
 import { ToggleButton as TB } from "react-native-paper";
 import { ToggleButtonStyle } from "./types";
 
