@@ -5,7 +5,7 @@ const regexPhoneNumber = /^(\+2449\d{8})|(9\d{8})$/g;
 const regexAddress = /^(\w+\s?)+,\s?(\w+\s?)+(,\s?((\w+\s?)+))?$/g;
 const regexIban = /^AO06(\.\d{4}){5}\.\d$/g;
 
-export const cadastroProvedorSchema = yup.object({
+export const providerSignUpSchema = yup.object({
   fullName: yup.string().required("Nome completo não deve estar vazio"),
   bi: yup
     .string()
