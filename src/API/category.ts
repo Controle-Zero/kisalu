@@ -1,4 +1,5 @@
 import axios from "axios";
+import Categoria from "../models/Categoria";
 import apiConfig, { CategoriesResponse } from "./apiConfig";
 
 /**
@@ -18,4 +19,19 @@ export async function getCategories() {
     console.error(error);
     throw new Error("Error fetching the categories");
   }
+}
+
+export function getFilteredCategories(
+  searchedCategoryTitle: string,
+  categories: Categoria[]
+) {
+  return categories.map((category) => {
+    if (!searchedCategoryTitle) return category;
+    else if (
+      category.titulo
+        .toLowerCase()
+        .includes(searchedCategoryTitle.toLowerCase())
+    )
+      return category;
+  });
 }
