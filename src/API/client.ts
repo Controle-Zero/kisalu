@@ -9,6 +9,7 @@ import apiConfig, {
   ClientResponse,
   NormalResponse,
 } from "./apiConfig";
+import Atividade, { ActivityState } from "../models/Atividade";
 
 /**
  * https://uservices-api-teste.herokuapp.com/cliente
@@ -70,4 +71,34 @@ export async function getClient(token: string) {
   } catch (error) {
     throw new Error((error as AxiosError).response?.data.message as string);
   }
+}
+
+/**
+ * Filtra as atividades vinculados a um cliente de acordo com o filtro
+ * selecionado. Usando esse método não é necessário fazer uma requisição
+ * do getClient.
+ * @param token O token de autenticação do cliente
+ * @param filter O estado selecionado para filtrar a atividade
+ * @returns Um array de atividades filtradas. Retorna vazio caso não existam
+ * atividades com o estado selecionado
+ */
+export async function getFilteredActivitiesFromClient(
+  token: string,
+  filter: ActivityState
+) {
+  const response = await getClient(token);
+  const activities = response.atividades ?? [];
+  if (activities.length == 0) return activities;
+  const filteredActivities = filterActivities(activities, filter);
+  return filteredActivities;
+}
+
+function filterActivities(activities: Atividade[], filter: ActivityState) {
+  return activities.filter((activity) => {
+    const { estado } = activity;
+    const { ATIVA, FINALIZADA, PENDENTE } = ActivityState;
+    if ((estado == ATIVA || estado == PENDENTE) && filter == ATIVA)
+      return activity;
+    else if (estado == FINALIZADA && filter == FINALIZADA) return activity;
+  });
 }
