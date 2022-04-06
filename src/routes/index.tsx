@@ -1,8 +1,6 @@
 import React from "react";
-import { View } from "react-native";
 import useAuth from "../contexts/AuthContext";
-
-import LoadingScreen from "../screens/LoadingScreen";
+import LoadingScreen from "../screens/other/LoadingScreen";
 import AuthRoutes from "./AuthRoute";
 import ClienteRoutes from "./ClienteRoutes";
 import ProvedorRoutes from "./ProvedorRoutes";

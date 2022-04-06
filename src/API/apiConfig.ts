@@ -25,7 +25,7 @@ export type ClientAuthenticationResponse = {
 export type ClientRequest = {
   bi: string;
   nome: string;
-  dataNasc: Date;
+  dataNasc: string;
   morada: string;
   email: string;
   telefone: string;
@@ -45,7 +45,7 @@ export type ProviderAuthenticationResponse = {
 export type ProviderRequest = {
   bi: string;
   nome: string;
-  dataNasc: Date;
+  dataNasc: string;
   morada: string;
   email: string;
   telefone: string;
