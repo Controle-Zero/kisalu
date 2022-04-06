@@ -20,6 +20,12 @@ export default interface Atividade {
   dataFinalizado: Date;
   valorAssociado: number;
   numRef: number;
-  estado: string;
+  estado: ActivityState;
   descricao: string;
+}
+
+export enum ActivityState {
+  PENDENTE = "PENDENTE",
+  FINALIZADA = "FINALIZADA",
+  ATIVA = "ATIVA",
 }
