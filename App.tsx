@@ -7,12 +7,13 @@ import {
   Poppins_600SemiBold,
 } from "@expo-google-fonts/poppins";
 import { NavigationContainer } from "@react-navigation/native";
-
+import { ThemeProvider } from "styled-components/native";
 import Routes from "./src/routes";
 import { AuthProvider } from "./src/contexts/AuthContext";
-import { ThemeProvider } from "styled-components/native";
-
 import theme from "./src/styles/theme";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 export default function App() {
   // Carrega as fontes
@@ -22,17 +23,17 @@ export default function App() {
     Poppins_600SemiBold,
   });
 
-  // Se as fontes não carregarem, apresenta a aplicação a carregar
   if (!fontsLoaded) return <AppLoading />;
-  // Passando o NavigationContainer para navegação e AuthProvider para autenticação
-  // O Routes armazena todas as rotas
+
   return (
-    <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <AuthProvider>
-          <Routes />
-        </AuthProvider>
-      </NavigationContainer>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <NavigationContainer>
+          <AuthProvider>
+            <Routes />
+          </AuthProvider>
+        </NavigationContainer>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }

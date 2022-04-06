@@ -16,7 +16,6 @@ const Home: NavigableFC = ({ navigation }) => {
   const [filteredCategories, setFilteredCategories] = useState<Categoria[]>([]);
   const { COLORS } = useContext(ThemeContext);
 
-  // TODO: Change to React Query
   useEffect(() => {
     setLoading(true);
     async function getActivities() {
