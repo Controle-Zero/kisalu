@@ -1,18 +1,18 @@
 import React, { useContext } from "react";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import Button from "../../../components/Button";
-import Spacer from "../../../components/layout/Spacer";
-import AppLogo from "../../../components/AppLogo";
-import CreateAccountTypeModal from "../../../components/modals/CreateAccountTypeModal";
-import { useCustomBottomSheetModal } from "../../../hooks/useCustomBottomSheetModal";
-import { AuthNavProps } from "../../../routes/types/AuthParamsList";
+import { ThemeContext } from "styled-components";
 import {
   Container,
   AppDescription,
   ButtonsContainer,
   WelcomeText,
 } from "./style";
-import { ThemeContext } from "styled-components";
+import Button from "../../../components/Button";
+import Spacer from "../../../components/layout/Spacer";
+import AppLogo from "../../../components/AppLogo";
+import AccountTypeModal from "../../../components/Modals/AccountTypeModal";
+import { useCustomBottomSheetModal } from "../../../hooks/useCustomBottomSheetModal";
+import { AuthNavProps } from "../../../routes/types/AuthParamsList";
 
 export default function Welcome({ navigation }: AuthNavProps<"Welcome">) {
   const { COLORS } = useContext(ThemeContext);
@@ -41,7 +41,7 @@ export default function Welcome({ navigation }: AuthNavProps<"Welcome">) {
           />
         </ButtonsContainer>
       </Container>
-      <CreateAccountTypeModal reference={reference} />
+      <AccountTypeModal ref={reference} />
     </BottomSheetModalProvider>
   );
 }
