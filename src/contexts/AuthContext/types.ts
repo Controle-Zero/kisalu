@@ -5,7 +5,7 @@ import Prestador from "../../models/Provedor";
 
 export type User = Cliente | Prestador | null;
 
-export type UserType = "Client" | "Provider";
+export type UserType = "client" | "provider";
 
 export type AuthContextType = {
   user: User;
