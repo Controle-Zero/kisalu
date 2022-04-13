@@ -1,3 +1,4 @@
+import React, { FC, Fragment, useState } from "react";
 import {
   View,
   Text,
@@ -7,16 +8,14 @@ import {
   Pressable,
   Image,
 } from "react-native";
-
 import ProfileHeader from "../../components/ProfileHeader";
-import Button from "../../components/buttons/Button";
+import Button from "../../components/Button";
 import Spacer from "../../components/layout/Spacer";
 import ListTile from "../../components/ListTile";
 import { Colors, TextStyles } from "../../styles/appTheme";
-import React, { FC, Fragment, useState } from "react";
 import { HomeNavProps } from "../../routes/types/Cliente/HomeParamsList";
-import TextArea from "../../components/input/TextArea";
-import useAuth from "../../contexts/AuthContext";
+import TextArea from "../../components/Input/TextArea";
+import useAuth from "../../hooks/useAuth";
 import * as Socket from "../../config/webSocket";
 
 const ClientProvedor: (
@@ -111,6 +110,7 @@ const ClientProvedor: (
             fazer um orçamento estimado
           </Text>
           <TextArea
+            hasError={false}
             label=""
             value={text}
             placeholder="Escreva a sua necessidade"
