@@ -4,7 +4,7 @@ import { Container, Heading1, Heading2, Image } from "./style";
 import { loginImage } from "../../../styles/imageConstants";
 import LoginForm from "../../../components/Forms/LoginForm";
 import { handleLogin } from "./types";
-import useAuth from "../../../contexts/AuthContext";
+import useAuth from "../../../hooks/useAuth";
 
 const Login = () => {
   const { signIn } = useAuth();

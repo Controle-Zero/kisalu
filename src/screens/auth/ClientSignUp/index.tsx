@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import React from "react";
-import useAuth from "../../../contexts/AuthContext";
+import useAuth from "../../../hooks/useAuth";
 import { ClientSignUpHandler } from "./types";
 import { Container, FormContainer, Heading1, Paragraph } from "./style";
 import ClientSignUpForm from "../../../components/Forms/ClientSignUpForm";

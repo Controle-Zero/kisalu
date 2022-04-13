@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import PickerSelect, { Item } from "react-native-picker-select";
 import { NavigableFC } from "./types";
 import { Label, Text } from "./style";
-import useAuth from "../../../contexts/AuthContext";
+import useAuth from "../../../hooks/useAuth";
 import LoadingScreen from "../../other/LoadingScreen";
 import Spacer from "../../../components/layout/Spacer";
 import ListEmpty from "./ListEmpty";
