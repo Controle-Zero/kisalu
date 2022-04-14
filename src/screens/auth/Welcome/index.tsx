@@ -13,6 +13,7 @@ import AppLogo from "../../../components/AppLogo";
 import AccountTypeModal from "../../../components/Modals/AccountTypeModal";
 import { useCustomBottomSheetModal } from "../../../hooks/useCustomBottomSheetModal";
 import { AuthNavProps } from "../../../routes/types/AuthParamsList";
+import { View } from "react-native";
 
 export default function Welcome({ navigation }: AuthNavProps<"Welcome">) {
   const { COLORS } = useContext(ThemeContext);
@@ -26,10 +27,12 @@ export default function Welcome({ navigation }: AuthNavProps<"Welcome">) {
     <BottomSheetModalProvider>
       <Container>
         <AppLogo />
-        <WelcomeText>Bem Vindo</WelcomeText>
-        <AppDescription>
-          Uma app que te ajuda a encontrar e providenciar serviços
-        </AppDescription>
+        <View>
+          <WelcomeText>Bem Vindo</WelcomeText>
+          <AppDescription>
+            Uma app que te ajuda a encontrar e providenciar serviços
+          </AppDescription>
+        </View>
         <ButtonsContainer>
           <Button onPress={openLogin} text="Login" />
           <Spacer height={20} />

@@ -22,9 +22,9 @@ export const ButtonText = styled.Text<ButtonTextStyle>`
 
 export const ModalButtonContainer = styled.TouchableHighlight<ButtonContainerStyle>`
   background-color: ${(props) => props.backgroundColor};
-  height: 45;
+  height: 45px;
   justify-content: center;
-  border-radius: 10;
+  border-radius: 10px;
 `;
 
 export const StyledTextButton = styled.Text`

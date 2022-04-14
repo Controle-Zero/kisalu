@@ -143,7 +143,7 @@ const ProviderSignUpForm: React.FC<Props> = ({ onSubmit }) => {
             <TextField
               label="IBAN"
               value={values.IBAN}
-              onChangeText={handleChange("iban")}
+              onChangeText={handleChange("IBAN")}
               hasError={ibanError}
               placeholder="AO06.XXXX.XXXX.XXXX.XXXX.XXXX.X"
             />
@@ -188,7 +188,13 @@ const ProviderSignUpForm: React.FC<Props> = ({ onSubmit }) => {
             )}
             <Spacer height={spaceBetweenInputs + 30} />
             {/* Submit */}
-            <Button text="Criar Conta" onPress={handleSubmit} />
+            <Button
+              text="Criar Conta"
+              onPress={() => {
+                console.log("Hello");
+                handleSubmit();
+              }}
+            />
           </>
         );
       }}

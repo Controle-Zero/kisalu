@@ -27,7 +27,7 @@ const Button: React.FC<ButtonProps> = ({
           <Spacer width={10} />
         </>
       )}
-      <ButtonText textColor={textColor || COLORS.BLACK}>{text}</ButtonText>
+      <ButtonText textColor={textColor || COLORS.WHITE}>{text}</ButtonText>
     </ButtonContainer>
   );
 };

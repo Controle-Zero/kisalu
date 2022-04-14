@@ -1,25 +1,26 @@
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useBottomSheetModal } from "@gorhom/bottom-sheet";
 import { Actions, Content, Heading, Modal } from "./style";
 import { Props } from "./types";
 import ModalButton from "../../Button/ModalButton";
 import Spacer from "../../layout/Spacer";
+import { AuthParamsList } from "../../../routes/types/AuthParamsList";
 
 const AccountTypeModal: React.FC<Props> = ({ reference }) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<AuthParamsList>>();
   const { dismiss } = useBottomSheetModal();
 
-  const snapPoints = ["45%"];
+  const snapPoints = ["35%"];
 
   const navigateToProviderScreen = () => {
     dismiss();
-    navigation.push("ProviderSignUp");
+    navigation.navigate("CadastroProvedor");
   };
 
   const navigateToClientScreen = () => {
     dismiss();
-    navigation.push("ClientSignUp");
+    navigation.navigate("CadastroCliente");
   };
 
   return (
