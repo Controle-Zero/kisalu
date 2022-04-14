@@ -1,4 +1,5 @@
 import React from "react";
+import { Alert } from "react-native";
 import useAuth from "../hooks/useAuth";
 import LoadingScreen from "../screens/other/LoadingScreen";
 import AuthRoutes from "./AuthRoute";
@@ -14,7 +15,7 @@ const Routes: React.FC = () => {
   }
 
   if (error) {
-    alert(error);
+    Alert.alert("Erro no Login", error.message);
     return <AuthRoutes />;
   }
 

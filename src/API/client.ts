@@ -1,6 +1,6 @@
 import "react-native-get-random-values";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios, { AxiosError } from "axios";
+import axios, { Axios, AxiosError } from "axios";
 import { v4 as uuid } from "uuid";
 import { getDeviceData } from "../utils/deviceDataHandler";
 import apiConfig, {
@@ -35,8 +35,12 @@ export async function authenticateClient(email: string, password: string) {
       requestBody
     );
     return response.data.generatedToken;
-  } catch (error) {
-    throw new Error((error as AxiosError).response?.data.message as string);
+  } catch (e) {
+    const error = e as AxiosError;
+    console.error(error);
+    if (error.response?.status === 400)
+      throw new Error("A conta inserida não existe");
+    else throw new Error("Existe algum erro com a rede");
   }
 }
 
