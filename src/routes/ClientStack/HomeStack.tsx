@@ -5,7 +5,6 @@ import { HomeParamsList } from "../types/Cliente/HomeParamsList";
 import Home from "../../screens/Client/Home";
 import ProvidersList from "../../screens/Client/ProvidersList";
 import Spacer from "../../components/layout/Spacer";
-import ClientProvedor from "../../screens/Client/ClientProvedor";
 import useAuth from "../../hooks/useAuth";
 
 const NativeHomeStack = createNativeStackNavigator<HomeParamsList>();
@@ -31,11 +30,11 @@ function HomeStack() {
           };
         }}
       />
-      <NativeHomeStack.Screen
+      {/* <NativeHomeStack.Screen
         name="ProviderProfile"
         component={ClientProvedor}
         options={{ title: "" }}
-      />
+      /> */}
     </NativeHomeStack.Navigator>
   );
 }
