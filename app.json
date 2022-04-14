@@ -1,8 +1,8 @@
 {
   "expo": {
     "backgroundColor": "#fff",
-    "name": "union-services",
-    "slug": "union-services",
+    "name": "kisalu",
+    "slug": "kisalu",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/appIcon.png",
