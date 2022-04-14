@@ -3,7 +3,7 @@ import Cliente from "../models/Cliente";
 import Prestador from "../models/Provedor";
 
 const PRODUCTION_URL = "https://uservices-api-teste.herokuapp.com";
-const DEV_URL = "http://localhost:8080";
+const DEV_URL = "http://192.168.1.22:8080";
 
 export default {
   /**
