@@ -1,17 +1,17 @@
-import React from "react";
-
+import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/Ionicons";
-import useAuth from "../contexts/AuthContext";
 import { ProviderParamsList } from "./types/ProviderParamsList";
-import { Colors, TextStyles } from "../styles/appTheme";
 import Home from "../screens/Provider/Home";
 import ProfileStack from "./ProviderStack/ProfileStack";
+import useAuth from "../hooks/useAuth";
+import { ThemeContext } from "styled-components";
 
 const BottomTab = createBottomTabNavigator<ProviderParamsList>();
 
 const ProvedorRoutes = () => {
   const { user } = useAuth();
+  const { COLORS, FONTS } = useContext(ThemeContext);
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
@@ -29,11 +29,11 @@ const ProvedorRoutes = () => {
           }
           return <Icon name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: Colors.primary,
+        tabBarActiveTintColor: COLORS.PRIMARY,
         tabBarInactiveTintColor: "gray",
         tabBarLabelStyle: {
-          fontSize: TextStyles.smallText.fontSize,
-          fontFamily: TextStyles.smallText.font,
+          fontSize: 12,
+          fontFamily: FONTS.POPPINS_REGULAR,
         },
         tabBarStyle: {
           height: 60,

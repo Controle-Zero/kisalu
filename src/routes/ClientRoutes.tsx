@@ -1,18 +1,16 @@
-import React from "react";
-
+import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
-import Perfil from "../screens/Client/Perfil";
+import Profile from "../screens/Client/Profile";
 import { ClienteParamsList } from "./types/ClienteParamsList";
-import { Colors, TextStyles } from "../styles/appTheme";
-import HomeStack from "./ClienteStack/HomeStack";
-import ActivityStack from "./ClienteStack/ActivityStack";
-import Rating from "../screens/Client/Rating";
+import HomeStack from "./ClientStack/HomeStack";
+import ActivityStack from "./ClientStack/ActivityStack";
+import { ThemeContext } from "styled-components";
 
 const BottomTab = createBottomTabNavigator<ClienteParamsList>();
 
 const ClienteRoutes = () => {
+  const { COLORS, FONTS } = useContext(ThemeContext);
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
@@ -34,11 +32,11 @@ const ClienteRoutes = () => {
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: Colors.primary,
+        tabBarActiveTintColor: COLORS.PRIMARY,
         tabBarInactiveTintColor: "gray",
         tabBarLabelStyle: {
-          fontSize: TextStyles.smallText.fontSize,
-          fontFamily: TextStyles.smallText.font,
+          fontSize: 12,
+          fontFamily: FONTS.POPPINS_REGULAR,
         },
         tabBarStyle: {
           height: 60,
@@ -50,7 +48,7 @@ const ClienteRoutes = () => {
     >
       <BottomTab.Screen name="Home" component={HomeStack} />
       <BottomTab.Screen name="Atividades" component={ActivityStack} />
-      <BottomTab.Screen name="Perfil" component={Perfil} />
+      <BottomTab.Screen name="Perfil" component={Profile} />
     </BottomTab.Navigator>
   );
 };

@@ -45,10 +45,10 @@ export const AuthProvider: React.FC = ({ children }) => {
     try {
       let token = "";
       let user = {} as User;
-      if (userType == "Client") {
+      if (userType == "client") {
         token = await ClientAPI.authenticateClient(email, password);
         user = await ClientAPI.getClient(token);
-      } else if (userType == "Provider") {
+      } else if (userType == "provider") {
         token = await ProviderAPI.authenticateProvider(email, password);
         user = await ProviderAPI.getProvider(token);
       } else {
@@ -89,7 +89,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       await ProviderAPI.createProvider(newProvider);
       Alert.alert("Login", "Conta criada com sucesso");
       const { email, password } = provider;
-      await signIn(email, password, "Provider");
+      await signIn(email, password, "provider");
     } catch (error) {
       console.log(error);
       setError(error);
@@ -113,7 +113,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       await ClientAPI.createClient(newClient);
       Alert.alert("Login", "Conta criada com sucesso");
       const { email, password } = client;
-      await signIn(email, password, "Provider");
+      await signIn(email, password, "provider");
     } catch (error) {
       console.error(error);
       setError(error);
@@ -130,7 +130,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     signUpProvider,
     token,
     user,
-    userType: "Client",
+    userType: "client",
   };
 
   return (

@@ -1,14 +1,12 @@
 import React, { FC } from "react";
-
 import { Avatar } from "react-native-paper";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 import { HomeParamsList } from "../types/Cliente/HomeParamsList";
 import Home from "../../screens/Client/Home";
-import useAuth from "../../contexts/AuthContext";
 import ProvidersList from "../../screens/Client/ProvidersList";
 import Spacer from "../../components/layout/Spacer";
 import ClientProvedor from "../../screens/Client/ClientProvedor";
+import useAuth from "../../hooks/useAuth";
 
 const NativeHomeStack = createNativeStackNavigator<HomeParamsList>();
 

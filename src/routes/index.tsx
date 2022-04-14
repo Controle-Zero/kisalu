@@ -1,13 +1,13 @@
 import React from "react";
-import useAuth from "../contexts/AuthContext";
+import useAuth from "../hooks/useAuth";
 import LoadingScreen from "../screens/other/LoadingScreen";
 import AuthRoutes from "./AuthRoute";
-import ClienteRoutes from "./ClienteRoutes";
+import ClienteRoutes from "./ClientRoutes";
 import ProvedorRoutes from "./ProvedorRoutes";
 
 // Armazena todas as rotas da aplicação
 const Routes: React.FC = () => {
-  const { signed, loading, error, userType } = useAuth();
+  const { loading, error, userType, user } = useAuth();
 
   if (loading) {
     return <LoadingScreen />;
@@ -18,7 +18,7 @@ const Routes: React.FC = () => {
     return <AuthRoutes />;
   }
 
-  if (signed) {
+  if (!user) {
     return userType === "client" ? <ClienteRoutes /> : <ProvedorRoutes />;
   } else {
     return <AuthRoutes />;

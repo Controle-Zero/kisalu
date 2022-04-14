@@ -1,27 +1,26 @@
-import React, { FC } from "react";
-
+import React, { FC, useContext } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Icon from "react-native-vector-icons/Ionicons";
-
-import Atividades from "../../screens/Client/Atividades";
+import Activities from "../../screens/Client/Activities";
 import { ActivityParamsList } from "../types/Cliente/ActivityParamsList";
-import { Colors } from "../../styles/appTheme";
 import Spacer from "../../components/layout/Spacer";
 import Rating from "../../screens/Client/Rating";
+import { ThemeContext } from "styled-components";
 
 const NativeActivityStack = createNativeStackNavigator<ActivityParamsList>();
 
 function ActivityStack() {
+  const { COLORS } = useContext(ThemeContext);
   return (
     <NativeActivityStack.Navigator initialRouteName="AtividadesScreen">
       <NativeActivityStack.Screen
         name="AtividadesScreen"
-        component={Atividades}
+        component={Activities}
         options={{
           headerTitle: "Atividades",
           headerLeft: () => <HeaderLeft />,
           contentStyle: {
-            borderTopColor: Colors.primary,
+            borderTopColor: COLORS.PRIMARY,
             borderTopWidth: 1,
           },
         }}
@@ -32,7 +31,7 @@ function ActivityStack() {
         options={{
           headerTitle: "Avaliação",
           contentStyle: {
-            borderTopColor: Colors.primary,
+            borderTopColor: COLORS.PRIMARY,
             borderTopWidth: 1,
           },
         }}
@@ -43,7 +42,7 @@ function ActivityStack() {
 
 const HeaderLeft: FC = () => (
   <>
-    <Icon name="list" size={35} color={Colors.secondary} />
+    <Icon name="list" size={35} />
     <Spacer width={20} />
   </>
 );
