@@ -2,11 +2,14 @@ import Categoria from "../models/Categoria";
 import Cliente from "../models/Cliente";
 import Prestador from "../models/Provedor";
 
+const PRODUCTION_URL = "https://uservices-api-teste.herokuapp.com";
+const DEV_URL = "http://localhost:8080";
+
 export default {
   /**
    * The API base url. This is the production API
    */
-  baseUrl: "https://uservices-api-teste.herokuapp.com",
+  baseUrl: DEV_URL,
 };
 
 export type NormalResponse = {
