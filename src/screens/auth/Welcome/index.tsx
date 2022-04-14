@@ -41,7 +41,7 @@ export default function Welcome({ navigation }: AuthNavProps<"Welcome">) {
           />
         </ButtonsContainer>
       </Container>
-      <AccountTypeModal ref={reference} />
+      <AccountTypeModal reference={reference} />
     </BottomSheetModalProvider>
   );
 }

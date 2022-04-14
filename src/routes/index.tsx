@@ -18,7 +18,7 @@ const Routes: React.FC = () => {
     return <AuthRoutes />;
   }
 
-  if (!user) {
+  if (user) {
     return userType === "client" ? <ClienteRoutes /> : <ProvedorRoutes />;
   } else {
     return <AuthRoutes />;

@@ -41,12 +41,12 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
               <ToggleButton
                 icon={() => <Text>Cliente</Text>}
                 value="client"
-                isClient={isClient}
+                isClient={!isClient}
               />
               <ToggleButton
                 icon={() => <Text>Provedor</Text>}
                 value="provider"
-                isClient={!isClient}
+                isClient={isClient}
               />
             </ToggleButtonRow>
             <Spacer height={12} />

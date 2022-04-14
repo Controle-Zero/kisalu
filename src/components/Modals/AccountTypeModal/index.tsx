@@ -6,7 +6,7 @@ import { Props } from "./types";
 import ModalButton from "../../Button/ModalButton";
 import Spacer from "../../layout/Spacer";
 
-const AccountTypeModal: React.FC<Props> = ({ ref }) => {
+const AccountTypeModal: React.FC<Props> = ({ reference }) => {
   const navigation = useNavigation();
   const { dismiss } = useBottomSheetModal();
 
@@ -23,7 +23,7 @@ const AccountTypeModal: React.FC<Props> = ({ ref }) => {
   };
 
   return (
-    <Modal ref={ref} snapPoints={snapPoints}>
+    <Modal ref={reference} snapPoints={snapPoints}>
       <Content>
         <Heading>Selecione o tipo de cadastro</Heading>
         <Actions>
