@@ -11,9 +11,6 @@ import apiConfig, {
 } from "./apiConfig";
 import Atividade, { ActivityState } from "../models/Atividade";
 
-/**
- * https://uservices-api-teste.herokuapp.com/cliente
- */
 const END_POINT = `${apiConfig.baseUrl}/cliente`;
 
 /**
@@ -34,13 +31,14 @@ export async function authenticateClient(email: string, password: string) {
       `${END_POINT}/login`,
       requestBody
     );
+    console.log(response.data.generatedToken);
     return response.data.generatedToken;
-  } catch (e) {
-    const error = e as AxiosError;
+  } catch (error) {
+    const axiosError = error as AxiosError;
     console.error(error);
-    if (error.response?.status === 400)
+    if (axiosError.response?.status === 400)
       throw new Error("A conta inserida não existe");
-    else throw new Error("Existe algum erro com a rede");
+    else throw new Error("Existe algum erro com as credenciais ou com a rede");
   }
 }
 
@@ -54,7 +52,14 @@ export async function createClient(client: ClientRequest) {
     const response = await axios.post<NormalResponse>(END_POINT, client);
     return response;
   } catch (error) {
-    throw new Error((error as AxiosError).response?.data.message as string);
+    console.error(error);
+    const axiosError = error as AxiosError;
+    if (axiosError.response?.status == 400)
+      throw new Error(
+        "O cliente já existe no sistema ou existe um erro no processamento dos dados enviados"
+      );
+    else
+      throw new Error((error as AxiosError).response?.data.message as string);
   }
 }
 
@@ -73,7 +78,12 @@ export async function getClient(token: string) {
     });
     return response.data.cliente;
   } catch (error) {
-    throw new Error((error as AxiosError).response?.data.message as string);
+    console.error(error);
+    const axiosError = error as AxiosError;
+    if (axiosError.response?.status == 401)
+      throw new Error("Não está autorizado");
+    else
+      throw new Error((error as AxiosError).response?.data.message as string);
   }
 }
 
@@ -90,11 +100,15 @@ export async function getFilteredActivitiesFromClient(
   token: string,
   filter: ActivityState
 ) {
-  const response = await getClient(token);
-  const activities = response.atividades ?? [];
-  if (activities.length == 0) return activities;
-  const filteredActivities = filterActivities(activities, filter);
-  return filteredActivities;
+  try {
+    const response = await getClient(token);
+    const activities = response.atividades ?? [];
+    if (activities.length == 0) return activities;
+    const filteredActivities = filterActivities(activities, filter);
+    return filteredActivities;
+  } catch (error) {
+    throw error;
+  }
 }
 
 function filterActivities(activities: Atividade[], filter: ActivityState) {

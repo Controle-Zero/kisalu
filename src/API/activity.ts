@@ -13,10 +13,19 @@ const END_POINT = `${apiConfig.baseUrl}/atividade`;
  * @param rating  A avaliação do utilizador da atividade
  * @returns  A resposta da requisição
  */
-export async function rateActivity(activityId: string, rating: number) {
+export async function rateActivity(
+  activityId: string,
+  rating: number,
+  token: string
+) {
   try {
     const response: AxiosResponse<NormalResponse> = await axios.put(
-      `${END_POINT}/${activityId}/${rating}`
+      `${END_POINT}/${activityId}/${rating}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     return response;
   } catch (error) {
@@ -30,9 +39,13 @@ export async function rateActivity(activityId: string, rating: number) {
  * @param activityId O ID da atividade para ser gerado o documento
  * @returns A fatura no formato HTML
  */
-export async function generateActivityBill(activityId: string) {
+export async function generateActivityBill(activityId: string, token: string) {
   try {
-    const response = await axios.get(`${END_POINT}/${activityId}/doc`);
+    const response = await axios.get(`${END_POINT}/${activityId}/doc`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response;
   } catch (error) {
     throw new Error((error as AxiosError).response?.data.message as string);
@@ -45,9 +58,16 @@ export async function generateActivityBill(activityId: string) {
  * @param activityId O ID da atividade para ser gerado o documento
  * @returns A fatura no formato PDF em Blob
  */
-export async function generatePDFActivityBill(activityId: string) {
+export async function generatePDFActivityBill(
+  activityId: string,
+  token: string
+) {
   try {
-    const response = await axios.get(`${END_POINT}/${activityId}/docPDF`);
+    const response = await axios.get(`${END_POINT}/${activityId}/docPDF`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response;
   } catch (error) {
     throw new Error((error as AxiosError).response?.data.message as string);

@@ -67,7 +67,7 @@ export async function getProvider(token: string) {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data.provedor;
+    return response.data.prestador;
   } catch (error) {
     throw new Error((error as AxiosError).response?.data.message as string);
   }

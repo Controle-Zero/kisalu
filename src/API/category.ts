@@ -11,9 +11,13 @@ const END_POINT = `${apiConfig.baseUrl}/categoria`;
  * Retorna a lista de todas as categorias
  * @returns Lista de categorias
  */
-export async function getCategories() {
+export async function getCategories(token: string) {
   try {
-    const response = await axios.get<CategoriesResponse>(END_POINT);
+    const response = await axios.get<CategoriesResponse>(END_POINT, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data.categorias;
   } catch (error) {
     console.error(error);
