@@ -1,4 +1,4 @@
-import { View, Text, Alert, ScrollView } from "react-native";
+import { Alert, ScrollView } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import * as ProviderAPI from "../../../API/provider";
@@ -35,7 +35,7 @@ const SelectService: NavigableFC = ({ navigation }) => {
   };
 
   const fetchData = async () => {
-    const data = await CategoryAPI.getCategories();
+    const data = await CategoryAPI.getCategories(token);
     const radioProps = data
       .filter(
         (category) =>

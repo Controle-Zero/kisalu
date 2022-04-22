@@ -4,4 +4,4 @@ import { ProviderSignUpFormType } from "../../../components/Forms/ProviderSignUp
 export type ProviderSignUpHandler = (
   values: ProviderSignUpFormType,
   actions: FormikHelpers<ProviderSignUpFormType>
-) => Promise<void>;
+) => void;

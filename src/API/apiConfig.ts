@@ -9,7 +9,7 @@ export default {
   /**
    * The API base url. This is the production API
    */
-  baseUrl: DEV_URL,
+  baseUrl: PRODUCTION_URL,
 };
 
 export type NormalResponse = {

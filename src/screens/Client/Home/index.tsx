@@ -9,8 +9,10 @@ import { getCategories, getFilteredCategories } from "../../../API/category";
 import LoadingScreen from "../../other/LoadingScreen";
 import Spacer from "../../../components/layout/Spacer";
 import CategoryCard from "../../../components/Cards/CategoryCard";
+import useAuth from "../../../hooks/useAuth";
 
 const Home: NavigableFC = ({ navigation }) => {
+  const { token } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [filteredCategories, setFilteredCategories] = useState<Categoria[]>([]);
@@ -19,7 +21,7 @@ const Home: NavigableFC = ({ navigation }) => {
   useEffect(() => {
     setLoading(true);
     async function getActivities() {
-      const categories = await getCategories();
+      const categories = await getCategories(token);
       setFilteredCategories(
         getFilteredCategories(searchQuery, categories) as Categoria[]
       );

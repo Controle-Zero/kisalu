@@ -55,6 +55,8 @@ export const AuthProvider: React.FC = ({ children }) => {
         throw new Error("Tipo de utilizador inválido");
       }
       setAsyncStorageData(user, token);
+      setError(null);
+      setUser(user);
     } catch (error) {
       console.error(error);
       setError(error);
@@ -90,6 +92,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       Alert.alert("Login", "Conta criada com sucesso");
       const { email, password } = provider;
       await signIn(email, password, "provider");
+      setError(null);
     } catch (error) {
       console.log(error);
       setError(error);
@@ -101,7 +104,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     const newClient = {
       bi: client.bi,
       nome: client.fullName,
-      dataNasc: dayjs(client.address).format("YYY/MM/DD"),
+      dataNasc: dayjs(client.birthDay).format("YYYY-MM-DD"),
       email: client.email,
       morada: client.address,
       password: client.password,
@@ -113,7 +116,8 @@ export const AuthProvider: React.FC = ({ children }) => {
       await ClientAPI.createClient(newClient);
       Alert.alert("Login", "Conta criada com sucesso");
       const { email, password } = client;
-      await signIn(email, password, "provider");
+      await signIn(email, password, "client");
+      setError(null);
     } catch (error) {
       console.error(error);
       setError(error);
