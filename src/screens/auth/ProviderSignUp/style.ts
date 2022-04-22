@@ -17,7 +17,7 @@ export const Paragraph = styled.Text`
   font-size: 16px;
   color: ${({ theme }) => theme.COLORS.GREY_TEXT};
   align-self: center;
-  margin-top: 10;
+  margin-top: 10px;
   max-width: 267px;
 `;
 
