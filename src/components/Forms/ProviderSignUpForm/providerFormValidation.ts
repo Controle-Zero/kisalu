@@ -33,7 +33,7 @@ export const providerSignUpSchema = yup.object({
       regexAddress,
       "A morada deve ser do formato Província, Município, Rua"
     ),
-  iban: yup
+  IBAN: yup
     .string()
     .required("O IBAN não pode estar vazio")
     .matches(regexIban, "O IBAN não é válido"),

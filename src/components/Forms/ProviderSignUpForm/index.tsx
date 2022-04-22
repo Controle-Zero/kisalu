@@ -188,13 +188,7 @@ const ProviderSignUpForm: React.FC<Props> = ({ onSubmit }) => {
             )}
             <Spacer height={spaceBetweenInputs + 30} />
             {/* Submit */}
-            <Button
-              text="Criar Conta"
-              onPress={() => {
-                console.log("Hello");
-                handleSubmit();
-              }}
-            />
+            <Button text="Criar Conta" onPress={handleSubmit} />
           </>
         );
       }}
