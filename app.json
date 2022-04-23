@@ -14,15 +14,19 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.controlezero.kisalu"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/appIcon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.controlezero.kisalu"
     }
   }
 }
