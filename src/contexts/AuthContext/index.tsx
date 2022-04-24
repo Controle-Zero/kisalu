@@ -8,6 +8,7 @@ import {
   LoginFunction,
   LogoutFunction,
   User,
+  UserType,
 } from "./types";
 import * as ClientAPI from "../../API/client";
 import * as ProviderAPI from "../../API/provider";
@@ -22,6 +23,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<unknown>(null);
   const [token, setToken] = useState("");
+  const [userType, setUserType] = useState<UserType>("client");
 
   useEffect(() => {
     setIsLoading(true);
@@ -42,15 +44,18 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   const signIn: LoginFunction = async (email, password, userType) => {
     setIsLoading(true);
+    console.log(userType);
     try {
       let token = "";
       let user = {} as User;
       if (userType == "client") {
         token = await ClientAPI.authenticateClient(email, password);
         user = await ClientAPI.getClient(token);
+        setUserType("client");
       } else if (userType == "provider") {
         token = await ProviderAPI.authenticateProvider(email, password);
         user = await ProviderAPI.getProvider(token);
+        setUserType("provider");
       } else {
         throw new Error("Tipo de utilizador inválido");
       }
@@ -134,7 +139,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     signUpProvider,
     token,
     user,
-    userType: "client",
+    userType,
   };
 
   return (
