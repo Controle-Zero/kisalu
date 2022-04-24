@@ -14,11 +14,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true,
+      "buildNumber": "1.0.0",
       "bundleIdentifier": "com.controlezero.kisalu"
     },
     "android": {
@@ -26,7 +24,8 @@
         "foregroundImage": "./src/assets/images/appIcon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.controlezero.kisalu"
+      "package": "com.controlezero.kisalu",
+      "versionCode": 1
     }
   }
 }
