@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useBottomSheetModal } from "@gorhom/bottom-sheet";
-import { Actions, Content, Heading, Modal } from "./style";
+import { Actions, BackgroundOverlay, Content, Heading, Modal } from "./style";
 import { Props } from "./types";
 import ModalButton from "../../Button/ModalButton";
 import Spacer from "../../layout/Spacer";
@@ -24,7 +24,12 @@ const AccountTypeModal: React.FC<Props> = ({ reference }) => {
   };
 
   return (
-    <Modal ref={reference} snapPoints={snapPoints}>
+    <Modal
+      ref={reference}
+      snapPoints={snapPoints}
+      backdropComponent={() => <BackgroundOverlay />}
+      enablePanDownToClose
+    >
       <Content>
         <Heading>Selecione o tipo de cadastro</Heading>
         <Actions>

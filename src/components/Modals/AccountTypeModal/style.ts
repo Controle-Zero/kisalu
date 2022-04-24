@@ -21,3 +21,12 @@ export const Actions = styled.View`
   margin-top: 26px;
   width: 100%;
 `;
+
+export const BackgroundOverlay = styled.View`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+`;
