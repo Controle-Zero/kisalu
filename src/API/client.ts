@@ -21,7 +21,6 @@ const END_POINT = `${apiConfig.baseUrl}/cliente`;
 export async function authenticateClient(email: string, password: string) {
   const deviceData = getDeviceData();
   const requestBody = { email, password, deviceData };
-  console.log(requestBody);
   try {
     const response = await axios.post<ClientAuthenticationResponse>(
       `${END_POINT}/login`,

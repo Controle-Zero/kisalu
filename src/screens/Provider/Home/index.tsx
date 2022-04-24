@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, FlatList } from "react-native";
 import React, { useContext } from "react";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import Spacer from "../../../components/layout/Spacer";
@@ -8,7 +8,6 @@ import {
   EmptyActivityText,
   Heading1,
 } from "./style";
-import { FlatList } from "react-native-gesture-handler";
 import { ThemeContext } from "styled-components";
 import ProviderActivityCard from "../../../components/Cards/ProviderActivityCard";
 import { ActivityHandler } from "./type";

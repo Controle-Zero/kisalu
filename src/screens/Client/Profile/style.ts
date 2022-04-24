@@ -7,7 +7,7 @@ export const Container = styled.ScrollView`
 
 export const Wrapper = styled.View`
   margin-top: 50px;
-  padding: 40px 37px;
+  padding: 60px 37px;
   background-color: ${({ theme }) => theme.COLORS.WHITE};
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
