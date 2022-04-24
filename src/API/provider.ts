@@ -5,6 +5,7 @@ import { v4 as uuid } from "uuid";
 import Prestador from "../models/Provedor";
 import { getDeviceData } from "../utils/deviceDataHandler";
 import apiConfig, {
+  ActivitiesResponseProvider,
   NormalResponse,
   ProviderAuthenticationResponse,
   ProviderRequest,
@@ -108,7 +109,7 @@ export async function updateProviderCategories(
       idCategorias: categoriesID,
     };
     const response = await axios.put<NormalResponse>(
-      `${END_POINT}/categorias`,
+      `${END_POINT}/categoria`,
       requestBody,
       {
         headers: {
@@ -119,5 +120,53 @@ export async function updateProviderCategories(
     return response.data;
   } catch (error) {
     throw new Error((error as AxiosError).response?.data.message as string);
+  }
+}
+
+export async function getActivities(token: string) {
+  try {
+    const response = await axios.get<ActivitiesResponseProvider>(
+      `${END_POINT}/atividades`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    const axiosError = error as AxiosError;
+    if (axiosError.response?.status == 400)
+      throw new Error("Erro na busca de atividades");
+    else throw new Error(axiosError.message);
+  }
+}
+
+export async function removeProviderCategory(
+  token: string,
+  idCategoria: string
+) {
+  try {
+    const requestBody = {
+      idCategoria,
+    };
+    const response = await axios.delete(`${END_POINT}/categoria`, {
+      headers: {
+        Authorization: token,
+      },
+      data: requestBody,
+    });
+    return {
+      status: response.status,
+    };
+  } catch (error) {
+    console.error(error);
+    const axiosError = error as AxiosError;
+    if (axiosError.response?.status == 400) {
+      throw new Error(
+        "Something wrong with the request. The category might not exist"
+      );
+    } else throw new Error(axiosError.message);
   }
 }

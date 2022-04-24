@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { getDeviceData } from "../utils/deviceDataHandler";
 import apiConfig, {
+  ActivitiesResponseClient,
   ClientAuthenticationResponse,
   ClientRequest,
   ClientResponse,
@@ -102,6 +103,26 @@ export async function getFilteredActivitiesFromClient(
     return filteredActivities;
   } catch (error) {
     throw error;
+  }
+}
+
+export async function getActivities(token: string) {
+  try {
+    const response = await axios.get<ActivitiesResponseClient>(
+      `${END_POINT}/atividades`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    const axiosError = error as AxiosError;
+    if (axiosError.response?.status == 400)
+      throw new Error("Erro na busca de atividades");
+    else throw new Error(axiosError.message);
   }
 }
 

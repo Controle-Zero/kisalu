@@ -62,3 +62,50 @@ export type ProviderResponse = {
   success: boolean;
   message?: string;
 };
+
+export type ActivitiesResponseClient = {
+  Prestador: {
+    bi: string;
+    nome: string;
+    rate: number;
+    email: string;
+    telefone: string;
+    iban: string;
+    id: string;
+  };
+  Categoria: {
+    titulo: string;
+    id: string;
+  };
+  dataCriado: string;
+  dataFinalizado: string;
+  descricao: string;
+  estado: string;
+  id: string;
+  numRef: number;
+  valorAssociado: number;
+  localizacao: string;
+}[];
+
+export type ActivitiesResponseProvider = {
+  Cliente: {
+    bi: string;
+    nome: string;
+    email: string;
+    telefone: string;
+    id: string;
+    morada: string;
+  };
+  Categoria: {
+    titulo: string;
+    id: string;
+  };
+  dataCriado: string;
+  dataFinalizado: string;
+  descricao: string;
+  estado: string;
+  id: string;
+  numRef: number;
+  valorAssociado: number;
+  localizacao: string;
+}[];
