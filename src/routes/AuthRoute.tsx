@@ -1,11 +1,10 @@
 import React from "react";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
-import CadastroCliente from "../screens/CadastroCliente";
-import CadastroProvedor from "../screens/CadastroProvedor";
-import Login from "../screens/Login";
-import Welcome from "../screens/Welcome";
+import ClientSignUp from "../screens/auth/ClientSignUp";
+import ProviderSignUp from "../screens/auth/ProviderSignUp";
+import Login from "../screens/auth/Login";
+import Welcome from "../screens/auth/Welcome";
 import { AuthParamsList } from "./types/AuthParamsList";
 
 const AuthStack = createNativeStackNavigator<AuthParamsList>();
@@ -27,12 +26,12 @@ function AuthRoute() {
       />
       <AuthStack.Screen
         name="CadastroCliente"
-        component={CadastroCliente}
+        component={ClientSignUp}
         options={{ title: "" }}
       />
       <AuthStack.Screen
         name="CadastroProvedor"
-        component={CadastroProvedor}
+        component={ProviderSignUp}
         options={{ title: "" }}
       />
     </AuthStack.Navigator>

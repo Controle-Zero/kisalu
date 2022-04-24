@@ -1,13 +1,13 @@
 {
   "expo": {
     "backgroundColor": "#fff",
-    "name": "union-services",
-    "slug": "union-services",
+    "name": "kisalu",
+    "slug": "kisalu",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/appIcon.png",
     "splash": {
-      "image": "./src/assets/images/logo.png",
+      "image": "./src/assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#fff"
     },
@@ -16,13 +16,16 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "buildNumber": "1.0.0",
+      "bundleIdentifier": "com.controlezero.kisalu"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/appIcon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.controlezero.kisalu",
+      "versionCode": 1
     }
   }
 }

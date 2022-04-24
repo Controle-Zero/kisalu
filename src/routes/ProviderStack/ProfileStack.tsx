@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Perfil from "../../screens/Provider/Perfil";
+import Profile from "../../screens/Provider/Profile";
 import { ProfileParamsList } from "../types/Provider/ProfileParamsList";
 import SelectService from "../../screens/Provider/SelectService";
 
@@ -12,7 +12,7 @@ const ProfileStack: FC = () => {
     <ProfileStackNavigator.Navigator>
       <ProfileStackNavigator.Screen
         name="ProfileScreen"
-        component={Perfil}
+        component={Profile}
         options={{ headerShown: false }}
       />
       <ProfileStackNavigator.Screen
