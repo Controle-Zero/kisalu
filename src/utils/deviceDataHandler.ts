@@ -2,10 +2,8 @@ import * as DeviceInfo from "react-native-device-info";
 
 type DeviceData = {
   uniqueID: string;
-  device: {
-    brand: string;
-    model: string;
-  };
+  brand: string;
+  model: string;
 };
 
 export function getDeviceData(): DeviceData {
@@ -14,9 +12,7 @@ export function getDeviceData(): DeviceData {
   const deviceModel = DeviceInfo.getModel();
   return {
     uniqueID,
-    device: {
-      brand: deviceBrand,
-      model: deviceModel,
-    },
+    brand: deviceBrand,
+    model: deviceModel,
   };
 }
