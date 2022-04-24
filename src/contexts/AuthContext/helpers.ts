@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AsyncStorageKeys, LoginFunction, User } from "./types";
+import { AsyncStorageKeys, User } from "./types";
 
 export async function getAsyncStorageAuthData() {
   const storageUser = await AsyncStorage.getItem(AsyncStorageKeys.USER);

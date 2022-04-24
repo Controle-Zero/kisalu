@@ -1,7 +1,4 @@
-import "react-native-get-random-values";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios, { Axios, AxiosError } from "axios";
-import { v4 as uuid } from "uuid";
+import axios, { AxiosError } from "axios";
 import { getDeviceData } from "../utils/deviceDataHandler";
 import apiConfig, {
   ClientAuthenticationResponse,
@@ -21,17 +18,14 @@ const END_POINT = `${apiConfig.baseUrl}/cliente`;
  * @returns O token de autenticação
  */
 export async function authenticateClient(email: string, password: string) {
-  const deviceData = await getDeviceData();
-  const deviceID = uuid();
-  deviceData.uniqueID = !deviceData.uniqueID ? deviceID : deviceData.uniqueID;
-  await AsyncStorage.setItem("@UnionServices:deviceID", deviceData.uniqueID);
+  const deviceData = getDeviceData();
   const requestBody = { email, password, deviceData };
+  console.log(requestBody);
   try {
     const response = await axios.post<ClientAuthenticationResponse>(
       `${END_POINT}/login`,
       requestBody
     );
-    console.log(response.data.generatedToken);
     return response.data.generatedToken;
   } catch (error) {
     const axiosError = error as AxiosError;

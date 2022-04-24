@@ -1,22 +1,22 @@
-import * as DeviceInfo from "expo-device";
-import * as Network from "expo-network";
-import * as Application from "expo-application";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AsyncStorageKeys } from "../contexts/AuthContext/types";
+import * as DeviceInfo from "react-native-device-info";
 
-export async function getDeviceData() {
-  let uniqueID = await AsyncStorage.getItem(AsyncStorageKeys.UNIQUE_ID);
+type DeviceData = {
+  uniqueID: string;
+  device: {
+    brand: string;
+    model: string;
+  };
+};
 
-  if (!uniqueID && DeviceInfo.osName === "Android") {
-    uniqueID = Application.androidId;
-  } else if (!uniqueID && DeviceInfo.osName === "iOS") {
-    uniqueID = await Application.getIosIdForVendorAsync();
-  }
-
+export function getDeviceData(): DeviceData {
+  const uniqueID = DeviceInfo.getUniqueId();
+  const deviceBrand = DeviceInfo.getBrand();
+  const deviceModel = DeviceInfo.getModel();
   return {
     uniqueID,
-    brand: DeviceInfo.brand,
-    modelName: DeviceInfo.modelName,
-    ipAddress: await Network.getIpAddressAsync(),
+    device: {
+      brand: deviceBrand,
+      model: deviceModel,
+    },
   };
 }
