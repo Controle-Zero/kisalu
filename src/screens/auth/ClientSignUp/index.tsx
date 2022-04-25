@@ -1,9 +1,10 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import React from "react";
 import useAuth from "../../../hooks/useAuth";
 import { ClientSignUpHandler } from "./types";
 import { Container, FormContainer, Heading1, Paragraph } from "./style";
 import ClientSignUpForm from "../../../components/Forms/ClientSignUpForm";
+import ProfilePictureSelector from "../../../components/ProfilePictureSelector";
 
 const ClientSignUp = () => {
   const { signUpClient } = useAuth();
@@ -18,9 +19,14 @@ const ClientSignUp = () => {
     else signUpClient(values);
   };
 
+  const handleSelectProfilePicture = () => {
+    console.log("Select photo");
+  };
+
   return (
     <View>
       <Container>
+        <ProfilePictureSelector onSelectPhoto={handleSelectProfilePicture} />
         <Heading1>Cadastro do Cliente</Heading1>
         <Paragraph>
           Cadastre como cliente para começar a requisitar serviços
