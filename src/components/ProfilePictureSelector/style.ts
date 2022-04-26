@@ -13,7 +13,11 @@ export const Wrapper = styled.View`
   position: relative;
 `;
 
-export const Image = styled.Image``;
+export const Image = styled.Image`
+  width: 85px;
+  height: 85px;
+  border-radius: 100px;
+`;
 
 export const Icon = styled(_Icon)`
   position: absolute;

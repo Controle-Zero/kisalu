@@ -1,5 +1,6 @@
 import { View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
+import * as ImagePicker from "expo-image-picker";
 import useAuth from "../../../hooks/useAuth";
 import { ProviderSignUpHandler } from "./type";
 import { Container, FormContainer, Heading1, Paragraph } from "./style";
@@ -8,6 +9,7 @@ import ProfilePictureSelector from "../../../components/ProfilePictureSelector";
 
 const ProviderSignUp = () => {
   const { signUpProvider } = useAuth();
+  const [image, setImage] = useState("");
 
   const signUpProviderHandler: ProviderSignUpHandler = async (
     values,
@@ -22,12 +24,27 @@ const ProviderSignUp = () => {
     else signUpProvider(values);
   };
 
-  const handleProfilePictureSelection = () => {};
+  const handleProfilePictureSelection = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      allowsMultipleSelection: false,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    console.log(result);
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
 
   return (
     <View>
       <Container>
-        <ProfilePictureSelector onSelectPhoto={handleProfilePictureSelection} />
+        <ProfilePictureSelector
+          onSelectPhoto={handleProfilePictureSelection}
+          imageUrl={image}
+        />
         <Heading1>Cadastro do Provedor</Heading1>
         <Paragraph>
           Cadastre como provedor para começar a fornecer serviços
