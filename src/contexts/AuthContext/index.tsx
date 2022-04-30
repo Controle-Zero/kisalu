@@ -44,7 +44,6 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   const signIn: LoginFunction = async (email, password, userType) => {
     setIsLoading(true);
-    console.log(userType);
     try {
       let token = "";
       let user = {} as User;
@@ -60,6 +59,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         throw new Error("Tipo de utilizador inválido");
       }
       setAsyncStorageData(user, token);
+      setToken(token);
       setError(null);
       setUser(user);
     } catch (error) {
@@ -99,7 +99,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       await signIn(email, password, "provider");
       setError(null);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setError(error);
       setIsLoading(false);
     }
