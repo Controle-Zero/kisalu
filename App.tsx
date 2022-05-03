@@ -12,6 +12,7 @@ import Routes from "./src/routes";
 import { AuthProvider } from "./src/contexts/AuthContext";
 import theme from "./src/styles/theme";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { StatusBar } from "expo-status-bar";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ export default function App() {
         <NavigationContainer>
           <AuthProvider>
             <Routes />
+            <StatusBar style="auto" animated />
           </AuthProvider>
         </NavigationContainer>
       </ThemeProvider>
