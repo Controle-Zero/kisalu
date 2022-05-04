@@ -1,6 +1,8 @@
 import styled from "styled-components/native";
 import _Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
+const PROFILE_IMAGE_SIZE = 125;
+
 export const Container = styled.View`
   align-self: center;
   background-color: ${({ theme }) => theme.COLORS.WHITE};
@@ -14,8 +16,8 @@ export const Wrapper = styled.View`
 `;
 
 export const Image = styled.Image`
-  width: 85px;
-  height: 85px;
+  width: ${PROFILE_IMAGE_SIZE}px;
+  height: ${PROFILE_IMAGE_SIZE}px;
   border-radius: 100px;
 `;
 
