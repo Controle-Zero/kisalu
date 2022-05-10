@@ -1,9 +1,10 @@
-import { Alert, ScrollView } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
+import { Text, FlatList, Alert } from "react-native";
+import { useQuery } from "react-query";
 import useAuth from "../../../hooks/useAuth";
-import * as ProviderAPI from "../../../API/provider";
 import * as CategoryAPI from "../../../API/category";
-import { NavigableFC, RadioButtonProps } from "./type";
+import * as ProviderAPI from "../../../API/provider";
+import { NavigableFC } from "./type";
 import {
   Container,
   Heading1,
@@ -14,46 +15,45 @@ import {
 } from "./style";
 import Button from "../../../components/Button";
 import Spacer from "../../../components/layout/Spacer";
-import RadioForm from "react-native-simple-radio-button";
 import { ThemeContext } from "styled-components";
+import LoadingScreen from "../../other/LoadingScreen";
 
 const SelectService: NavigableFC = ({ navigation }) => {
   const { token, user } = useAuth();
-  const [radioItems, setRadioItems] = useState<RadioButtonProps[]>([]);
   const { COLORS } = useContext(ThemeContext);
-  const [checkedValue, setCheckedValue] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const {
+    data: categories,
+    isLoading,
+    error,
+  } = useQuery("categories", getCategories);
 
-  const handleSelectCategory = async () => {
-    if (!checkedValue) {
-      Alert.alert("Erro", "Selecione uma categoria");
+  async function handleSelectCategory() {
+    if (!selectedCategory) {
+      Alert.alert("Erro", "Por favor selecione uma categoria");
       return;
     }
-
-    await ProviderAPI.updateProviderCategories([checkedValue], token);
+    await ProviderAPI.updateProviderCategories([selectedCategory], token);
     Alert.alert("Sucesso", "Categoria adicionada no seu perfil");
     navigation.navigate("ProfileScreen");
-  };
+  }
 
-  const fetchData = async () => {
-    const data = await CategoryAPI.getCategories(token);
-    const radioProps = data
+  async function getCategories() {
+    const categories = await CategoryAPI.getCategories(token);
+
+    return categories
       .filter(
         (category) =>
           !category.prestadores.some((prestador) => prestador.id === user?.id)
       )
       .sort((categoryA, categoryB) =>
         categoryA.titulo.localeCompare(categoryB.titulo)
-      )
-      .map(
-        ({ id, titulo }) => ({ label: titulo, value: id } as RadioButtonProps)
       );
-    setRadioItems(radioProps);
-    setCheckedValue(radioProps[0].value);
-  };
+  }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <Container>
@@ -63,28 +63,31 @@ const SelectService: NavigableFC = ({ navigation }) => {
         encontrado
       </Heading2>
       <Wrapper>
-        {radioItems.length == 0 ? (
+        {categories?.length == 0 ? (
           <NoServicesContainer>
             <NoServicesText>Não existem serviços disponíveis</NoServicesText>
           </NoServicesContainer>
         ) : (
           <>
-            <Button
-              onPress={handleSelectCategory}
-              text="Confirmar"
-              width="50%"
+            <FlatList
+              data={categories}
+              renderItem={({ item }) => <Text>{item.titulo}</Text>}
+              ItemSeparatorComponent={() => <Spacer height={60} />}
+              ListFooterComponent={() => <Spacer height={30} />}
             />
-            <Spacer height={20} />
-            <ScrollView style={{ height: "65%" }}>
-              <RadioForm
-                buttonColor={COLORS.PRIMARY}
-                radio_props={radioItems}
-                initial={0}
-                onPress={(value) => setCheckedValue(value)}
-              />
-            </ScrollView>
+            <Button onPress={handleSelectCategory} text="Adicionar" />
           </>
         )}
+
+        {/* {radioItems.length == 0 ? (
+          <NoServicesContainer>
+            <NoServicesText>Não existem serviços disponíveis</NoServicesText>
+          </NoServicesContainer>
+        ) : (
+          <>
+            <Button onPress={handleSelectCategory} text="Confirmar" />
+          </>
+        )} */}
       </Wrapper>
     </Container>
   );

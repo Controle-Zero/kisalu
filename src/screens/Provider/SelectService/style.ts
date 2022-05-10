@@ -17,18 +17,20 @@ export const Heading2 = styled.Text`
 export const Container = styled.View`
   padding-top: 40px;
   background-color: ${({ theme }) => theme.COLORS.LIGHT_PRIMARY};
+  flex: 1;
 `;
 
 export const Wrapper = styled.View`
   margin-top: 10px;
-  padding: 40px 37px;
+  padding: 30px 20px 5px;
   background-color: ${({ theme }) => theme.COLORS.WHITE};
   border-top-right-radius: 40px;
   border-top-left-radius: 40px;
+  flex: 1;
 `;
 
 export const NoServicesContainer = styled.View`
-  height: 80%;
+  height: 100%;
   justify-content: center;
 `;
 
