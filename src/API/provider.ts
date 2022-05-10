@@ -103,7 +103,7 @@ export async function updateProviderCategories(
       idCategorias: categoriesID,
     };
     const response = await axios.put<NormalResponse>(
-      `${END_POINT}/categoria`,
+      `${END_POINT}/categorias`,
       requestBody,
       {
         headers: {
@@ -145,7 +145,7 @@ export async function removeProviderCategory(
     const requestBody = {
       idCategoria,
     };
-    const response = await axios.delete(`${END_POINT}/categoria`, {
+    const response = await axios.delete(`${END_POINT}/categorias`, {
       headers: {
         Authorization: token,
       },
