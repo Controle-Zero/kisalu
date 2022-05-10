@@ -13,29 +13,25 @@ import {
   NoServicesText,
   Wrapper,
 } from "./style";
-import Button from "../../../components/Button";
 import Spacer from "../../../components/layout/Spacer";
 import { ThemeContext } from "styled-components";
 import LoadingScreen from "../../other/LoadingScreen";
+import CategorySelect from "../../../components/Button/CategorySelect";
 
 const SelectService: NavigableFC = ({ navigation }) => {
   const { token, user } = useAuth();
   const { COLORS } = useContext(ThemeContext);
-  const [selectedCategory, setSelectedCategory] = useState("");
   const {
     data: categories,
     isLoading,
     error,
   } = useQuery("categories", getCategories);
 
-  async function handleSelectCategory() {
-    if (!selectedCategory) {
-      Alert.alert("Erro", "Por favor selecione uma categoria");
-      return;
-    }
-    await ProviderAPI.updateProviderCategories([selectedCategory], token);
-    Alert.alert("Sucesso", "Categoria adicionada no seu perfil");
-    navigation.navigate("ProfileScreen");
+  async function handleSelectCategory(selectedCategory: string) {
+    console.log(selectedCategory);
+    // await ProviderAPI.updateProviderCategories([selectedCategory], token);
+    // Alert.alert("Sucesso", "Categoria adicionada no seu perfil");
+    // navigation.navigate("ProfileScreen");
   }
 
   async function getCategories() {
@@ -68,26 +64,19 @@ const SelectService: NavigableFC = ({ navigation }) => {
             <NoServicesText>Não existem serviços disponíveis</NoServicesText>
           </NoServicesContainer>
         ) : (
-          <>
-            <FlatList
-              data={categories}
-              renderItem={({ item }) => <Text>{item.titulo}</Text>}
-              ItemSeparatorComponent={() => <Spacer height={60} />}
-              ListFooterComponent={() => <Spacer height={30} />}
-            />
-            <Button onPress={handleSelectCategory} text="Adicionar" />
-          </>
+          <FlatList
+            data={categories}
+            renderItem={({ item }) => (
+              <CategorySelect
+                title={item.titulo}
+                onPress={handleSelectCategory}
+              />
+            )}
+            ItemSeparatorComponent={() => <Spacer height={35} />}
+            ListHeaderComponent={() => <Spacer height={15} />}
+            ListFooterComponent={() => <Spacer height={15} />}
+          />
         )}
-
-        {/* {radioItems.length == 0 ? (
-          <NoServicesContainer>
-            <NoServicesText>Não existem serviços disponíveis</NoServicesText>
-          </NoServicesContainer>
-        ) : (
-          <>
-            <Button onPress={handleSelectCategory} text="Confirmar" />
-          </>
-        )} */}
       </Wrapper>
     </Container>
   );
