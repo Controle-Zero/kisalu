@@ -29,7 +29,7 @@ export function getFilteredCategories(
   searchedCategoryTitle: string,
   categories: Categoria[]
 ) {
-  return categories.map((category) => {
+  const filteredCategories = categories.map((category) => {
     if (!searchedCategoryTitle) return category;
     else if (
       category.titulo
@@ -38,4 +38,5 @@ export function getFilteredCategories(
     )
       return category;
   });
+  return filteredCategories as Categoria[];
 }
