@@ -33,6 +33,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         if (storageData) {
           setUser(storageData.storageUser);
           setToken(storageData.storageToken);
+          setUserType(storageData.storageUserType);
         }
       } catch (error) {
         setError(error);
@@ -48,6 +49,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     try {
       let token = "";
       let user = {} as User;
+
       if (userType == "client") {
         token = await ClientAPI.authenticateClient(email, password);
         user = await ClientAPI.getClient(token);
@@ -59,7 +61,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       } else {
         throw new Error("Tipo de utilizador inválido");
       }
-      setAsyncStorageData(user, token);
+      setAsyncStorageData(user, userType, token);
       setError(null);
       setUser(user);
     } catch (error) {

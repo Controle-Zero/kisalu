@@ -22,6 +22,7 @@ export type AuthContextType = {
 export enum AsyncStorageKeys {
   USER = "@Kisalu:user",
   TOKEN = "@Kisalu:token",
+  USER_TYPE = "@Kisalu:userType",
 }
 
 export type LoginFunction = (
