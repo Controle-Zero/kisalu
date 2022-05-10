@@ -1,10 +1,14 @@
 import React, { useContext, useState } from "react";
 import { Text, FlatList, Alert } from "react-native";
 import { useQuery } from "react-query";
+import { NavigableFC } from "./type";
 import useAuth from "../../../hooks/useAuth";
 import * as CategoryAPI from "../../../API/category";
 import * as ProviderAPI from "../../../API/provider";
-import { NavigableFC } from "./type";
+import Spacer from "../../../components/layout/Spacer";
+import LoadingScreen from "../../other/LoadingScreen";
+import CategorySelect from "../../../components/Button/CategorySelect";
+import Categoria from "../../../models/Categoria";
 import {
   Container,
   Heading1,
@@ -13,30 +17,32 @@ import {
   NoServicesText,
   Wrapper,
 } from "./style";
-import Spacer from "../../../components/layout/Spacer";
-import { ThemeContext } from "styled-components";
-import LoadingScreen from "../../other/LoadingScreen";
-import CategorySelect from "../../../components/Button/CategorySelect";
 
 const SelectService: NavigableFC = ({ navigation }) => {
   const { token, user } = useAuth();
-  const { COLORS } = useContext(ThemeContext);
-  const {
-    data: categories,
-    isLoading,
-    error,
-  } = useQuery("categories", getCategories);
+  const [isLoadingSubmission, setLoadingSubmission] = useState(false);
+  const { data: categories, isLoading } = useQuery("categories", getCategories);
 
-  async function handleSelectCategory(selectedCategory: string) {
-    console.log(selectedCategory);
-    // await ProviderAPI.updateProviderCategories([selectedCategory], token);
-    // Alert.alert("Sucesso", "Categoria adicionada no seu perfil");
-    // navigation.navigate("ProfileScreen");
+  async function handleSelectCategory(selectedCategoryId: string) {
+    setLoadingSubmission(true);
+    try {
+      await ProviderAPI.updateProviderCategories([selectedCategoryId], token);
+      Alert.alert("Sucesso", "Categoria adicionada no seu perfil");
+    } catch (error) {
+      console.error(error);
+      Alert.alert("Erro", "Ocorreu um erro na seleção de categoria");
+    } finally {
+      navigation.navigate("ProfileScreen");
+    }
   }
 
   async function getCategories() {
-    const categories = await CategoryAPI.getCategories(token);
-
+    let categories: Categoria[] = [];
+    try {
+      categories = await CategoryAPI.getCategories(token);
+    } catch (error) {
+      console.error(error);
+    }
     return categories
       .filter(
         (category) =>
@@ -47,7 +53,7 @@ const SelectService: NavigableFC = ({ navigation }) => {
       );
   }
 
-  if (isLoading) {
+  if (isLoading || isLoadingSubmission) {
     return <LoadingScreen />;
   }
 
@@ -70,8 +76,10 @@ const SelectService: NavigableFC = ({ navigation }) => {
               <CategorySelect
                 title={item.titulo}
                 onPress={handleSelectCategory}
+                id={item.id}
               />
             )}
+            keyExtractor={(item) => item.id}
             ItemSeparatorComponent={() => <Spacer height={35} />}
             ListHeaderComponent={() => <Spacer height={15} />}
             ListFooterComponent={() => <Spacer height={15} />}
