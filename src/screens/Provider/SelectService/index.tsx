@@ -85,6 +85,16 @@ const SelectService: NavigableFC = ({ navigation }) => {
             ListFooterComponent={() => <Spacer height={15} />}
           />
         )}
+
+        {/* {radioItems.length == 0 ? (
+          <NoServicesContainer>
+            <NoServicesText>Não existem serviços disponíveis</NoServicesText>
+          </NoServicesContainer>
+        ) : (
+          <>
+            <Button onPress={handleSelectCategory} text="Confirmar" />
+          </>
+        )} */}
       </Wrapper>
     </Container>
   );
