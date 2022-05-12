@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/Ionicons";
 import { ProviderParamsList } from "./types/ProviderParamsList";
-import Home from "../screens/Provider/Home";
 import ProfileStack from "./ProviderStack/ProfileStack";
 import useAuth from "../hooks/useAuth";
 import { ThemeContext } from "styled-components";
+import HomeTopBarNav from "./ProviderStack/HomeTopBarNav";
 
 const BottomTab = createBottomTabNavigator<ProviderParamsList>();
 
@@ -45,7 +45,7 @@ const ProvedorRoutes = () => {
     >
       <BottomTab.Screen
         name="Home"
-        component={Home}
+        component={HomeTopBarNav}
         options={{ headerShown: true, headerTitle: user?.nome }}
       />
       <BottomTab.Screen name="Perfil" component={ProfileStack} />
