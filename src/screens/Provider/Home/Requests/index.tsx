@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, FlatList } from "react-native";
+import { FlatList } from "react-native";
 import { useQuery } from "react-query";
 import { Container } from "./styles";
 import * as ProviderAPI from "../../../../API/provider";
@@ -7,6 +7,7 @@ import useAuth from "../../../../hooks/useAuth";
 import LoadingScreen from "../../../other/LoadingScreen";
 import ProviderActivityCard from "../../../../components/Cards/ProviderActivityCard";
 import Spacer from "../../../../components/layout/Spacer";
+import ListEmpty from "../../../../components/ListEmpty";
 
 const Requests = () => {
   const { token } = useAuth();
@@ -31,7 +32,7 @@ const Requests = () => {
         data={activities}
         ListHeaderComponent={() => <Spacer height={30} />}
         ListFooterComponent={() => <Spacer height={30} />}
-        ListEmptyComponent={() => <Text>List Empty</Text>}
+        ListEmptyComponent={() => <ListEmpty text="Não existem atividades" />}
         ItemSeparatorComponent={() => <Spacer height={18} />}
         renderItem={({ item }) => (
           <ProviderActivityCard activity={item} onNavigate={onNavigate} />
