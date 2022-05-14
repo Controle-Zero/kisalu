@@ -20,7 +20,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, onPress }) => {
       ? "Não existem prestadores"
       : `Disponíveis ${prestadores.length}`;
   return (
-    <DropShadow style={styles.container}>
+    <DropShadow style={styles.container} onTouchStart={() => onPress(category)}>
       <Container>
         <Image source={{ uri: imageUrl }} />
         <Title>{titulo}</Title>

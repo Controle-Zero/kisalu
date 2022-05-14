@@ -25,10 +25,7 @@ const Home: NavigableFC = ({ navigation }) => {
   });
   const { COLORS } = useContext(ThemeContext);
 
-  console.log("Before", token);
-
   async function getCategories() {
-    console.log(token);
     const categories = await CategoriesAPI.getCategories(token);
     const filteredCategories = CategoriesAPI.getFilteredCategories(
       searchQuery,
@@ -39,6 +36,7 @@ const Home: NavigableFC = ({ navigation }) => {
   }
 
   function handleCategoryNavigation(category: Categoria) {
+    console.log(category);
     navigation.navigate("ProvidersList", { category });
   }
 
@@ -59,13 +57,10 @@ const Home: NavigableFC = ({ navigation }) => {
         <FlatList
           data={filteredCategories}
           numColumns={2}
-          keyExtractor={(category) => category.id || "1"}
+          keyExtractor={(category) => category.id}
           ItemSeparatorComponent={() => <Spacer height={30} />}
           ListFooterComponent={() => <Spacer height={10} />}
           columnWrapperStyle={{ justifyContent: "space-between" }}
-          ListHeaderComponent={() => (
-            <ListHeading>Categorias de Serviços</ListHeading>
-          )}
           renderItem={({ item }) => (
             <CategoryCard
               category={item}
