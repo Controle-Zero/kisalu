@@ -20,12 +20,15 @@ const Home: NavigableFC = ({ navigation }) => {
     isFetching,
     isIdle,
     data: filteredCategories,
-  } = useQuery(["filteredCategories", searchQuery], getActivities, {
+  } = useQuery(["filteredCategories", searchQuery], getCategories, {
     enabled: searchQuery != undefined,
   });
   const { COLORS } = useContext(ThemeContext);
 
-  async function getActivities() {
+  console.log("Before", token);
+
+  async function getCategories() {
+    console.log(token);
     const categories = await CategoriesAPI.getCategories(token);
     const filteredCategories = CategoriesAPI.getFilteredCategories(
       searchQuery,

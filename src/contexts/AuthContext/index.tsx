@@ -63,6 +63,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       setAsyncStorageData(user, userType, token);
       setError(null);
       setUser(user);
+      setToken(token);
     } catch (error) {
       console.error(error);
       setError(error);
