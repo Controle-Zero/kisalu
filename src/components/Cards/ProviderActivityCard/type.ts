@@ -4,7 +4,5 @@ type ActivityHandlerFunction = (activityId: string) => void;
 
 export type ProviderActivityCardProps = {
   activity: Atividade;
-  onActivityApply: ActivityHandlerFunction;
-  onActivityReject: ActivityHandlerFunction;
-  onActivityDone: ActivityHandlerFunction;
+  onNavigate: ActivityHandlerFunction;
 };

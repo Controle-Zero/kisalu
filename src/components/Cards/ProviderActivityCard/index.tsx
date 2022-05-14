@@ -1,61 +1,37 @@
-import React, { useContext } from "react";
+import React from "react";
 import { ProviderActivityCardProps } from "./type";
 import {
-  ActionsContainer,
+  ColoredText,
   Container,
-  ContentContainer,
-  DescriptionContainer,
-  PrimaryText,
+  ProfilePicture,
+  TextContainer,
   Text,
+  style,
 } from "./style";
-import Button from "../../Button";
-import Spacer from "../../layout/Spacer";
-import { ThemeContext } from "styled-components";
+import DefaultProfilePic from "../../../assets/images/default-profile-pic.png";
+import DropShadow from "react-native-drop-shadow";
 
 const ProviderActivityCard: React.FC<ProviderActivityCardProps> = ({
   activity,
-  onActivityApply,
-  onActivityDone,
-  onActivityReject,
+  onNavigate,
 }) => {
-  const { COLORS } = useContext(ThemeContext);
-  const { Categoria, Cliente, descricao, dataCriado, id, estado } = activity;
+  const {
+    Categoria: { titulo },
+    dataCriado,
+    Cliente,
+  } = activity;
   return (
-    <Container>
-      <ContentContainer>
-        <PrimaryText>{Categoria.titulo}</PrimaryText>
-      </ContentContainer>
-      <ContentContainer>
-        <Text>{Cliente?.nome}</Text>
-        <Text>DATE</Text>
-      </ContentContainer>
-      <DescriptionContainer>
-        <Text>{descricao ? descricao : "Sem descrição"}</Text>
-      </DescriptionContainer>
-      <ActionsContainer>
-        {estado === "ATIVA" ? (
-          <Button
-            text="Aplicar"
-            onPress={() => onActivityApply(id)}
-            width="40%"
-          />
-        ) : (
-          <Button
-            text="Finalizar"
-            onPress={() => onActivityDone(id)}
-            width="40%"
-          />
-        )}
-        <Spacer width={20} />
-        <Button
-          text="Rejeitar"
-          buttonColor={COLORS.DANGER}
-          textColor={COLORS.WHITE}
-          onPress={() => onActivityReject(id)}
-          width="40%"
-        />
-      </ActionsContainer>
-    </Container>
+    <DropShadow style={style.container}>
+      <Container>
+        <TextContainer>
+          <ColoredText>{titulo}</ColoredText>
+          <Text>{Cliente?.nome}</Text>
+          {/* TODO: Mudar para a data da API */}
+          <Text>{dataCriado}</Text>
+        </TextContainer>
+        <ProfilePicture source={DefaultProfilePic} />
+      </Container>
+    </DropShadow>
   );
 };
 

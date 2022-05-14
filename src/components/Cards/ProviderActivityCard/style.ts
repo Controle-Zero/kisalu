@@ -1,42 +1,36 @@
+import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 
 export const Container = styled.View`
-  background-color: ${({ theme }) => theme.COLORS.SECONDARY};
-  border-radius: 15px;
-  padding: 20px 26px;
-  margin: 0 2%;
-`;
-
-export const ContentContainer = styled.View`
+  background-color: ${({ theme }) => theme.COLORS.WHITE};
+  border-left-color: ${({ theme }) => theme.COLORS.PRIMARY};
+  border-left-width: 7px;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 5px;
+  align-items: center;
+  padding: 30px;
+  border-radius: 15px;
 `;
+export const TextContainer = styled.View``;
 
-export const DescriptionContainer = styled.View`
-  background-color: #c4c4c433;
-  max-height: 100px;
-  padding: 10px;
-  height: 80px;
-  border-radius: 20px;
-`;
-
-export const PrimaryText = styled.Text`
+export const ColoredText = styled.Text`
   color: ${({ theme }) => theme.COLORS.PRIMARY};
-  font-size: 14px;
-  font-family: ${({ theme }) => theme.FONTS.POPPINS_REGULAR};
-  margin-bottom: 10px;
 `;
 
 export const Text = styled.Text`
-  color: ${({ theme }) => theme.COLORS.WHITE};
-  font-size: 14px;
-  font-family: ${({ theme }) => theme.FONTS.POPPINS_REGULAR};
-  margin-bottom: 10px;
+  margin-top: 30px;
 `;
 
-export const ActionsContainer = styled.View`
-  margin-top: 10px;
-  justify-content: center;
-  flex-direction: row;
-`;
+export const ProfilePicture = styled.Image``;
+
+export const style = StyleSheet.create({
+  container: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.35,
+    shadowRadius: 4,
+  },
+});
