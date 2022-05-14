@@ -36,7 +36,6 @@ const Home: NavigableFC = ({ navigation }) => {
   }
 
   function handleCategoryNavigation(category: Categoria) {
-    console.log(category);
     navigation.navigate("ProvidersList", { category });
   }
 
