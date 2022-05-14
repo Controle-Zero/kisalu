@@ -18,30 +18,7 @@ const History = () => {
 
   async function getActivities() {
     const activities = await ProviderAPI.getActivities(token);
-    return [
-      {
-        Cliente: {
-          bi: "string",
-          nome: "string",
-          morada: "string",
-          email: "string",
-          telefone: 0,
-          id: "string",
-        },
-        Categoria: {
-          titulo: "string",
-          id: "string",
-        },
-        dataCriado: "2022-05-14",
-        dataFinalizado: "2022-05-14",
-        descricao: "string",
-        estado: "string",
-        id: "string",
-        numRef: 0,
-        valorAssociado: 0,
-        localizacao: "string",
-      },
-    ];
+    return activities;
   }
 
   function onNavigate(activityID: string) {
