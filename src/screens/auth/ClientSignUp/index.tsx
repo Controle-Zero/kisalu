@@ -33,18 +33,6 @@ const ClientSignUp = () => {
     }
   };
 
-  const handleSelectProfilePicture = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsMultipleSelection: false,
-      aspect: [1, 1],
-      quality: 1,
-    });
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
-  };
-
   return (
     <View>
       <Container>
