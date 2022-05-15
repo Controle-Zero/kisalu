@@ -10,7 +10,6 @@ export type HomeParamsList = {
   };
   ProviderProfile: {
     provider: Prestador;
-    categoryId: string;
   };
 };
 

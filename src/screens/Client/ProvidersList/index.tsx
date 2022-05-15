@@ -3,7 +3,6 @@ import { FlatList } from "react-native";
 import { Container } from "./style";
 import { NavigableFC } from "./types";
 import Spacer from "../../../components/layout/Spacer";
-import ProviderListItem from "../../../components/ProviderListItem";
 import Prestador from "../../../models/Provedor";
 import ProviderCard from "../../../components/Cards/ProviderCard";
 import ListEmpty from "../../../components/ListEmpty";
@@ -11,14 +10,11 @@ import ListEmpty from "../../../components/ListEmpty";
 const ProvidersList: NavigableFC = ({ route, navigation }) => {
   const { prestadores } = route.params.category;
 
-  const navigateToProviderProfile = (
-    provider: Prestador,
-    categoryId: string
-  ) => {
-    navigation.navigate("ProviderProfile", {
-      provider,
-      categoryId,
-    });
+  const navigateToProviderProfile = (provider: Prestador) => {
+    console.log(provider);
+    // navigation.navigate("ProviderProfile", {
+    //   provider,
+    // });
   };
 
   return (
@@ -26,7 +22,7 @@ const ProvidersList: NavigableFC = ({ route, navigation }) => {
       <FlatList
         data={prestadores}
         numColumns={2}
-        keyExtractor={(category) => "1"}
+        keyExtractor={(provider) => provider?.id as string}
         ListHeaderComponent={() => <Spacer height={30} />}
         ItemSeparatorComponent={() => <Spacer height={30} />}
         ListFooterComponent={() => <Spacer height={10} />}
@@ -34,7 +30,9 @@ const ProvidersList: NavigableFC = ({ route, navigation }) => {
         ListEmptyComponent={() => (
           <ListEmpty text="Não existem prestadores disponíveis" />
         )}
-        renderItem={({ item }) => <ProviderCard />}
+        renderItem={({ item }) => (
+          <ProviderCard provider={item} onPress={navigateToProviderProfile} />
+        )}
       />
     </Container>
   );

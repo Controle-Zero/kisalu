@@ -1,12 +1,44 @@
-import { View, Text } from "react-native";
-import React from "react";
+import React, { FC } from "react";
 import DropShadow from "react-native-drop-shadow";
-import { Container, dropShadowStyle, ProfilePicture } from "./style";
+import {
+  Container,
+  dropShadowStyle,
+  ProfilePicture,
+  RateStar,
+  RatingContainer,
+  Text,
+  Title,
+} from "./style";
+import { Props } from "./type";
+import { NoProfilePictureImage } from "../../../styles/imageConstants";
 
-const ProviderCard = () => {
+const ProviderCard: FC<Props> = ({ onPress, provider }) => {
+  const { imageUrl, rate = 0 } = provider;
+  const hasProfilePicture = !!imageUrl;
+  const hasRating = rate != 0;
+  const ratingStars = [];
+  for (let i = 0; i < 5; i++)
+    ratingStars.push(<RateStar name="star" size={25} />);
+
   return (
     <DropShadow style={dropShadowStyle.container}>
-      <Container></Container>
+      <Container onPress={() => onPress(provider)}>
+        <ProfilePicture
+          source={
+            hasProfilePicture
+              ? { uri: provider.imageUrl }
+              : NoProfilePictureImage
+          }
+        />
+        <Title>{provider.nome}</Title>
+        <RatingContainer>
+          {hasRating ? (
+            ratingStars.map((ratingStartComponent) => ratingStartComponent)
+          ) : (
+            <Text>Sem classificação</Text>
+          )}
+        </RatingContainer>
+      </Container>
     </DropShadow>
   );
 };

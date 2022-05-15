@@ -12,6 +12,7 @@ export const light = {
     TEXT_FIELD_BACKGROUND: "#F0F0F0",
     DANGER: "#DC0D0D",
     BLACK: "#000",
+    GOLD: "#FFC850",
   },
   FONTS: {
     POPPINS_REGULAR: "Poppins_400Regular",
