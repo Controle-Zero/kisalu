@@ -1,20 +1,25 @@
 import styled from "styled-components/native";
 
-export const Container = styled.ScrollView`
-  padding: 0 38px;
+export const Container = styled.ImageBackground`
+  justify-content: flex-end;
+  background-color: #000;
+  flex: 1;
 `;
 
-export const Image = styled.Image`
-  margin-top: 30px;
-  align-self: center;
-  width: 190px;
-  height: 190px;
+export const Wrapper = styled.View`
+  border-radius: 20px;
+  padding: 15px;
+  background-color: ${({ theme }) => theme.COLORS.WHITE};
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5%;
 `;
 
 export const Heading1 = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.POPPINS_REGULAR};
   font-size: 25px;
-  margin-top: 40px;
+  margin-top: 10px;
   text-align: center;
 `;
 

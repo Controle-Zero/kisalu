@@ -8,8 +8,14 @@ export const ToggleButtonRow = styled(TB.Row)`
 `;
 
 export const ToggleButton = styled(TB)<ToggleButtonStyle>`
-  width: 100px;
+  width: 35%;
   height: 50px;
   background-color: ${({ isClient, theme }) =>
-    isClient ? theme.COLORS.WHITE : theme.COLORS.PRIMARY};
+    isClient ? theme.COLORS.TEXT_FIELD_BACKGROUND : theme.COLORS.PRIMARY};
+`;
+
+export const ToggleButtonText = styled.Text<ToggleButtonStyle>`
+  color: ${({ isClient, theme }) =>
+    isClient ? theme.COLORS.WHITE : theme.COLORS.BLACK};
+  font-family: ${({ theme }) => theme.FONTS.POPPINS_REGULAR};
 `;

@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import { View, Text } from "react-native";
 import { LoginFormValues, Props } from "./types";
 import { loginSchema } from "./loginFormValidation";
-import { ToggleButton, ToggleButtonRow } from "./style";
+import { ToggleButton, ToggleButtonRow, ToggleButtonText } from "./style";
 import Spacer from "../../layout/Spacer";
 import TextField from "../../Input/TextField";
 import ErrorText from "../ErrorText";
@@ -39,12 +39,20 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
               value={values.userType}
             >
               <ToggleButton
-                icon={() => <Text>Cliente</Text>}
+                icon={() => (
+                  <ToggleButtonText isClient={isClient}>
+                    Cliente
+                  </ToggleButtonText>
+                )}
                 value="client"
                 isClient={!isClient}
               />
               <ToggleButton
-                icon={() => <Text>Provedor</Text>}
+                icon={() => (
+                  <ToggleButtonText isClient={!isClient}>
+                    Provedor
+                  </ToggleButtonText>
+                )}
                 value="provider"
                 isClient={isClient}
               />

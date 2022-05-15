@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import React from "react";
-import { Container, Heading1, Heading2, Image } from "./style";
-import { loginImage } from "../../../styles/imageConstants";
+import { Container, Heading1, Heading2, Wrapper } from "./style";
+import { loginBackground } from "../../../styles/imageConstants";
 import LoginForm from "../../../components/Forms/LoginForm";
 import { handleLogin } from "./types";
 import useAuth from "../../../hooks/useAuth";
@@ -18,14 +18,13 @@ const Login = () => {
   };
 
   return (
-    <View>
-      <Container>
-        <Image source={loginImage} />
+    <Container source={loginBackground} resizeMode="stretch">
+      <Wrapper>
         <Heading1>Bem-vindo de Volta</Heading1>
         <Heading2>Sentimos a sua falta</Heading2>
         <LoginForm onSubmit={handleLogin} />
-      </Container>
-    </View>
+      </Wrapper>
+    </Container>
   );
 };
 
