@@ -33,6 +33,7 @@ export type ClientRequest = {
   email: string;
   telefone: string;
   password: string;
+  imageUrl: string;
 };
 
 export type ClientResponse = {
@@ -55,6 +56,7 @@ export type ProviderRequest = {
   password: string;
   iban: string;
   descricao: string;
+  imageUrl: string;
 };
 
 export type ProviderResponse = {

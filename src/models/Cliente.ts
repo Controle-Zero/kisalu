@@ -8,5 +8,6 @@ export default interface Cliente {
   email: string;
   telefone: string;
   password: string;
+  imageUrl: string;
   atividades?: Atividade[];
 }

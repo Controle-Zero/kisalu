@@ -18,7 +18,19 @@ const ClientSignUp = () => {
         "passwordConfirmation",
         "As duas passwords não são iguais"
       );
-    else signUpClient(values);
+    else signUpClient(values, image);
+  };
+
+  const handleSelectProfilePicture = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsMultipleSelection: false,
+      aspect: [1, 1],
+      quality: 1,
+    });
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
   };
 
   const handleSelectProfilePicture = async () => {

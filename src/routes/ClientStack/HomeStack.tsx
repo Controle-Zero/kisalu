@@ -18,7 +18,7 @@ function HomeStack() {
         component={Home}
         options={{
           title: user?.nome,
-          headerLeft: () => <HeaderLeft />,
+          headerLeft: () => <HeaderLeft profilePicture={user?.imageUrl} />,
         }}
       />
       <NativeHomeStack.Screen
@@ -39,11 +39,17 @@ function HomeStack() {
   );
 }
 
-const HeaderLeft: FC = () => (
+const HeaderLeft: FC<{ profilePicture: string | undefined }> = ({
+  profilePicture,
+}) => (
   <>
     <Avatar.Image
       size={35}
-      source={require("../../assets/images/no-profile.png")}
+      source={
+        !profilePicture
+          ? require("../../assets/images/no-profile.png")
+          : profilePicture
+      }
     />
     <Spacer width={20} />
   </>
