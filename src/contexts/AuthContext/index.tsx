@@ -14,6 +14,8 @@ import * as ClientAPI from "../../API/client";
 import * as ProviderAPI from "../../API/provider";
 import dayjs from "dayjs";
 import { Alert } from "react-native";
+import storage from "../../API/firebase/storage";
+import NoProfilePicture from "../../assets/images/no-profile.png";
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 export default AuthContext;
@@ -78,7 +80,22 @@ export const AuthProvider: React.FC = ({ children }) => {
     });
   };
 
-  const signUpProvider: CreateProviderAccount = async (provider) => {
+  const signUpProvider: CreateProviderAccount = async (
+    provider,
+    profilePictureURI
+  ) => {
+    setIsLoading(true);
+    let profilePictureDownloadUrl = "";
+    try {
+      profilePictureDownloadUrl = await storage.sendProfilePicture(
+        profilePictureURI
+      );
+    } catch (error) {
+      console.error(error);
+      setError("Erro na submissão da foto de perfil, verifique a sua conexão");
+      setIsLoading(false);
+      return;
+    }
     const newProvider = {
       bi: provider.bi,
       nome: provider.fullName,
@@ -89,6 +106,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       password: provider.password,
       iban: provider.IBAN,
       descricao: provider.description,
+      imageUrl: profilePictureDownloadUrl,
       idCategorias: [],
     };
     setIsLoading(true);
@@ -105,7 +123,22 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
   };
 
-  const signUpClient: CreateClientAccount = async (client) => {
+  const signUpClient: CreateClientAccount = async (
+    client,
+    profilePictureURI
+  ) => {
+    setIsLoading(true);
+    let profilePictureDownloadUrl = "";
+    try {
+      profilePictureDownloadUrl = await storage.sendProfilePicture(
+        profilePictureURI
+      );
+    } catch (error) {
+      console.error(error);
+      setError("Erro na submissão da foto de perfil, verifique a sua conexão");
+      setIsLoading(false);
+      return;
+    }
     const newClient = {
       bi: client.bi,
       nome: client.fullName,
@@ -114,9 +147,9 @@ export const AuthProvider: React.FC = ({ children }) => {
       morada: client.address,
       password: client.password,
       telefone: client.phoneNumber,
+      imageUrl: profilePictureDownloadUrl,
       atividades: [],
     };
-    setIsLoading(true);
     try {
       await ClientAPI.createClient(newClient);
       Alert.alert("Login", "Conta criada com sucesso");

@@ -33,9 +33,11 @@ export type LoginFunction = (
 export type LogoutFunction = () => void;
 
 export type CreateProviderAccount = (
-  provider: ProviderSignUpFormType
+  provider: ProviderSignUpFormType,
+  profilePictureURI?: string
 ) => Promise<void>;
 
 export type CreateClientAccount = (
-  client: ClientSignUpFormType
+  client: ClientSignUpFormType,
+  profilePictureURI?: string
 ) => Promise<void>;

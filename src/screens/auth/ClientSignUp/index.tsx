@@ -18,7 +18,7 @@ const ClientSignUp = () => {
         "passwordConfirmation",
         "As duas passwords não são iguais"
       );
-    else signUpClient(values);
+    else signUpClient(values, image);
   };
 
   const handleSelectProfilePicture = async () => {
