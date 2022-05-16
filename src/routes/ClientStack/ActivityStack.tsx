@@ -18,7 +18,6 @@ function ActivityStack() {
         component={Activities}
         options={{
           headerTitle: "Atividades",
-          headerLeft: () => <HeaderLeft />,
           contentStyle: {
             borderTopColor: COLORS.PRIMARY,
             borderTopWidth: 1,

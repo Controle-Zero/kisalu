@@ -1,13 +1,80 @@
-import React from "react";
-import { View, Text } from "react-native";
-import { NavigableFC } from "./types";
-import { Label } from "./style";
+import React, { useContext, useState } from "react";
+import { View, FlatList } from "react-native";
+import { Dropdown } from "react-native-element-dropdown";
+import { DropdownActivityStateType, NavigableFC } from "./types";
+import { dropdown, Label } from "./style";
+import { useQuery } from "react-query";
+import * as ClientAPI from "../../../API/client";
+import useAuth from "../../../hooks/useAuth";
+import LoadingScreen from "../../other/LoadingScreen";
+import { ActivityState } from "../../../models/Atividade";
+import { ThemeContext } from "styled-components/native";
+import ListEmpty from "../../../components/ListEmpty";
+import ClientActivityCard from "../../../components/Cards/ClientActivityCard";
 
 const Activities: NavigableFC = ({ navigation }) => {
+  const { token } = useAuth();
+  const [activityState, setActivityState] = useState<ActivityState>(
+    ActivityState.ATIVA
+  );
+  const { data: activities, isLoading } = useQuery(
+    ["clientActivities", activityState],
+    getActivities
+  );
+  const { COLORS, FONTS } = useContext(ThemeContext);
+
+  const activityStateDropdownData: DropdownActivityStateType[] = [
+    { label: "Ativa", value: ActivityState.ATIVA },
+    { label: "Pendente", value: ActivityState.PENDENTE },
+    { label: "Finalizada", value: ActivityState.FINALIZADA },
+  ];
+
+  async function getActivities() {
+    const activities = await ClientAPI.getFilteredActivitiesFromClient(
+      token,
+      activityState
+    );
+    return activities;
+  }
+
+  function handleSelectActivityState({ value }: DropdownActivityStateType) {
+    setActivityState(value);
+  }
+
+  if (isLoading) return <LoadingScreen />;
+
   return (
     <View>
       <Label>Filtrar atividades por estado</Label>
-      <Text>Falta de tela...</Text>
+      <Dropdown
+        search={false}
+        data={activityStateDropdownData}
+        style={dropdown.dropdown}
+        placeholderStyle={dropdown.placeholderStyle}
+        selectedTextStyle={dropdown.selectedTextStyle}
+        activeColor={COLORS.LIGHT_PRIMARY}
+        dropdownPosition="bottom"
+        fontFamily={FONTS.POPPINS_REGULAR}
+        labelField="label"
+        valueField="value"
+        onChange={handleSelectActivityState}
+        value={activityState}
+        placeholder="Selecione o estado da atividade"
+        maxHeight={180}
+      />
+      <FlatList
+        data={activities}
+        ListEmptyComponent={() => (
+          <ListEmpty text="Não foram encontradas atividades" />
+        )}
+        renderItem={({ item }) => (
+          <ClientActivityCard
+            activity={item}
+            onActivityCancel={() => {}}
+            onActivityEvaluate={() => {}}
+          />
+        )}
+      />
     </View>
   );
 };
