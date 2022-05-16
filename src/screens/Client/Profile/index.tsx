@@ -23,7 +23,11 @@ const Profile = () => {
 
   return (
     <Container>
-      <ProfileHeader name={nome} profilePicture={imageUrl} />
+      <ProfileHeader
+        name={nome}
+        profilePicture={imageUrl}
+        onLogout={handleSignOut}
+      />
       <Wrapper>
         <Heading2>Informações Detalhadas</Heading2>
         {profileData.map(({ icon, label, text }, index) => (
@@ -38,7 +42,6 @@ const Profile = () => {
             <Spacer height={spaceBetweenTiles} />
           </Fragment>
         ))}
-        <Button onPress={handleSignOut} text="Sair" icon="logout" width="60%" />
       </Wrapper>
     </Container>
   );
