@@ -8,11 +8,12 @@ import ProviderCard from "../../../components/Cards/ProviderCard";
 import ListEmpty from "../../../components/ListEmpty";
 
 const ProvidersList: NavigableFC = ({ route, navigation }) => {
-  const { prestadores } = route.params.category;
+  const { prestadores, id } = route.params.category;
 
   const navigateToProviderProfile = (provider: Prestador) => {
     navigation.navigate("ProviderProfile", {
       provider,
+      categoryId: id,
     });
   };
 

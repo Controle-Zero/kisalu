@@ -1,5 +1,6 @@
 import React from "react";
 import { Alert } from "react-native";
+import { SocketContextProvider } from "../contexts/SocketContext";
 import useAuth from "../hooks/useAuth";
 import LoadingScreen from "../screens/other/LoadingScreen";
 import AuthRoutes from "./AuthRoute";
@@ -20,7 +21,15 @@ const Routes: React.FC = () => {
   }
 
   if (user) {
-    return userType === "client" ? <ClienteRoutes /> : <ProvedorRoutes />;
+    return userType === "client" ? (
+      <SocketContextProvider>
+        <ClienteRoutes />
+      </SocketContextProvider>
+    ) : (
+      <SocketContextProvider>
+        <ProvedorRoutes />
+      </SocketContextProvider>
+    );
   } else {
     return <AuthRoutes />;
   }

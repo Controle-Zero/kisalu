@@ -3,6 +3,7 @@ import Cliente from "../models/Cliente";
 import Prestador from "../models/Provedor";
 
 const PRODUCTION_URL = "https://uservices-api-teste.herokuapp.com";
+export const SOCKET_URL = PRODUCTION_URL + "/Kisalu";
 const DEV_URL = "http://192.168.1.24:8080";
 
 export default {

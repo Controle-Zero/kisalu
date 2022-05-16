@@ -28,4 +28,5 @@ export enum ActivityState {
   PENDENTE = "PENDENTE",
   FINALIZADA = "FINALIZADA",
   ATIVA = "ATIVA",
+  CANCELADA = "CANCELADA",
 }

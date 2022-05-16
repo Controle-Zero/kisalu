@@ -23,18 +23,25 @@ import { useCustomBottomSheetModal } from "../../../hooks/useCustomBottomSheetMo
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import ServiceDescriptionModal from "../../../components/Modals/ServiceDescriptionModal";
 import { Alert } from "react-native";
+import SocketContext from "../../../contexts/SocketContext";
+import useAuth from "../../../hooks/useAuth";
+import { Roles } from "../../../contexts/SocketContext/types";
 
 const ProviderProfile: NavigableFC = ({ navigation, route }) => {
+  const categoryId = route.params.categoryId;
   const {
     nome,
     imageUrl,
     rate = 3,
     email,
     telefone,
+    id: prestadorId,
     descricao,
   } = route.params.provider;
 
   const { COLORS } = useContext(ThemeContext);
+  const { user } = useAuth();
+  const { onActivityRequest } = useContext(SocketContext);
   const { showModal, reference } = useCustomBottomSheetModal();
   const iconSize = 25;
 
@@ -45,8 +52,19 @@ const ProviderProfile: NavigableFC = ({ navigation, route }) => {
   }
 
   function handleRequestService(description: string) {
-    // TODO: Create activity
-    console.log(description);
+    onActivityRequest({
+      TriggeredBy: {
+        id: user?.id as string,
+        role: Roles.CLIENT,
+      },
+      atividade: {
+        categoriaId: categoryId,
+        clienteId: user?.id as string,
+        descricao: description,
+        prestadorId: prestadorId as string,
+      },
+    });
+
     Alert.alert(
       "Solicitação de serviço",
       "A sua solicitação foi enviada. Aguarde pela resposta do provedor"

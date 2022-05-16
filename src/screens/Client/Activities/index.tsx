@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, RefreshControl } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { DropdownActivityStateType, NavigableFC } from "./types";
 import { dropdown, Label } from "./style";
@@ -17,16 +17,20 @@ const Activities: NavigableFC = ({ navigation }) => {
   const [activityState, setActivityState] = useState<ActivityState>(
     ActivityState.ATIVA
   );
-  const { data: activities, isLoading } = useQuery(
-    ["clientActivities", activityState],
-    getActivities
-  );
+  const [refreshing, setRefreshing] = useState(false);
+
+  const {
+    data: activities,
+    isLoading,
+    refetch,
+  } = useQuery(["clientActivities", activityState], getActivities);
   const { COLORS, FONTS } = useContext(ThemeContext);
 
   const activityStateDropdownData: DropdownActivityStateType[] = [
     { label: "Ativa", value: ActivityState.ATIVA },
     { label: "Pendente", value: ActivityState.PENDENTE },
     { label: "Finalizada", value: ActivityState.FINALIZADA },
+    { label: "Cancelada", value: ActivityState.CANCELADA },
   ];
 
   async function getActivities() {
@@ -34,6 +38,7 @@ const Activities: NavigableFC = ({ navigation }) => {
       token,
       activityState
     );
+    console.log(activities);
     return activities;
   }
 
@@ -63,6 +68,16 @@ const Activities: NavigableFC = ({ navigation }) => {
         maxHeight={180}
       />
       <FlatList
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => {
+              setRefreshing(true);
+              refetch();
+              setRefreshing(false);
+            }}
+          />
+        }
         data={activities}
         ListEmptyComponent={() => (
           <ListEmpty text="Não foram encontradas atividades" />

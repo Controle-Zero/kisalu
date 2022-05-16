@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Profile from "../screens/Client/Profile";
@@ -6,11 +6,16 @@ import { ClienteParamsList } from "./types/ClienteParamsList";
 import HomeStack from "./ClientStack/HomeStack";
 import ActivityStack from "./ClientStack/ActivityStack";
 import { ThemeContext } from "styled-components";
+import SocketContext from "../contexts/SocketContext";
 
 const BottomTab = createBottomTabNavigator<ClienteParamsList>();
 
 const ClienteRoutes = () => {
   const { COLORS, FONTS } = useContext(ThemeContext);
+  const { initSocket } = useContext(SocketContext);
+
+  useEffect(() => initSocket(), []);
+
   return (
     <BottomTab.Navigator
       initialRouteName="Home"

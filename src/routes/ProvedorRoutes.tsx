@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/Ionicons";
 import { ProviderParamsList } from "./types/ProviderParamsList";
@@ -6,12 +6,17 @@ import ProfileStack from "./ProviderStack/ProfileStack";
 import useAuth from "../hooks/useAuth";
 import { ThemeContext } from "styled-components";
 import HomeTopBarNav from "./ProviderStack/HomeTopBarNav";
+import SocketContext from "../contexts/SocketContext";
 
 const BottomTab = createBottomTabNavigator<ProviderParamsList>();
 
 const ProvedorRoutes = () => {
   const { user } = useAuth();
   const { COLORS, FONTS } = useContext(ThemeContext);
+  const { initSocket } = useContext(SocketContext);
+
+  useEffect(() => initSocket(), []);
+
   return (
     <BottomTab.Navigator
       initialRouteName="Home"

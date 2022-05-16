@@ -11,7 +11,7 @@ const AccountTypeModal: React.FC<Props> = ({ reference }) => {
   const navigation = useNavigation<NavigationProp<AuthParamsList>>();
   const { dismiss } = useBottomSheetModal();
 
-  const snapPoints = ["35%"];
+  const snapPoints = ["40%"];
 
   const navigateToProviderScreen = () => {
     dismiss();

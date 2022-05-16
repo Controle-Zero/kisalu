@@ -95,8 +95,7 @@ export async function getFilteredActivitiesFromClient(
   filter: ActivityState
 ) {
   try {
-    const response = await getClient(token);
-    const activities = response.atividades ?? [];
+    const activities = await getActivities(token);
     if (activities.length == 0) return activities;
     const filteredActivities = filterActivities(activities, filter);
     return filteredActivities;
@@ -107,14 +106,11 @@ export async function getFilteredActivitiesFromClient(
 
 export async function getActivities(token: string) {
   try {
-    const response = await axios.get<ActivitiesResponseClient>(
-      `${END_POINT}/atividades`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.get<Atividade[]>(`${END_POINT}/atividades`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error(error);
@@ -128,9 +124,6 @@ export async function getActivities(token: string) {
 function filterActivities(activities: Atividade[], filter: ActivityState) {
   return activities.filter((activity) => {
     const { estado } = activity;
-    const { ATIVA, FINALIZADA, PENDENTE } = ActivityState;
-    if ((estado == ATIVA || estado == PENDENTE) && filter == ATIVA)
-      return activity;
-    else if (estado == FINALIZADA && filter == FINALIZADA) return activity;
+    if (estado == filter) return activity;
   });
 }
