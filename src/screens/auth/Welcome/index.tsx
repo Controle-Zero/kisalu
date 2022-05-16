@@ -17,7 +17,7 @@ import { View } from "react-native";
 
 export default function Welcome({ navigation }: AuthNavProps<"Welcome">) {
   const { COLORS } = useContext(ThemeContext);
-  const { reference, onModalShown } = useCustomBottomSheetModal();
+  const { reference, showModal: onModalShown } = useCustomBottomSheetModal();
 
   const openLogin = () => {
     navigation.navigate("Login");

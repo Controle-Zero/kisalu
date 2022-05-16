@@ -3,8 +3,8 @@ import { useCallback, useRef } from "react";
 
 export function useCustomBottomSheetModal() {
   const reference = useRef<BottomSheetModal>(null);
-  const onModalShown = useCallback(() => {
+  const showModal = useCallback(() => {
     reference.current?.present();
   }, []);
-  return { reference, onModalShown };
+  return { reference, showModal };
 }
