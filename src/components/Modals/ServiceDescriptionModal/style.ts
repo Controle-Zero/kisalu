@@ -17,9 +17,11 @@ export const Heading = styled.Text`
   text-align: center;
 `;
 
-export const Actions = styled.View`
-  margin-top: 26px;
-  width: 100%;
+export const Text = styled.Text`
+  text-align: center;
+  font-family: ${({ theme }) => theme.FONTS.POPPINS_REGULAR};
+  font-size: 14px;
+  margin: 10px 0;
 `;
 
 export const BackgroundOverlay = styled.View`

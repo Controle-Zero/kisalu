@@ -44,6 +44,7 @@ const ProviderProfile: NavigableFC = ({ navigation, route }) => {
   }
 
   function handleRequestService(description: string) {
+    // TODO: Create activity
     console.log(description);
   }
 
