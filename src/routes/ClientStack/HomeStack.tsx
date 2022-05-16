@@ -6,6 +6,8 @@ import Home from "../../screens/Client/Home";
 import ProvidersList from "../../screens/Client/ProvidersList";
 import Spacer from "../../components/layout/Spacer";
 import useAuth from "../../hooks/useAuth";
+import ProviderProfile from "../../screens/Client/ProviderProfile";
+import { NoProfilePictureImage } from "../../styles/imageConstants";
 
 const NativeHomeStack = createNativeStackNavigator<HomeParamsList>();
 
@@ -30,11 +32,11 @@ function HomeStack() {
           };
         }}
       />
-      {/* <NativeHomeStack.Screen
+      <NativeHomeStack.Screen
         name="ProviderProfile"
-        component={ClientProvedor}
+        component={ProviderProfile}
         options={{ title: "" }}
-      /> */}
+      />
     </NativeHomeStack.Navigator>
   );
 }
@@ -45,11 +47,7 @@ const HeaderLeft: FC<{ profilePicture: string | undefined }> = ({
   <>
     <Avatar.Image
       size={35}
-      source={
-        !profilePicture
-          ? require("../../assets/images/no-profile.png")
-          : profilePicture
-      }
+      source={profilePicture ? { uri: profilePicture } : NoProfilePictureImage}
     />
     <Spacer width={20} />
   </>

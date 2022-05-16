@@ -1,13 +1,18 @@
 import React from "react";
 import { Avatar } from "react-native-paper";
+import { NoProfilePictureImage } from "../../styles/imageConstants";
 import { Container, Text } from "./style";
 import { Props } from "./types";
-import noProfileImage from "../../assets/images/no-profile.png";
 
-const ProfileHeader: React.FC<Props> = ({ name }) => {
+const ProfileHeader: React.FC<Props> = ({ name, profilePicture }) => {
   return (
     <Container>
-      <Avatar.Image size={70} source={noProfileImage} />
+      <Avatar.Image
+        size={70}
+        source={
+          profilePicture ? { uri: profilePicture } : NoProfilePictureImage
+        }
+      />
       <Text>{name}</Text>
     </Container>
   );

@@ -1,13 +1,10 @@
 import storage from "@react-native-firebase/storage";
 
 const PROFILE_PICTURE_DIR_PATH = "/images/user_avatar/";
-const NO_PROFILE_PICTURE_PATH = PROFILE_PICTURE_DIR_PATH + "no-profile.png";
 
-const sendProfilePicture = async (uploadURI: string | undefined) => {
+const sendProfilePicture = async (uploadURI: string) => {
   try {
-    const fileName = uploadURI
-      ? uploadURI.substring(uploadURI.lastIndexOf("/") + 1)
-      : NO_PROFILE_PICTURE_PATH;
+    const fileName = uploadURI.substring(uploadURI.lastIndexOf("/") + 1);
     console.log(fileName);
     if (uploadURI) {
       await storage().ref(fileName).putFile(uploadURI);

@@ -12,7 +12,7 @@ import Spacer from "../../../components/layout/Spacer";
 const Profile = () => {
   const { signOut, user } = useAuth();
   const { COLORS } = useContext(ThemeContext);
-  const { nome } = user as Cliente;
+  const { nome, imageUrl } = user as Cliente;
 
   const spaceBetweenTiles = 10;
   const profileData = buildProfileData(user as Cliente);
@@ -23,7 +23,7 @@ const Profile = () => {
 
   return (
     <Container>
-      <ProfileHeader name={nome} />
+      <ProfileHeader name={nome} profilePicture={imageUrl} />
       <Wrapper>
         <Heading2>Informações Detalhadas</Heading2>
         {profileData.map(({ icon, label, text }, index) => (

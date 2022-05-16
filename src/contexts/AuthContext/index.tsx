@@ -88,15 +88,19 @@ export const AuthProvider: React.FC = ({ children }) => {
   ) => {
     setIsLoading(true);
     let profilePictureDownloadUrl = "";
-    try {
-      profilePictureDownloadUrl = await storage.sendProfilePicture(
-        profilePictureURI
-      );
-    } catch (error) {
-      console.error(error);
-      setError("Erro na submissão da foto de perfil, verifique a sua conexão");
-      setIsLoading(false);
-      return;
+    if (profilePictureURI) {
+      try {
+        profilePictureDownloadUrl = await storage.sendProfilePicture(
+          profilePictureURI
+        );
+      } catch (error) {
+        console.error(error);
+        setError(
+          "Erro na submissão da foto de perfil, verifique a sua conexão"
+        );
+        setIsLoading(false);
+        return;
+      }
     }
     const newProvider = {
       bi: provider.bi,
@@ -131,15 +135,19 @@ export const AuthProvider: React.FC = ({ children }) => {
   ) => {
     setIsLoading(true);
     let profilePictureDownloadUrl = "";
-    try {
-      profilePictureDownloadUrl = await storage.sendProfilePicture(
-        profilePictureURI
-      );
-    } catch (error) {
-      console.error(error);
-      setError("Erro na submissão da foto de perfil, verifique a sua conexão");
-      setIsLoading(false);
-      return;
+    if (profilePictureURI) {
+      try {
+        profilePictureDownloadUrl = await storage.sendProfilePicture(
+          profilePictureURI
+        );
+      } catch (error) {
+        console.error(error);
+        setError(
+          "Erro na submissão da foto de perfil, verifique a sua conexão"
+        );
+        setIsLoading(false);
+        return;
+      }
     }
     const newClient = {
       bi: client.bi,
