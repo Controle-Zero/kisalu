@@ -22,6 +22,7 @@ import { ThemeContext } from "styled-components/native";
 import { useCustomBottomSheetModal } from "../../../hooks/useCustomBottomSheetModal";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import ServiceDescriptionModal from "../../../components/Modals/ServiceDescriptionModal";
+import { Alert } from "react-native";
 
 const ProviderProfile: NavigableFC = ({ navigation, route }) => {
   const {
@@ -46,6 +47,11 @@ const ProviderProfile: NavigableFC = ({ navigation, route }) => {
   function handleRequestService(description: string) {
     // TODO: Create activity
     console.log(description);
+    Alert.alert(
+      "Solicitação de serviço",
+      "A sua solicitação foi enviada. Aguarde pela resposta do provedor"
+    );
+    navigation.navigate("HomeScreen");
   }
 
   return (

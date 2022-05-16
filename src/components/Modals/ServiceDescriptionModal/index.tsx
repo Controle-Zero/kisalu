@@ -5,15 +5,23 @@ import { useBottomSheetModal } from "@gorhom/bottom-sheet";
 import Button from "../../Button";
 import TextArea from "../../Input/TextArea";
 import Spacer from "../../layout/Spacer";
+import { Alert } from "react-native";
 
 const ServiceDescriptionModal: FC<Props> = ({ reference, onSubmit }) => {
   const { dismiss } = useBottomSheetModal();
   const [description, setDescription] = useState("");
 
-  const snapPoints = ["30%", "75%", "100%"];
+  const snapPoints = ["75%", "100%"];
 
   function handleSubmit() {
     dismiss();
+    if (!description) {
+      Alert.alert(
+        "Alerta",
+        "Não preencheu a descrição do serviço. Por favor preencha."
+      );
+      return;
+    }
     setDescription("");
     onSubmit(description);
   }
