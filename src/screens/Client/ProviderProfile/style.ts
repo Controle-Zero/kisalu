@@ -1,43 +1,69 @@
 import styled from "styled-components/native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export const Container = styled.ScrollView`
-  padding-top: 40px;
-`;
-
-export const Wrapper = styled.View`
-  margin-top: 55px;
-  height: 100%;
-  padding: 45px 37px;
+  flex: 1;
   background-color: ${({ theme }) => theme.COLORS.WHITE};
-  border-top-left-radius: 40px;
-  border-top-right-radius: 40px;
+  padding: 40px 20px;
 `;
 
-export const Heading2 = styled.Text`
-  font-size: 18px;
-  font-family: ${({ theme }) => theme.FONTS.POPPINS_MEDIUM};
-  margin-bottom: 30px;
+export const Header = styled.View`
+  flex-direction: row;
 `;
 
-export const ModalHeading = styled.Text`
-  font-family: ${({ theme }) => theme.FONTS.POPPINS_REGULAR};
-  font-size: 20px;
-`;
-
-export const Description = styled.Text`
-  text-align: center;
-  font-size: 16px;
-  font-family: ${({ theme }) => theme.FONTS.POPPINS_REGULAR};
-  background-color: ${({ theme }) => theme.COLORS.SECONDARY};
-  color: ${({ theme }) => theme.COLORS.WHITE};
-  padding: 20px;
+export const MainInfoContainer = styled.View`
+  flex: 1;
+  align-items: center;
 `;
 
 export const ActionsContainer = styled.View`
   flex: 1;
-  margin-top: 26px;
-  width: 100%;
-  flex-direction: row;
   justify-content: center;
-  height: 20px;
 `;
+
+export const ProfilePicture = styled.Image`
+  width: 80px;
+  height: 80px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+`;
+
+export const TimeWithUsContainer = styled.View`
+  margin-bottom: 20px;
+  border-left-color: ${({ theme }) => theme.COLORS.PRIMARY};
+  border-left-width: 3px;
+  padding-left: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+`;
+
+export const Text = styled.Text`
+  font-family: ${({ theme }) => theme.FONTS.POPPINS_REGULAR};
+  font-size: 16px;
+`;
+
+export const TextBold = styled.Text`
+  font-family: ${({ theme }) => theme.FONTS.POPPINS_MEDIUM};
+  font-size: 16px;
+`;
+
+export const BigName = styled.Text`
+  font-size: 24px;
+  font-family: ${({ theme }) => theme.FONTS.POPPINS_REGULAR};
+  color: #000;
+  text-align: center;
+`;
+
+export const RatingContainer = styled.View`
+  margin-top: 10px;
+  flex-direction: row;
+  justify-content: space-evenly;
+`;
+
+export const Star = styled(Icon)`
+  color: ${({ theme }) => theme.COLORS.GOLD};
+`;
+
+export const Heading = styled.Text``;
+
+export const DescriptionContainer = styled.View``;

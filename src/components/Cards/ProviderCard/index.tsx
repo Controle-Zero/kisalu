@@ -17,9 +17,10 @@ const ProviderCard: FC<Props> = ({ onPress, provider }) => {
   const hasProfilePicture = !!imageUrl;
   const hasRating = rate != 0;
   const ratingStars = [];
-  for (let i = 0; i < 5; i++)
-    ratingStars.push(<RateStar name="star" size={25} />);
-
+  for (let i = 0; i < 5; i++) {
+    if (i < rate) ratingStars.push(<RateStar name="star" size={25} key={i} />);
+    else ratingStars.push(<RateStar name="star-o" size={25} key={i} />);
+  }
   return (
     <DropShadow style={dropShadowStyle.container}>
       <Container onPress={() => onPress(provider)}>

@@ -11,10 +11,9 @@ const ProvidersList: NavigableFC = ({ route, navigation }) => {
   const { prestadores } = route.params.category;
 
   const navigateToProviderProfile = (provider: Prestador) => {
-    console.log(provider);
-    // navigation.navigate("ProviderProfile", {
-    //   provider,
-    // });
+    navigation.navigate("ProviderProfile", {
+      provider,
+    });
   };
 
   return (
