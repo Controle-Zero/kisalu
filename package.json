@@ -32,6 +32,7 @@
     "react-native": "0.64.3",
     "react-native-device-info": "^8.7.0",
     "react-native-drop-shadow": "^0.0.4",
+    "react-native-element-dropdown": "^1.8.10",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-pager-view": "5.4.6",
     "react-native-paper": "^4.10.1",
