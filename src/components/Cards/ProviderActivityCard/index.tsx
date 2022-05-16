@@ -10,6 +10,7 @@ import {
 } from "./style";
 import DefaultProfilePic from "../../../assets/images/default-profile-pic.png";
 import DropShadow from "react-native-drop-shadow";
+import { formatDate } from "../../../utils/dateFormatter";
 
 const ProviderActivityCard: React.FC<ProviderActivityCardProps> = ({
   activity,
@@ -26,8 +27,7 @@ const ProviderActivityCard: React.FC<ProviderActivityCardProps> = ({
         <TextContainer>
           <ColoredText>{titulo}</ColoredText>
           <Text>{Cliente?.nome}</Text>
-          {/* TODO: Mudar para a data da API */}
-          <Text>{dataCriado}</Text>
+          <Text>{formatDate(new Date(dataCriado))}</Text>
         </TextContainer>
         <ProfilePicture source={DefaultProfilePic} />
       </Container>

@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React, { FC } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { Props } from "./type";
 import DropShadow from "react-native-drop-shadow";
 import {
@@ -11,15 +11,36 @@ import {
   TextCenter,
 } from "./style";
 import Spacer from "../../layout/Spacer";
+import { ActivityState } from "../../../models/Atividade";
+import { ThemeContext } from "styled-components/native";
+import { formatDate } from "../../../utils/dateFormatter";
 
 const ProviderActivityHistoryCard: FC<Props> = ({ activity, onNavigate }) => {
   const {
     Categoria: { titulo },
     dataCriado,
     Cliente,
+    estado,
   } = activity;
+  const { COLORS } = useContext(ThemeContext);
+  const [statusColor, setStatusColor] = useState("");
 
-  const statusColor = "#0f0";
+  useEffect(() => {
+    switch (estado) {
+      case ActivityState.FINALIZADA:
+        setStatusColor("#0f0");
+        break;
+      case ActivityState.CANCELADA:
+        setStatusColor("#f00");
+        break;
+      case ActivityState.PENDENTE:
+        setStatusColor("#c4c4c4");
+        break;
+      case ActivityState.ATIVA:
+        setStatusColor(COLORS.PRIMARY);
+        break;
+    }
+  }, []);
 
   return (
     <DropShadow style={style.container}>
@@ -30,15 +51,15 @@ const ProviderActivityHistoryCard: FC<Props> = ({ activity, onNavigate }) => {
         {/* TODO: Mudar para a data da API */}
         <Spacer height={15} />
         <Row>
-          <Text>{dataCriado}</Text>
+          <Text>{formatDate(new Date(dataCriado))}</Text>
           <Text>
-            Preço:<StatusColor color={statusColor}>50.000kzs</StatusColor>
+            Preço:<StatusColor color={statusColor}>{}</StatusColor>
           </Text>
         </Row>
         <Spacer height={15} />
         <TextCenter>
           Situação:
-          <StatusColor color={statusColor}>Finalizada</StatusColor>
+          <StatusColor color={statusColor}>{estado}</StatusColor>
         </TextCenter>
       </Container>
     </DropShadow>

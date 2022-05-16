@@ -12,6 +12,8 @@ import {
 import { ClientActivityCardProps } from "./type";
 import Button from "../../Button";
 import Spacer from "../../layout/Spacer";
+import { ActivityState } from "../../../models/Atividade";
+import { formatDate } from "../../../utils/dateFormatter";
 
 const ClientActivityCard: React.FC<ClientActivityCardProps> = ({
   activity,
@@ -37,16 +39,16 @@ const ClientActivityCard: React.FC<ClientActivityCardProps> = ({
           <Text>
             Estado: <PrimaryText>{estado}</PrimaryText>
           </Text>
-          {estado !== "PENDENTE" ? (
+          {estado != ActivityState.PENDENTE ? (
             <Text>{valorAssociado} Kzs</Text>
           ) : (
             <Text>Valor não informado</Text>
           )}
-          <Text>{dataCriado}</Text>
+          <Text>{formatDate(new Date(dataCriado))}</Text>
         </RightContent>
       </ContentContainer>
       <ActionsContainer>
-        {estado === "FINALIZADA" ? (
+        {estado !== ActivityState.FINALIZADA ? (
           <Button
             text="Cancelar"
             width="40%"

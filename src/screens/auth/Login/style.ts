@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 
 export const Container = styled.ImageBackground`
-  justify-content: flex-end;
+  justify-content: center;
   background-color: #000;
   flex: 1;
 `;
@@ -13,7 +13,6 @@ export const Wrapper = styled.View`
   width: 90%;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 5%;
 `;
 
 export const Heading1 = styled.Text`
