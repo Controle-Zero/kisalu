@@ -11,14 +11,9 @@ export const Header = styled.View`
   flex-direction: row;
 `;
 
-export const MainInfoContainer = styled.View`
+export const Column = styled.View`
   flex: 1;
   align-items: center;
-`;
-
-export const ActionsContainer = styled.View`
-  flex: 1;
-  justify-content: center;
 `;
 
 export const ProfilePicture = styled.Image`
@@ -64,6 +59,27 @@ export const Star = styled(Icon)`
   color: ${({ theme }) => theme.COLORS.GOLD};
 `;
 
-export const Heading = styled.Text``;
+export const Heading = styled.Text`
+  margin-top: 25px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-family: ${({ theme }) => theme.FONTS.POPPINS_MEDIUM};
+`;
 
-export const DescriptionContainer = styled.View``;
+export const Field = styled.View`
+  flex-direction: row;
+  padding: 10px 5px;
+  align-items: center;
+  margin-bottom: 18px;
+  border-bottom-color: ${({ theme }) => theme.COLORS.PRIMARY};
+  border-bottom-width: 1px;
+`;
+
+export const DescriptionContainer = styled.View`
+  background-color: ${({ theme }) => theme.COLORS.TEXT_FIELD_BACKGROUND};
+  border-radius: 15px;
+  padding: 20px;
+  min-height: 150px;
+  margin-bottom: 20px;
+`;

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { NavigableFC } from "./types";
 import {
   BigName,
@@ -10,13 +11,14 @@ import {
   RatingContainer,
   Heading,
   DescriptionContainer,
-  MainInfoContainer,
-  ActionsContainer,
+  Column,
   TextBold,
   Star,
+  Field,
 } from "./style";
 import { NoProfilePictureImage } from "../../../styles/imageConstants";
 import Button from "../../../components/Button";
+import { ThemeContext } from "styled-components/native";
 
 const ProviderProfile: NavigableFC = ({ navigation, route }) => {
   const {
@@ -27,6 +29,10 @@ const ProviderProfile: NavigableFC = ({ navigation, route }) => {
     telefone,
     descricao,
   } = route.params.provider;
+
+  const { COLORS } = useContext(ThemeContext);
+  const iconSize = 25;
+
   const ratingStars = [];
   for (let i = 0; i < 5; i++) {
     if (i < rate) ratingStars.push(<Star name="star" size={25} key={i} />);
@@ -35,24 +41,40 @@ const ProviderProfile: NavigableFC = ({ navigation, route }) => {
   return (
     <Container>
       <Header>
-        <MainInfoContainer>
+        <Column>
           <ProfilePicture
             source={imageUrl ? { uri: imageUrl } : NoProfilePictureImage}
           />
           <BigName>{nome}</BigName>
-        </MainInfoContainer>
-        <ActionsContainer>
+        </Column>
+        <Column>
           <TimeWithUsContainer>
             <Text>Está connosco há</Text>
             <TextBold>10 meses</TextBold>
           </TimeWithUsContainer>
           <Button text="Solicitar Serviço" onPress={() => {}} />
           <RatingContainer>{ratingStars.map((star) => star)}</RatingContainer>
-        </ActionsContainer>
+        </Column>
       </Header>
       <Heading>Contactos</Heading>
-      <Text>{email}</Text>
-      <Text>{telefone}</Text>
+      <Field>
+        <Icon
+          name="email"
+          color={COLORS.PRIMARY}
+          size={iconSize}
+          style={{ marginRight: 20 }}
+        />
+        <Text>{email}</Text>
+      </Field>
+      <Field>
+        <Icon
+          name="phone"
+          color={COLORS.PRIMARY}
+          size={iconSize}
+          style={{ marginRight: 20 }}
+        />
+        <Text>{telefone}</Text>
+      </Field>
       <Heading>Descrição</Heading>
       <DescriptionContainer>
         <Text>{descricao}</Text>
