@@ -1,16 +1,17 @@
 import React, { useContext, useState } from "react";
-import { View, FlatList, RefreshControl } from "react-native";
+import { FlatList, RefreshControl } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
+import { ThemeContext } from "styled-components";
+import { useQuery } from "react-query";
 import { DropdownActivityStateType, NavigableFC } from "./types";
 import { dropdown, Label } from "./style";
-import { useQuery } from "react-query";
 import * as ClientAPI from "../../../API/client";
 import useAuth from "../../../hooks/useAuth";
 import LoadingScreen from "../../other/LoadingScreen";
 import { ActivityState } from "../../../models/Atividade";
-import { ThemeContext } from "styled-components/native";
 import ListEmpty from "../../../components/ListEmpty";
 import ClientActivityCard from "../../../components/Cards/ClientActivityCard";
+import Spacer from "../../../components/layout/Spacer";
 
 const Activities: NavigableFC = ({ navigation }) => {
   const { token } = useAuth();
@@ -38,7 +39,6 @@ const Activities: NavigableFC = ({ navigation }) => {
       token,
       activityState
     );
-    console.log(activities);
     return activities;
   }
 
@@ -46,51 +46,59 @@ const Activities: NavigableFC = ({ navigation }) => {
     setActivityState(value);
   }
 
+  function handleFlatListRefresh() {
+    setRefreshing(true);
+    refetch();
+    setRefreshing(false);
+  }
+
   if (isLoading) return <LoadingScreen />;
 
   return (
-    <View>
-      <Label>Filtrar atividades por estado</Label>
-      <Dropdown
-        search={false}
-        data={activityStateDropdownData}
-        style={dropdown.dropdown}
-        placeholderStyle={dropdown.placeholderStyle}
-        selectedTextStyle={dropdown.selectedTextStyle}
-        activeColor={COLORS.LIGHT_PRIMARY}
-        dropdownPosition="bottom"
-        fontFamily={FONTS.POPPINS_REGULAR}
-        labelField="label"
-        valueField="value"
-        onChange={handleSelectActivityState}
-        value={activityState}
-        placeholder="Selecione o estado da atividade"
-        maxHeight={180}
-      />
-      <FlatList
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={() => {
-              setRefreshing(true);
-              refetch();
-              setRefreshing(false);
-            }}
+    <FlatList
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={handleFlatListRefresh}
+        />
+      }
+      data={activities}
+      ListEmptyComponent={() => (
+        <ListEmpty text="Não foram encontradas atividades" />
+      )}
+      ListHeaderComponent={() => (
+        <>
+          <Label>Filtrar atividades por estado</Label>
+          <Dropdown
+            search={false}
+            data={activityStateDropdownData}
+            style={dropdown.dropdown}
+            placeholderStyle={dropdown.placeholderStyle}
+            selectedTextStyle={dropdown.selectedTextStyle}
+            activeColor={COLORS.LIGHT_PRIMARY}
+            dropdownPosition="bottom"
+            fontFamily={FONTS.POPPINS_REGULAR}
+            labelField="label"
+            valueField="value"
+            onChange={handleSelectActivityState}
+            value={activityState}
+            placeholder="Selecione o estado da atividade"
+            maxHeight={180}
           />
-        }
-        data={activities}
-        ListEmptyComponent={() => (
-          <ListEmpty text="Não foram encontradas atividades" />
-        )}
-        renderItem={({ item }) => (
-          <ClientActivityCard
-            activity={item}
-            onActivityCancel={() => {}}
-            onActivityEvaluate={() => {}}
-          />
-        )}
-      />
-    </View>
+          <Spacer height={10} />
+        </>
+      )}
+      ListFooterComponent={() => (
+        <Spacer height={10} />
+      )}
+      renderItem={({ item }) => (
+        <ClientActivityCard
+          activity={item}
+          onActivityCancel={() => { }}
+          onActivityEvaluate={() => { }}
+        />
+      )}
+    />
   );
 };
 
