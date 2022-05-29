@@ -5,5 +5,5 @@ export default interface Prestador extends Cliente {
   iban: string;
   rate?: number;
   descricao: string;
-  idCategorias?: string[];
+  categorias?: string[];
 }
