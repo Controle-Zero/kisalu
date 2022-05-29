@@ -8,6 +8,7 @@
   <p align="center">
     Kisalu's front-end
     <br />
+     <a href="https://github.com/Controle-Zero/kisalu/blob/main/README.pt.md"><strong>README em Português</strong></a>
     <a href="https://github.com/Controle-Zero/kisalu-api"><strong>Explore the back-end repo »</strong></a>
     <br />
     <br />
@@ -29,10 +30,6 @@
 
 <br />
 <hr></hr>
-
-## Requirements
-
-- Expo Go App ([Android](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=pt&gl=US) | [iOS](https://apps.apple.com/us/app/expo-go/id982107779)) (For physical devices only)
 
 ## Local Development
 
@@ -58,12 +55,8 @@ Wait for the build to finish and for the emulator to open
 
 ### Physical Device
 
-Execute the app with the command below
+After exporting the Expo project, it is not possible to test the app with the Expo Go.
 
-```bash
-npm start
-```
-
-Wait for the QR code to appear and then scan it with your phone. Scan with Expo Go if you are on Android or scan it with the camera if you are on iOS.
+Testing the app is only possible on a Android device by downloading the APK on this link: [Releases](https://github.com/Controle-Zero/kisalu/releases)
 
 If there is any issue with the build and execution with the app, please report on the <a href="https://github.com/Controle-Zero/kisalu/issues">issues</a>
