@@ -5,11 +5,10 @@ const PROFILE_PICTURE_DIR_PATH = "/images/user_avatar/";
 const sendProfilePicture = async (uploadURI: string) => {
   try {
     const fileName = uploadURI.substring(uploadURI.lastIndexOf("/") + 1);
-    console.log(fileName);
-    if (uploadURI) {
-      await storage().ref(fileName).putFile(uploadURI);
-    }
-    return await storage().ref(fileName).getDownloadURL();
+    const reference = storage().ref(PROFILE_PICTURE_DIR_PATH + fileName);
+    await reference.putFile(uploadURI);
+    const downloadResult = await reference.getDownloadURL();
+    return downloadResult;
   } catch (error) {
     console.error(error);
     throw new Error("Erro on the firebase");
