@@ -22,7 +22,7 @@ import Button from "../../../components/Button";
 const Profile: NavigableFC = ({ navigation }) => {
   const { signOut, user } = useAuth();
   const { COLORS } = useContext(ThemeContext);
-  const { nome, descricao, rate } = user as Provedor;
+  const { nome, descricao, rate, imageUrl } = user as Provedor;
   const profileData = buildProfileData(user as Provedor);
 
   // TODO: Change this to a local asset
@@ -43,7 +43,7 @@ const Profile: NavigableFC = ({ navigation }) => {
   return (
     <>
       <Container>
-        <ProfileHeader name={nome} />
+        <ProfileHeader name={nome} profilePicture={imageUrl} onLogout={handleSignOut} />
         <Wrapper>
           <Heading2>Sobre Mim</Heading2>
           <Spacer height={10} />
