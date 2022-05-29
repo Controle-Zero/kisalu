@@ -21,12 +21,9 @@ const ProviderActivityHistoryCard: FC<Props> = ({ activity, onNavigate }) => {
     Cliente,
     estado,
   } = activity;
-  const [statusColor, setStatusColor] = useState("");
 
-  useEffect(() => {
-    const selectedColor = ActivityColor[estado];
-    setStatusColor(selectedColor);
-  }, []);
+  const statusColor = ActivityColor[estado];
+
 
   return (
     <DropShadow style={style.container}>
