@@ -83,13 +83,6 @@ const Profile: NavigableFC = ({ navigation }) => {
             )}
           </RatingContainer>
           <Spacer height={20} />
-          <Button
-            onPress={handleSignOut}
-            text="Sair"
-            icon="logout"
-            width="60%"
-          />
-          <Spacer height={20} />
         </Wrapper>
       </Container>
       <FloatingActionButton icon="plus" onPress={floatingActionButtonClick} />
