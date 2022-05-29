@@ -1,7 +1,7 @@
-import { View, Text } from "react-native";
-import React, { FC, useContext, useEffect, useState } from "react";
-import { Props } from "./type";
+import { Text } from "react-native";
+import React, { FC, useEffect, useState } from "react";
 import DropShadow from "react-native-drop-shadow";
+import { Props } from "./type";
 import {
   ColoredText,
   Container,
@@ -11,9 +11,8 @@ import {
   TextCenter,
 } from "./style";
 import Spacer from "../../layout/Spacer";
-import { ActivityState } from "../../../models/Atividade";
-import { ThemeContext } from "styled-components/native";
 import { formatDate } from "../../../utils/dateFormatter";
+import ActivityColor from '../../../styles/ActivityColor';
 
 const ProviderActivityHistoryCard: FC<Props> = ({ activity, onNavigate }) => {
   const {
@@ -22,25 +21,9 @@ const ProviderActivityHistoryCard: FC<Props> = ({ activity, onNavigate }) => {
     Cliente,
     estado,
   } = activity;
-  const { COLORS } = useContext(ThemeContext);
-  const [statusColor, setStatusColor] = useState("");
 
-  useEffect(() => {
-    switch (estado) {
-      case ActivityState.FINALIZADA:
-        setStatusColor("#0f0");
-        break;
-      case ActivityState.CANCELADA:
-        setStatusColor("#f00");
-        break;
-      case ActivityState.PENDENTE:
-        setStatusColor("#c4c4c4");
-        break;
-      case ActivityState.ATIVA:
-        setStatusColor(COLORS.PRIMARY);
-        break;
-    }
-  }, []);
+  const statusColor = ActivityColor[estado];
+
 
   return (
     <DropShadow style={style.container}>
@@ -48,12 +31,12 @@ const ProviderActivityHistoryCard: FC<Props> = ({ activity, onNavigate }) => {
         <ColoredText>{titulo}</ColoredText>
         <Spacer height={15} />
         <Text>{Cliente?.nome}</Text>
-        {/* TODO: Mudar para a data da API */}
         <Spacer height={15} />
         <Row>
           <Text>{formatDate(new Date(dataCriado))}</Text>
           <Text>
-            Preço:<StatusColor color={statusColor}>{}</StatusColor>
+            {/* TODO: Colocar o preço serviço caso tenha */}
+            Preço:<StatusColor color={statusColor}>{ }</StatusColor>
           </Text>
         </Row>
         <Spacer height={15} />
