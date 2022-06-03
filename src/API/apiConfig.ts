@@ -1,6 +1,7 @@
 import Categoria from "../models/Categoria";
 import Cliente from "../models/Cliente";
 import { Morada } from "../models/Morada";
+import { Post } from "../models/Post";
 import Prestador from "../models/Provedor";
 
 const PRODUCTION_URL = "https://uservices-api-teste.herokuapp.com";
@@ -113,3 +114,7 @@ export type ActivitiesResponseProvider = {
   valorAssociado: number;
   localizacao: string;
 }[];
+
+export type PostResponse = {
+  portifolio: Post[];
+}
