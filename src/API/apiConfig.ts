@@ -53,7 +53,7 @@ export type ProviderRequest = {
   bi: string;
   nome: string;
   dataNasc: string;
-  morada: string;
+  morada: Morada;
   email: string;
   telefone: string;
   password: string;
