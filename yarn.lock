@@ -5325,10 +5325,10 @@ react-native-drop-shadow@^0.0.4:
   dependencies:
     logkitty "^0.7.1"
 
-react-native-element-dropdown@^1.8.10:
-  version "1.8.11"
-  resolved "https://registry.yarnpkg.com/react-native-element-dropdown/-/react-native-element-dropdown-1.8.11.tgz#5c66945555b657348e0330a5b9f5e8a354a8ab50"
-  integrity sha512-7IdQr/XP/t8ErAk5XU2yE8evB5EbYgLhhLafbGMeJEMb3LjRYQDYkm/fr/IhWI0SHgnneEUzj49PhUK/XpcOAA==
+react-native-element-dropdown@^1.8.13:
+  version "1.8.13"
+  resolved "https://registry.yarnpkg.com/react-native-element-dropdown/-/react-native-element-dropdown-1.8.13.tgz#07952acdc0e2f73172a37bc1f2c606ec0cbff87f"
+  integrity sha512-HnrMr5jC5SQ1o4NQ0S8asmn9Cubmo8deQtRvDXkBcOjTYFmGUe0iBWx+/NKPunpV//93wojf0x95CSBri3n4nw==
   dependencies:
     lodash "*"
 
