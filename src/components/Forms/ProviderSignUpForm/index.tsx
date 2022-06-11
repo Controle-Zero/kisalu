@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { Controller, useFormContext } from "react-hook-form";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { Dropdown } from "react-native-element-dropdown";
 import { Props, ProviderSignUpFormType } from "./type";
 import TextField from "../../Input/TextField";
 import Button from "../../Button";
@@ -11,7 +12,6 @@ import { dropdownStyles, FlexRow, Label, SmallText } from "./style";
 import TextButton from "../../Button/TextButton";
 import * as DateFormatter from "../../../utils/dateFormatter";
 import TextArea from "../../Input/TextArea";
-import { Dropdown } from "react-native-element-dropdown";
 import * as AngolaSubdivisions from "../../../utils/angolaSubdivisions";
 
 function getProvinces() {
@@ -33,10 +33,6 @@ const ProviderSignUpForm: React.FC<Props> = ({ onSubmit }) => {
     formState: { errors },
   } = useFormContext<ProviderSignUpFormType>();
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const provinceData = AngolaSubdivisions.getAllProvinces().map((province) => ({
-    province,
-  }));
-
   const [selectedProvince, setSelectedProvince] = useState("Luanda");
   let counties: {
     county: string;
@@ -48,6 +44,7 @@ const ProviderSignUpForm: React.FC<Props> = ({ onSubmit }) => {
     setSelectedCounty(counties[0].county);
   }, [selectedProvince]);
 
+  const provinceData = getProvinces();
   const spaceBetweenInputs = 20;
 
   return (

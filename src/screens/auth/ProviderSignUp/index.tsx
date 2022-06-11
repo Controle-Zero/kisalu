@@ -1,13 +1,15 @@
 import { View } from "react-native";
 import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
+import { FormProvider, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import useAuth from "../../../hooks/useAuth";
 import { ProviderSignUpHandler } from "./type";
 import { Container, FormContainer, Heading1, Paragraph } from "./style";
 import ProviderSignUpForm from "../../../components/Forms/ProviderSignUpForm";
 import ProfilePictureSelector from "../../../components/ProfilePictureSelector";
-import { FormProvider, useForm } from "react-hook-form";
 import { ProviderSignUpFormType } from "../../../components/Forms/ProviderSignUpForm/type";
+import { providerSignUpSchema } from "../../../components/Forms/ProviderSignUpForm/providerFormValidation";
 
 const initialValues: ProviderSignUpFormType = {
   fullName: "",
@@ -17,7 +19,6 @@ const initialValues: ProviderSignUpFormType = {
   phoneNumber: "",
   password: "",
   passwordConfirmation: "",
-  address: "",
   IBAN: "",
   description: "",
   province: "Luanda",
@@ -30,16 +31,19 @@ const initialValues: ProviderSignUpFormType = {
 const ProviderSignUp = () => {
   const { signUpProvider } = useAuth();
   const [image, setImage] = useState("");
-  const formMethods = useForm({ defaultValues: initialValues });
+  const formMethods = useForm({
+    defaultValues: initialValues,
+    resolver: yupResolver(providerSignUpSchema),
+  });
 
   const signUpProviderHandler: ProviderSignUpHandler = async (data) => {
     const { password, passwordConfirmation } = data;
     console.log(data);
-    // if (password !== passwordConfirmation)
-    //   formMethods.setError("passwordConfirmation", {
-    //     message: "As duas passwords não são iguais"
-    //   });
-    // else signUpProvider(data);
+    if (password !== passwordConfirmation)
+      formMethods.setError("passwordConfirmation", {
+        message: "As duas passwords não são iguais",
+      });
+    else signUpProvider(data);
   };
 
   const handleProfilePictureSelection = async () => {

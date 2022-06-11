@@ -16,6 +16,7 @@ import dayjs from "dayjs";
 import { Alert } from "react-native";
 import storage from "../../API/firebase/storage";
 import NoProfilePicture from "../../assets/images/no-profile.png";
+import { ProviderRequest } from "../../API/apiConfig";
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 export default AuthContext;
@@ -102,18 +103,23 @@ export const AuthProvider: React.FC = ({ children }) => {
         return;
       }
     }
-    const newProvider = {
+    const newProvider: ProviderRequest = {
       bi: provider.bi,
       nome: provider.fullName,
       dataNasc: dayjs(provider.birthDay).format("YYYY/MM/DD"),
-      morada: provider.address,
+      morada: {
+        bairro: provider.neighbor,
+        distrito: provider.district,
+        provincia: provider.province,
+        complemento: provider.complementaryAddress,
+        municipio: provider.county,
+      },
       email: provider.email,
       telefone: provider.phoneNumber,
       password: provider.password,
       iban: provider.IBAN,
       descricao: provider.description,
       imageUrl: profilePictureDownloadUrl,
-      idCategorias: [],
     };
     setIsLoading(true);
     try {
