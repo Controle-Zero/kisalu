@@ -21,22 +21,24 @@ const initialValues: ProviderSignUpFormType = {
   IBAN: "",
   description: "",
   province: "Luanda",
+  complementaryAddress: "",
+  county: "Luanda",
+  district: "",
+  neighbor: "",
 };
 
 const ProviderSignUp = () => {
   const { signUpProvider } = useAuth();
   const [image, setImage] = useState("");
-  const formMethods = useForm({defaultValues: initialValues},);
+  const formMethods = useForm({ defaultValues: initialValues });
 
-  const signUpProviderHandler: ProviderSignUpHandler = async (
-    data
-  ) => {
+  const signUpProviderHandler: ProviderSignUpHandler = async (data) => {
     const { password, passwordConfirmation } = data;
     console.log(data);
-    if (password !== passwordConfirmation)
-      formMethods.setError("passwordConfirmation", {
-        message: "As duas passwords não são iguais"
-      });
+    // if (password !== passwordConfirmation)
+    //   formMethods.setError("passwordConfirmation", {
+    //     message: "As duas passwords não são iguais"
+    //   });
     // else signUpProvider(data);
   };
 
@@ -68,7 +70,7 @@ const ProviderSignUp = () => {
           <FormContainer>
             <ProviderSignUpForm onSubmit={signUpProviderHandler} />
           </FormContainer>
-       </FormProvider>
+        </FormProvider>
       </Container>
     </View>
   );

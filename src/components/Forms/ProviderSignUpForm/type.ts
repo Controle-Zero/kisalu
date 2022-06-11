@@ -8,12 +8,15 @@ export type ProviderSignUpFormType = {
   password: string;
   passwordConfirmation: string;
   birthDay: Date;
-  address: string;
   IBAN: string;
   description: string;
   province: string;
+  county: string;
+  district: string;
+  neighbor: string;
+  complementaryAddress: string;
 };
 
 export type Props = {
-  onSubmit: SubmitHandler<ProviderSignUpFormType>
+  onSubmit: SubmitHandler<ProviderSignUpFormType>;
 };

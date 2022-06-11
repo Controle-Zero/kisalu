@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { Controller, useFormContext } from "react-hook-form";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -14,6 +14,16 @@ import TextArea from "../../Input/TextArea";
 import { Dropdown } from "react-native-element-dropdown";
 import * as AngolaSubdivisions from "../../../utils/angolaSubdivisions";
 
+function getProvinces() {
+  return AngolaSubdivisions.getAllProvinces().map((province) => ({ province }));
+}
+
+function getCountiesByProvince(province: string) {
+  return AngolaSubdivisions.getAllCountiesFromProvince(province).map(
+    (county) => ({ county })
+  );
+}
+
 const ProviderSignUpForm: React.FC<Props> = ({ onSubmit }) => {
   const {
     control,
@@ -27,7 +37,19 @@ const ProviderSignUpForm: React.FC<Props> = ({ onSubmit }) => {
     province,
   }));
 
+  const [selectedProvince, setSelectedProvince] = useState("Luanda");
+  let counties: {
+    county: string;
+  }[] = getCountiesByProvince(selectedProvince);
+  const [selectedCounty, setSelectedCounty] = useState(counties[0].county);
+
+  useEffect(() => {
+    counties = getCountiesByProvince(selectedProvince);
+    setSelectedCounty(counties[0].county);
+  }, [selectedProvince]);
+
   const spaceBetweenInputs = 20;
+
   return (
     <View>
       {/* FullName */}
@@ -77,25 +99,93 @@ const ProviderSignUpForm: React.FC<Props> = ({ onSubmit }) => {
       )}
       <Spacer height={spaceBetweenInputs} />
 
-      {/* Province */}
+      {/* Province and County */}
+      <Label>Província e Município</Label>
+      <FlexRow>
+        <Controller
+          control={control}
+          name="province"
+          render={() => (
+            <Dropdown
+              style={dropdownStyles.dropdown}
+              placeholderStyle={dropdownStyles.placeholderStyle}
+              selectedTextStyle={dropdownStyles.selectedTextStyle}
+              inputSearchStyle={dropdownStyles.inputSearchStyle}
+              containerStyle={dropdownStyles.container}
+              data={provinceData}
+              valueField="province"
+              labelField="province"
+              onChange={(value) => {
+                setValue("province", value.province);
+                setSelectedProvince(value.province);
+              }}
+              value={selectedProvince}
+              search
+              searchPlaceholder="Pesquise por uma província..."
+              placeholder="Selecione uma província"
+            />
+          )}
+        />
+        <Spacer width={15} />
+        <Controller
+          control={control}
+          name="county"
+          render={() => (
+            <Dropdown
+              style={dropdownStyles.dropdown}
+              placeholderStyle={dropdownStyles.placeholderStyle}
+              selectedTextStyle={dropdownStyles.selectedTextStyle}
+              inputSearchStyle={dropdownStyles.inputSearchStyle}
+              containerStyle={dropdownStyles.container}
+              data={counties}
+              valueField="county"
+              labelField="county"
+              onChange={(value) => {
+                setValue("county", value.county);
+                setSelectedCounty(value.county);
+              }}
+              value={selectedCounty}
+              search
+              searchPlaceholder="Pesquise por um município..."
+              placeholder="Selecione um município"
+            />
+          )}
+        />
+      </FlexRow>
+      {errors.province && (
+        <ErrorText text={errors.province.message as string} />
+      )}
+      {errors.county && <ErrorText text={errors.county.message as string} />}
+      <Spacer height={spaceBetweenInputs} />
+
+      {/* Distrito */}
       <Controller
         control={control}
-        name="province"
+        name="district"
         render={() => (
-          <Dropdown
-            style={dropdownStyles.dropdown}
-            placeholderStyle={dropdownStyles.placeholderStyle}
-            selectedTextStyle={dropdownStyles.selectedTextStyle}
-            inputSearchStyle={dropdownStyles.inputSearchStyle}
-            containerStyle={dropdownStyles.container}
-            data={provinceData}
-            valueField="province"
-            labelField="province"
-            onChange={(value) => setValue("province", value.province)}
-            value={getValues("province")}
-            search
-            searchPlaceholder="Pesquise por uma província..."
-            placeholder="Selecione uma província"
+          <TextField
+            label="Distrito"
+            value={getValues("district")}
+            onChangeText={(value) => setValue("district", value)}
+            hasError={!!errors.district}
+          />
+        )}
+      />
+      {errors.district && (
+        <ErrorText text={errors.district.message as string} />
+      )}
+      <Spacer height={spaceBetweenInputs} />
+
+      {/* Bairro */}
+      <Controller
+        control={control}
+        name="neighbor"
+        render={() => (
+          <TextField
+            label="Bairro"
+            value={getValues("neighbor")}
+            onChangeText={(value) => setValue("neighbor", value)}
+            hasError={!!errors.neighbor}
           />
         )}
       />

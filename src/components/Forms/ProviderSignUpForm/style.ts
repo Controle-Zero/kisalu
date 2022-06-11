@@ -26,6 +26,7 @@ export const dropdownStyles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 8,
+    flex: 1,
   },
   label: {
     position: 'absolute',

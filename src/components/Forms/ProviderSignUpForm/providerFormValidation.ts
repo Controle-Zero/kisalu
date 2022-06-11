@@ -2,7 +2,6 @@ import * as yup from "yup";
 
 const regexBI = /^\d{9}[A-Z]{2}\d{3}$/g;
 const regexPhoneNumber = /^(\+2449\d{8})|(9\d{8})$/g;
-const regexAddress = /^(\w+\s?)+,\s?(\w+\s?)+(,\s?((\w+\s?)+))?$/g;
 const regexIban = /^AO06(\.\d{4}){5}\.\d$/g;
 
 export const providerSignUpSchema = yup.object({
@@ -26,16 +25,12 @@ export const providerSignUpSchema = yup.object({
   passwordConfirmation: yup
     .string()
     .required("A confirmação não pode estar vazia"),
-  address: yup
-    .string()
-    .required("A morada não pode estar vazia")
-    .matches(
-      regexAddress,
-      "A morada deve ser do formato Província, Município, Rua"
-    ),
   IBAN: yup
     .string()
     .required("O IBAN não pode estar vazio")
     .matches(regexIban, "O IBAN não é válido"),
   description: yup.string().required("A descrição não pode estar vazia"),
+  province: yup.string().required("Especifique a sua província"),
+  county: yup.string().required("Especifique o seu município"),
+  district: yup.string().required("Especifique o seu distrito"),
 });
