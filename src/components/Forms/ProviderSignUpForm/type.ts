@@ -1,4 +1,4 @@
-import { FormikHelpers } from "formik";
+import { SubmitHandler } from "react-hook-form";
 
 export type ProviderSignUpFormType = {
   fullName: string;
@@ -11,11 +11,9 @@ export type ProviderSignUpFormType = {
   address: string;
   IBAN: string;
   description: string;
+  province: string;
 };
 
 export type Props = {
-  onSubmit: (
-    values: ProviderSignUpFormType,
-    actions: FormikHelpers<ProviderSignUpFormType>
-  ) => void;
+  onSubmit: SubmitHandler<ProviderSignUpFormType>
 };

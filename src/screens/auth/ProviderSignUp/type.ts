@@ -1,7 +1,4 @@
-import { FormikHelpers } from "formik";
+import { SubmitHandler } from "react-hook-form";
 import { ProviderSignUpFormType } from "../../../components/Forms/ProviderSignUpForm/type";
 
-export type ProviderSignUpHandler = (
-  values: ProviderSignUpFormType,
-  actions: FormikHelpers<ProviderSignUpFormType>
-) => void;
+export type ProviderSignUpHandler = SubmitHandler<ProviderSignUpFormType>

@@ -6,22 +6,38 @@ import { ProviderSignUpHandler } from "./type";
 import { Container, FormContainer, Heading1, Paragraph } from "./style";
 import ProviderSignUpForm from "../../../components/Forms/ProviderSignUpForm";
 import ProfilePictureSelector from "../../../components/ProfilePictureSelector";
+import { FormProvider, useForm } from "react-hook-form";
+import { ProviderSignUpFormType } from "../../../components/Forms/ProviderSignUpForm/type";
+
+const initialValues: ProviderSignUpFormType = {
+  fullName: "",
+  birthDay: new Date(),
+  bi: "",
+  email: "",
+  phoneNumber: "",
+  password: "",
+  passwordConfirmation: "",
+  address: "",
+  IBAN: "",
+  description: "",
+  province: "Luanda",
+};
 
 const ProviderSignUp = () => {
   const { signUpProvider } = useAuth();
   const [image, setImage] = useState("");
+  const formMethods = useForm({defaultValues: initialValues},);
 
   const signUpProviderHandler: ProviderSignUpHandler = async (
-    values,
-    actions
+    data
   ) => {
-    const { password, passwordConfirmation } = values;
+    const { password, passwordConfirmation } = data;
+    console.log(data);
     if (password !== passwordConfirmation)
-      actions.setFieldError(
-        "passwordConfirmation",
-        "As duas passwords não são iguais"
-      );
-    else signUpProvider(values);
+      formMethods.setError("passwordConfirmation", {
+        message: "As duas passwords não são iguais"
+      });
+    // else signUpProvider(data);
   };
 
   const handleProfilePictureSelection = async () => {
@@ -48,9 +64,11 @@ const ProviderSignUp = () => {
         <Paragraph>
           Cadastre como provedor para começar a fornecer serviços
         </Paragraph>
-        <FormContainer>
-          <ProviderSignUpForm onSubmit={signUpProviderHandler} />
-        </FormContainer>
+        <FormProvider {...formMethods}>
+          <FormContainer>
+            <ProviderSignUpForm onSubmit={signUpProviderHandler} />
+          </FormContainer>
+       </FormProvider>
       </Container>
     </View>
   );
