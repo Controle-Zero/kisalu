@@ -32,7 +32,7 @@ export default function App() {
         <NavigationContainer>
           <AuthProvider>
             <Routes />
-            <StatusBar style="auto" animated />
+            <StatusBar style="dark" animated />
           </AuthProvider>
         </NavigationContainer>
       </ThemeProvider>
