@@ -29,7 +29,6 @@
     "expo-app-loading": "~1.2.1",
     "expo-image-picker": "~11.0.3",
     "expo-status-bar": "~1.1.0",
-    "formik": "^2.2.9",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-hook-form": "^7.32.0",

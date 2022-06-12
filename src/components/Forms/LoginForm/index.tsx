@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { Formik } from "formik";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { LoginFormValues, Props } from "./types";
-import { loginSchema } from "./loginFormValidation";
 import { ToggleButton, ToggleButtonRow, ToggleButtonText } from "./style";
 import Spacer from "../../layout/Spacer";
 import TextField from "../../Input/TextField";
