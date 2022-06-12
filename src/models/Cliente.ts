@@ -1,13 +1,13 @@
-import Atividade from "./Atividade";
+import { Morada } from "./Morada";
 export default interface Cliente {
-  id?: string;
+  id: string;
   bi: string;
   nome: string;
   dataNasc: string;
-  morada: string;
+  morada: Morada;
   email: string;
   telefone: string;
   password: string;
   imageUrl: string;
-  atividades?: Atividade[];
+  criadoEm: Date;
 }

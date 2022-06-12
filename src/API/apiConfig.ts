@@ -1,10 +1,12 @@
 import Categoria from "../models/Categoria";
 import Cliente from "../models/Cliente";
+import { Morada } from "../models/Morada";
+import { Post } from "../models/Post";
 import Prestador from "../models/Provedor";
 
 const PRODUCTION_URL = "https://uservices-api-teste.herokuapp.com";
 export const SOCKET_URL = PRODUCTION_URL + "/Kisalu";
-const DEV_URL = "http://192.168.1.24:8080";
+// const DEV_URL = "http://192.168.1.24:8080";
 
 export default {
   /**
@@ -30,7 +32,7 @@ export type ClientRequest = {
   bi: string;
   nome: string;
   dataNasc: string;
-  morada: string;
+  morada: Morada;
   email: string;
   telefone: string;
   password: string;
@@ -51,7 +53,7 @@ export type ProviderRequest = {
   bi: string;
   nome: string;
   dataNasc: string;
-  morada: string;
+  morada: Morada;
   email: string;
   telefone: string;
   password: string;
@@ -112,3 +114,7 @@ export type ActivitiesResponseProvider = {
   valorAssociado: number;
   localizacao: string;
 }[];
+
+export type PostResponse = {
+  portifolio: Post[];
+}
