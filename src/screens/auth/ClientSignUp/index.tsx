@@ -10,10 +10,11 @@ import { ClientSignUpFormType } from "../../../components/Forms/ClientSignUpForm
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { clientSignUpSchema } from "../../../components/Forms/ClientSignUpForm/clientFormValidation";
+import * as DateFormatter from "../../../utils/dateFormatter";
 
 const initialValues: ClientSignUpFormType = {
   fullName: "",
-  birthDay: new Date(),
+  birthDay: DateFormatter.getNonMinorUserDate(),
   bi: "",
   email: "",
   phoneNumber: "",

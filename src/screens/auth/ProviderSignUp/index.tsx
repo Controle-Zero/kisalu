@@ -10,10 +10,11 @@ import ProviderSignUpForm from "../../../components/Forms/ProviderSignUpForm";
 import ProfilePictureSelector from "../../../components/ProfilePictureSelector";
 import { ProviderSignUpFormType } from "../../../components/Forms/ProviderSignUpForm/type";
 import { providerSignUpSchema } from "../../../components/Forms/ProviderSignUpForm/providerFormValidation";
+import * as DateFormatter from "../../../utils/dateFormatter";
 
 const initialValues: ProviderSignUpFormType = {
   fullName: "",
-  birthDay: new Date(),
+  birthDay: DateFormatter.getNonMinorUserDate(),
   bi: "",
   email: "",
   phoneNumber: "",

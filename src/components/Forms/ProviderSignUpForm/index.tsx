@@ -81,7 +81,7 @@ const ProviderSignUpForm: React.FC<Props> = ({ onSubmit }) => {
               <DateTimePicker
                 value={getValues("birthDay")}
                 mode="date"
-                maximumDate={new Date()}
+                maximumDate={DateFormatter.getNonMinorUserDate()}
                 onChange={(_: any, date?: Date | undefined) => {
                   setValue("birthDay", date || getValues("birthDay"));
                   setShowDatePicker(false);
