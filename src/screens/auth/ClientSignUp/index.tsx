@@ -6,19 +6,41 @@ import { ClientSignUpHandler } from "./types";
 import { Container, FormContainer, Heading1, Paragraph } from "./style";
 import ClientSignUpForm from "../../../components/Forms/ClientSignUpForm";
 import ProfilePictureSelector from "../../../components/ProfilePictureSelector";
+import { ClientSignUpFormType } from "../../../components/Forms/ClientSignUpForm/types";
+import { FormProvider, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { clientSignUpSchema } from "../../../components/Forms/ClientSignUpForm/clientFormValidation";
+
+const initialValues: ClientSignUpFormType = {
+  fullName: "",
+  birthDay: new Date(),
+  bi: "",
+  email: "",
+  phoneNumber: "",
+  password: "",
+  passwordConfirmation: "",
+  province: "Luanda",
+  complementaryAddress: "",
+  county: "Luanda",
+  district: "",
+  neighbor: "",
+};
 
 const ClientSignUp = () => {
   const { signUpClient } = useAuth();
   const [image, setImage] = useState("");
+  const formMethods = useForm({
+    defaultValues: initialValues,
+    resolver: yupResolver(clientSignUpSchema),
+  });
 
-  const handleSignUp: ClientSignUpHandler = async (values, actions) => {
-    const { password, passwordConfirmation } = values;
+  const handleSignUp: ClientSignUpHandler = (data) => {
+    const { password, passwordConfirmation } = data;
     if (password !== passwordConfirmation)
-      actions.setFieldError(
-        "passwordConfirmation",
-        "As duas passwords não são iguais"
-      );
-    else signUpClient(values, image);
+      formMethods.setError("passwordConfirmation", {
+        message: "As duas passwords não são iguais",
+      });
+    else signUpClient(data, image);
   };
 
   const handleSelectProfilePicture = async () => {
@@ -44,9 +66,11 @@ const ClientSignUp = () => {
         <Paragraph>
           Cadastre como cliente para começar a requisitar serviços
         </Paragraph>
-        <FormContainer>
-          <ClientSignUpForm onSubmit={handleSignUp} />
-        </FormContainer>
+        <FormProvider {...formMethods}>
+          <FormContainer>
+            <ClientSignUpForm onSubmit={handleSignUp} />
+          </FormContainer>
+        </FormProvider>
       </Container>
     </View>
   );

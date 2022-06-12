@@ -25,11 +25,7 @@ export const clientSignUpSchema = yup.object({
   passwordConfirmation: yup
     .string()
     .required("A confirmação não pode estar vazia"),
-  address: yup
-    .string()
-    .required("A morada não pode estar vazia")
-    .matches(
-      regexAddress,
-      "A morada deve ser do formato Província, Município, Rua"
-    ),
+  province: yup.string().required("Especifique a sua província"),
+  county: yup.string().required("Especifique o seu município"),
+  district: yup.string().required("Especifique o seu distrito"),
 });

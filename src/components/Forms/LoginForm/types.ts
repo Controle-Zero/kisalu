@@ -1,4 +1,4 @@
-import { FormikHelpers } from "formik";
+import { SubmitHandler } from "react-hook-form";
 
 type UserType = "client" | "provider";
 
@@ -9,10 +9,7 @@ export type LoginFormValues = {
 };
 
 export type Props = {
-  onSubmit: (
-    values: LoginFormValues,
-    actions: FormikHelpers<LoginFormValues>
-  ) => void;
+  onSubmit: SubmitHandler<LoginFormValues>;
 };
 
 export type ToggleButtonStyle = {
