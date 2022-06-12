@@ -6,9 +6,10 @@ export function formatDate(date: Date): string {
 }
 
 export function getNonMinorUserDate() {
+  const YEARS = 18;
   const currentDate = new Date();
   return new Date(
-    currentDate.getFullYear() - 18,
+    currentDate.getFullYear() - YEARS,
     currentDate.getMonth(),
     currentDate.getDate()
   );
