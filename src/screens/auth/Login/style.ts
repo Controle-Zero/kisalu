@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import Icon from "react-native-vector-icons/AntDesign";
 
 export const Container = styled.ImageBackground`
   justify-content: center;
@@ -44,4 +45,10 @@ export const LinkText = styled.Text`
   color: ${({ theme }) => theme.COLORS.LINK_TEXT};
   text-decoration: underline;
   text-align: center;
+`;
+
+export const BackButton = styled(Icon)`
+  position: absolute;
+  top: 6%;
+  left: 5%;
 `;

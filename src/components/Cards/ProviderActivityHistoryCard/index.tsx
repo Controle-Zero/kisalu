@@ -12,7 +12,7 @@ import {
 } from "./style";
 import Spacer from "../../layout/Spacer";
 import { formatDate } from "../../../utils/dateFormatter";
-import ActivityColor from '../../../styles/ActivityColor';
+import ActivityColor from "../../../styles/ActivityColor";
 
 const ProviderActivityHistoryCard: FC<Props> = ({ activity, onNavigate }) => {
   const {
@@ -23,7 +23,6 @@ const ProviderActivityHistoryCard: FC<Props> = ({ activity, onNavigate }) => {
   } = activity;
 
   const statusColor = ActivityColor[estado];
-
 
   return (
     <DropShadow style={style.container}>
@@ -36,7 +35,7 @@ const ProviderActivityHistoryCard: FC<Props> = ({ activity, onNavigate }) => {
           <Text>{formatDate(new Date(dataCriado))}</Text>
           <Text>
             {/* TODO: Colocar o preço serviço caso tenha */}
-            Preço:<StatusColor color={statusColor}>{ }</StatusColor>
+            Preço:<StatusColor color={statusColor}>{}</StatusColor>
           </Text>
         </Row>
         <Spacer height={15} />

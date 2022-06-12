@@ -1,7 +1,4 @@
-import { FormikHelpers } from "formik";
+import { SubmitHandler } from "react-hook-form";
 import { LoginFormValues } from "../../../components/Forms/LoginForm/types";
 
-export type handleLogin = (
-  values: LoginFormValues,
-  actions: FormikHelpers<LoginFormValues>
-) => Promise<void>;
+export type handleLogin = SubmitHandler<LoginFormValues>;

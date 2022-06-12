@@ -1,13 +1,12 @@
 import React, { Fragment, useContext } from "react";
 import { ThemeContext } from "styled-components";
-import { Container, Heading2, Wrapper } from "./style";
-import { buildProfileData } from "./fields";
-import useAuth from "../../../hooks/useAuth";
-import ProfileHeader from "../../../components/ProfileHeader";
-import Cliente from "../../../models/Cliente";
-import ListTile from "../../../components/ListTile";
-import Button from "../../../components/Button";
 import Spacer from "../../../components/layout/Spacer";
+import ListTile from "../../../components/ListTile";
+import ProfileHeader from "../../../components/ProfileHeader";
+import useAuth from "../../../hooks/useAuth";
+import Cliente from "../../../models/Cliente";
+import { buildProfileData } from "./fields";
+import { Container, Heading2, Wrapper } from "./style";
 
 const Profile = () => {
   const { signOut, user } = useAuth();

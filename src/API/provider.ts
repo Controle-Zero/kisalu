@@ -1,9 +1,11 @@
 import axios, { AxiosError } from "axios";
+import { Post } from "../models/Post";
 import Prestador from "../models/Provedor";
 import { getDeviceData } from "../utils/deviceDataHandler";
 import apiConfig, {
   ActivitiesResponseProvider,
   NormalResponse,
+  PostResponse,
   ProviderAuthenticationResponse,
   ProviderRequest,
   ProviderResponse,
@@ -154,6 +156,44 @@ export async function removeProviderCategory(
     return {
       status: response.status,
     };
+  } catch (error) {
+    console.error(error);
+    const axiosError = error as AxiosError;
+    if (axiosError.response?.status == 400) {
+      throw new Error(
+        "Something wrong with the request. The category might not exist"
+      );
+    } else throw new Error(axiosError.message);
+  }
+}
+
+export async function getPosts(token: string) {
+  try {
+    const response = await axios.get<PostResponse>(`${END_POINT}/prestador/portifolio`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return response.data.portifolio;
+  } catch (error) {
+    console.error(error);
+    const axiosError = error as AxiosError;
+    if (axiosError.response?.status == 400) {
+      throw new Error(
+        "Something wrong with the request. The category might not exist"
+      );
+    } else throw new Error(axiosError.message);
+  }
+}
+
+export async function createPost(post: Post, token: string) {
+  try {
+    const response = await axios.post<NormalResponse>(`${END_POINT}/prestador/post`, post, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    return response.data;
   } catch (error) {
     console.error(error);
     const axiosError = error as AxiosError;
