@@ -41,3 +41,9 @@ export const RatingBar = styled.View`
   justify-content: center;
   flex-direction: row;
 `;
+
+export const CenteredText = styled.Text`
+  text-align: center;
+  font-family: ${({ theme }) => theme.FONTS.POPPINS_REGULAR};
+  margin: 5px 30px;
+`

@@ -1,7 +1,9 @@
 import React, { Fragment, useContext } from "react";
-import { Text } from "react-native";
+import { Text, FlatList, Alert, AlertButton } from "react-native";
 import { ThemeContext } from "styled-components/native";
+import { Chip } from 'react-native-paper'
 import {
+  CenteredText,
   Container,
   FloatingActionButton,
   Heading2,
@@ -17,12 +19,11 @@ import ProfileHeader from "../../../components/ProfileHeader";
 import Provedor from "../../../models/Provedor";
 import Spacer from "../../../components/layout/Spacer";
 import ListTile from "../../../components/ListTile";
-import Button from "../../../components/Button";
 
 const Profile: NavigableFC = ({ navigation }) => {
   const { signOut, user } = useAuth();
   const { COLORS } = useContext(ThemeContext);
-  const { nome, descricao, rate } = user as Provedor;
+  const { nome, descricao, rate, imageUrl, categorias } = user as Provedor;
   const profileData = buildProfileData(user as Provedor);
 
   // TODO: Change this to a local asset
@@ -36,14 +37,38 @@ const Profile: NavigableFC = ({ navigation }) => {
     signOut();
   };
 
+  const removeCategoryAction = (item) => {
+    // TODO: Call from API the DELETE category method
+    console.log(item);
+  }
+
+  const handleRemoveCategory = (item) => {
+    const deleteButton: AlertButton = {
+      onPress: () => removeCategoryAction(item),
+      style: "destructive",
+      text: "Remover"
+    };
+    const cancelButton: AlertButton = {
+      text: "Cancelar",
+      style: "cancel",
+    };
+    Alert.alert("Remover categoria", `Tem a certeza que pretende remover a categoria ${"Lorem"} ?`, [
+      cancelButton, deleteButton
+    ],
+      {
+        cancelable: true,
+      })
+  }
+
   const floatingActionButtonClick = () => {
     navigation.navigate("SelectServiceScreen");
   };
 
+
   return (
     <>
       <Container>
-        <ProfileHeader name={nome} />
+        <ProfileHeader name={nome} profilePicture={imageUrl} onLogout={handleSignOut} />
         <Wrapper>
           <Heading2>Sobre Mim</Heading2>
           <Spacer height={10} />
@@ -62,6 +87,20 @@ const Profile: NavigableFC = ({ navigation }) => {
               <Spacer height={10} />
             </Fragment>
           ))}
+          <Heading2>Serviços a Prestar</Heading2>
+          <FlatList horizontal data={categorias} renderItem={({ item }) => (
+            <Chip onClose={() => handleRemoveCategory(item)} >Example</Chip>
+          )} ListEmptyComponent={() => (
+            <CenteredText>Sem serviços</CenteredText>
+          )}
+            ItemSeparatorComponent={() => <Spacer width={10} />}
+            ListHeaderComponent={() => <Spacer width={10} />}
+            ListFooterComponent={() => <Spacer width={10} />}
+            style={{
+              paddingVertical: 10,
+            }}
+          />
+
           <Heading2>Classificação</Heading2>
           <RatingContainer>
             <Spacer height={5} />
@@ -82,13 +121,6 @@ const Profile: NavigableFC = ({ navigation }) => {
               </RatingBar>
             )}
           </RatingContainer>
-          <Spacer height={20} />
-          <Button
-            onPress={handleSignOut}
-            text="Sair"
-            icon="logout"
-            width="60%"
-          />
           <Spacer height={20} />
         </Wrapper>
       </Container>
