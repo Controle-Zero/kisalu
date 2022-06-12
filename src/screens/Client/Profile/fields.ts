@@ -35,11 +35,6 @@ export function buildProfileData({
       icon: Icons.bi,
     },
     {
-      label: "Morada",
-      text: morada,
-      icon: Icons.address,
-    },
-    {
       label: "Telefone",
       text: telefone,
       icon: Icons.phone,
