@@ -23,13 +23,17 @@ const ProviderActivityCard: React.FC<ProviderActivityCardProps> = ({
   } = activity;
   return (
     <DropShadow style={style.container}>
-      <Container>
+      <Container onPress={() => onNavigate(activity.id)}>
         <TextContainer>
           <ColoredText>{titulo}</ColoredText>
           <Text>{Cliente?.nome}</Text>
           <Text>{formatDate(new Date(dataCriado))}</Text>
         </TextContainer>
-        <ProfilePicture source={DefaultProfilePic} />
+        <ProfilePicture
+          source={
+            Cliente?.imageUrl ? { uri: Cliente.imageUrl } : DefaultProfilePic
+          }
+        />
       </Container>
     </DropShadow>
   );

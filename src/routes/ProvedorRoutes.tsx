@@ -7,6 +7,7 @@ import useAuth from "../hooks/useAuth";
 import { ThemeContext } from "styled-components";
 import HomeTopBarNav from "./ProviderStack/HomeTopBarNav";
 import SocketContext from "../contexts/SocketContext";
+import ActivityStack from "./ProviderStack/ActivityStack";
 
 const BottomTab = createBottomTabNavigator<ProviderParamsList>();
 
@@ -50,7 +51,7 @@ const ProvedorRoutes = () => {
     >
       <BottomTab.Screen
         name="Home"
-        component={HomeTopBarNav}
+        component={ActivityStack}
         options={{ headerShown: true, headerTitle: user?.nome }}
       />
       <BottomTab.Screen name="Perfil" component={ProfileStack} />

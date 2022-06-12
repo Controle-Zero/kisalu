@@ -1,17 +1,24 @@
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import { FlatList } from "react-native";
 import { useQuery } from "react-query";
-import { Container } from "./styles";
 import * as ProviderAPI from "../../../../API/provider";
-import useAuth from "../../../../hooks/useAuth";
-import LoadingScreen from "../../../other/LoadingScreen";
 import ProviderActivityCard from "../../../../components/Cards/ProviderActivityCard";
 import Spacer from "../../../../components/layout/Spacer";
 import ListEmpty from "../../../../components/ListEmpty";
+import useAuth from "../../../../hooks/useAuth";
+import { ActivityParamsList } from "../../../../routes/types/Provider/ActivityParamList";
+import LoadingScreen from "../../../other/LoadingScreen";
+import { Container } from "./styles";
 
 const Requests = () => {
   const { token } = useAuth();
   const { data: activities, isLoading } = useQuery("activities", getActivities);
+  const navigation =
+    useNavigation<
+      NativeStackNavigationProp<ActivityParamsList, "Activities">
+    >();
 
   async function getActivities() {
     const activities = await ProviderAPI.getActivities(token);
@@ -23,7 +30,9 @@ const Requests = () => {
   }
 
   function onNavigate(activityId: string) {
-    console.log(activityId);
+    navigation.navigate("Activity", {
+      activityId,
+    });
   }
 
   return (

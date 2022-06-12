@@ -1,7 +1,4 @@
-import {
-  MaterialTopTabBarProps,
-  MaterialTopTabNavigationProp,
-} from "@react-navigation/material-top-tabs";
+import { MaterialTopTabNavigationProp } from "@react-navigation/material-top-tabs";
 import { RouteProp } from "@react-navigation/native";
 
 export type HomeTabParamsList = {
