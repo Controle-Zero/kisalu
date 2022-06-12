@@ -22,7 +22,7 @@ function AuthRoute() {
       <AuthStack.Screen
         name="Login"
         component={Login}
-        options={{ title: "" }}
+        options={{ title: "", headerShown: false }}
       />
       <AuthStack.Screen
         name="CadastroCliente"
