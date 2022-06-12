@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 import { setStatusBarStyle } from "expo-status-bar";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, FormProvider } from "react-hook-form";
-import { Container, Heading1, Heading2, Wrapper } from "./style";
+import { BackButton, Container, Heading1, Heading2, Wrapper } from "./style";
 import { loginBackground } from "../../../styles/imageConstants";
 import LoginForm from "../../../components/Forms/LoginForm";
 import { handleLogin } from "./types";
 import useAuth from "../../../hooks/useAuth";
 import { LoginFormValues } from "../../../components/Forms/LoginForm/types";
 import { loginSchema } from "../../../components/Forms/LoginForm/loginFormValidation";
+import { AuthNavProps } from "../../../routes/types/AuthParamsList";
 
 const initialValues: LoginFormValues = {
   email: "",
@@ -16,7 +17,7 @@ const initialValues: LoginFormValues = {
   userType: "client",
 };
 
-const Login = () => {
+const Login = ({ navigation }: AuthNavProps<"Login">) => {
   useEffect(() => {
     setStatusBarStyle("light");
     return () => setStatusBarStyle("dark");
@@ -35,6 +36,12 @@ const Login = () => {
 
   return (
     <Container source={loginBackground} resizeMode="stretch">
+      <BackButton
+        name="arrowleft"
+        color="#fff"
+        size={28}
+        onPress={() => navigation.goBack()}
+      />
       <Wrapper>
         <Heading1>Bem-vindo de Volta</Heading1>
         <Heading2>Sentimos a sua falta</Heading2>
