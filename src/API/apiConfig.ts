@@ -60,6 +60,7 @@ export type ProviderRequest = {
   iban: string;
   descricao: string;
   imageUrl: string;
+  idCategorias: string[];
 };
 
 export type ProviderResponse = {
@@ -117,4 +118,4 @@ export type ActivitiesResponseProvider = {
 
 export type PostResponse = {
   portifolio: Post[];
-}
+};

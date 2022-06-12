@@ -120,6 +120,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       iban: provider.IBAN,
       descricao: provider.description,
       imageUrl: profilePictureDownloadUrl,
+      idCategorias: [],
     };
     setIsLoading(true);
     try {
