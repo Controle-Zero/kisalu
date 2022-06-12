@@ -12,7 +12,6 @@ import ActivityStack from "./ProviderStack/ActivityStack";
 const BottomTab = createBottomTabNavigator<ProviderParamsList>();
 
 const ProvedorRoutes = () => {
-  const { user } = useAuth();
   const { COLORS, FONTS } = useContext(ThemeContext);
   const { initSocket } = useContext(SocketContext);
 
@@ -52,7 +51,7 @@ const ProvedorRoutes = () => {
       <BottomTab.Screen
         name="Home"
         component={ActivityStack}
-        options={{ headerShown: true, headerTitle: user?.nome }}
+        options={{ headerShown: false }}
       />
       <BottomTab.Screen name="Perfil" component={ProfileStack} />
     </BottomTab.Navigator>

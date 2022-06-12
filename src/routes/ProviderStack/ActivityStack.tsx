@@ -3,6 +3,7 @@ import React, { FC, useContext } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 import { ThemeContext } from "styled-components";
 import Spacer from "../../components/layout/Spacer";
+import useAuth from "../../hooks/useAuth";
 import Activity from "../../screens/Provider/Home/Activity";
 import { ActivityParamsList } from "../types/Provider/ActivityParamList";
 import HomeTopBarNav from "./HomeTopBarNav";
@@ -10,6 +11,7 @@ import HomeTopBarNav from "./HomeTopBarNav";
 const NativeActivityStack = createNativeStackNavigator<ActivityParamsList>();
 
 function ActivityStack() {
+  const { user } = useAuth();
   const { COLORS } = useContext(ThemeContext);
   return (
     <NativeActivityStack.Navigator initialRouteName="Activities">
@@ -17,7 +19,9 @@ function ActivityStack() {
         name="Activities"
         component={HomeTopBarNav}
         options={{
-          headerShown: false,
+          headerShown: true,
+          headerShadowVisible: false,
+          headerTitle: user?.nome,
         }}
       />
       <NativeActivityStack.Screen
