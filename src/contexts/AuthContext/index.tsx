@@ -171,6 +171,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       telefone: client.phoneNumber,
       imageUrl: profilePictureDownloadUrl,
     };
+    console.log(newClient);
     try {
       await ClientAPI.createClient(newClient);
       Alert.alert("Login", "Conta criada com sucesso");

@@ -31,7 +31,7 @@ const ClientSignUp = () => {
   const [image, setImage] = useState("");
   const formMethods = useForm({
     defaultValues: initialValues,
-    // resolver: yupResolver(clientSignUpSchema),
+    resolver: yupResolver(clientSignUpSchema),
   });
 
   const handleSignUp: ClientSignUpHandler = (data) => {
