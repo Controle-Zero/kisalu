@@ -4,3 +4,12 @@ export function formatDate(date: Date): string {
   const year = date.getFullYear();
   return `${day}/${month}/${year}`;
 }
+
+export function getNonMinorUserDate() {
+  const currentDate = new Date();
+  return new Date(
+    currentDate.getFullYear() - 18,
+    currentDate.getMonth(),
+    currentDate.getDate()
+  );
+}
