@@ -16,7 +16,7 @@ import dayjs from "dayjs";
 import { Alert } from "react-native";
 import storage from "../../API/firebase/storage";
 import NoProfilePicture from "../../assets/images/no-profile.png";
-import { ProviderRequest } from "../../API/apiConfig";
+import { ClientRequest, ProviderRequest } from "../../API/apiConfig";
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 export default AuthContext;
@@ -155,16 +155,21 @@ export const AuthProvider: React.FC = ({ children }) => {
         return;
       }
     }
-    const newClient = {
+    const newClient: ClientRequest = {
       bi: client.bi,
       nome: client.fullName,
       dataNasc: dayjs(client.birthDay).format("YYYY-MM-DD"),
       email: client.email,
-      morada: client.address,
+      morada: {
+        bairro: client.neighbor,
+        distrito: client.district,
+        provincia: client.province,
+        complemento: client.complementaryAddress,
+        municipio: client.county,
+      },
       password: client.password,
       telefone: client.phoneNumber,
       imageUrl: profilePictureDownloadUrl,
-      atividades: [],
     };
     try {
       await ClientAPI.createClient(newClient);

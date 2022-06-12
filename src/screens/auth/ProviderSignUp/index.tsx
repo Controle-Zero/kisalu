@@ -43,7 +43,7 @@ const ProviderSignUp = () => {
       formMethods.setError("passwordConfirmation", {
         message: "As duas passwords não são iguais",
       });
-    else signUpProvider(data);
+    else signUpProvider(data, image);
   };
 
   const handleProfilePictureSelection = async () => {
