@@ -1,16 +1,14 @@
 import React, { createContext, FC, useState } from "react";
-import {
-  ActivityRequestFunction,
-  ActivityResponseFunction,
-  ActivityResponsePayload,
-  Events,
-  RequestPayload,
-  ResponsePayload,
-  SocketContextTypes,
-} from "./types";
 import io, { Socket } from "socket.io-client";
 import { SOCKET_URL } from "../../API/apiConfig";
 import useAuth from "../../hooks/useAuth";
+import {
+  ActivityRequestFunction,
+  ActivityResponseFunction,
+  Events,
+  ResponsePayload,
+  SocketContextTypes,
+} from "./types";
 
 const SocketContext = createContext<SocketContextTypes>(
   {} as SocketContextTypes
@@ -46,8 +44,16 @@ export const SocketContextProvider: FC = ({ children }) => {
     }
   };
 
-  const onActivityResponse: ActivityResponseFunction = () => {
-    return {} as ResponsePayload;
+  const onActivityResponse: ActivityResponseFunction = (payload) => {
+    if (!socket) throw new Error("Socket não inicializado");
+    console.log(payload);
+    if (userType == "provider") {
+      socket.emit(Events.RESPONSE, payload);
+    } else {
+      socket.on(Events.RESPONSE, (data) => {
+        console.log("Socket response", data);
+      });
+    }
   };
 
   return (
