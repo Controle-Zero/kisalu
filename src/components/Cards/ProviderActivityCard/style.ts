@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 
-export const Container = styled.View`
+export const Container = styled.TouchableOpacity`
   background-color: ${({ theme }) => theme.COLORS.WHITE};
   border-left-color: ${({ theme }) => theme.COLORS.PRIMARY};
   border-left-width: 7px;

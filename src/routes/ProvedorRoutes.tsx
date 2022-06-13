@@ -7,11 +7,11 @@ import useAuth from "../hooks/useAuth";
 import { ThemeContext } from "styled-components";
 import HomeTopBarNav from "./ProviderStack/HomeTopBarNav";
 import SocketContext from "../contexts/SocketContext";
+import ActivityStack from "./ProviderStack/ActivityStack";
 
 const BottomTab = createBottomTabNavigator<ProviderParamsList>();
 
 const ProvedorRoutes = () => {
-  const { user } = useAuth();
   const { COLORS, FONTS } = useContext(ThemeContext);
   const { initSocket } = useContext(SocketContext);
 
@@ -50,8 +50,8 @@ const ProvedorRoutes = () => {
     >
       <BottomTab.Screen
         name="Home"
-        component={HomeTopBarNav}
-        options={{ headerShown: true, headerTitle: user?.nome }}
+        component={ActivityStack}
+        options={{ headerShown: false }}
       />
       <BottomTab.Screen name="Perfil" component={ProfileStack} />
     </BottomTab.Navigator>

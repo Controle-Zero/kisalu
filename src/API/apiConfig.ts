@@ -96,18 +96,20 @@ export type ActivitiesResponseClient = {
 export type ActivitiesResponseProvider = {
   Cliente: {
     bi: string;
+    datNasc: Date;
+    imageUrl: string;
     nome: string;
     email: string;
     telefone: string;
     id: string;
-    morada: string;
+    morada: Morada;
   };
   Categoria: {
     titulo: string;
     id: string;
   };
-  dataCriado: string;
-  dataFinalizado: string;
+  dataCriado: Date;
+  dataFinalizado: Date;
   descricao: string;
   estado: string;
   id: string;

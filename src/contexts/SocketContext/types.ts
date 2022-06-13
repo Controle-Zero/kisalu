@@ -10,7 +10,7 @@ export type SocketContextTypes = {
 };
 
 export type ActivityRequestFunction = (payload: RequestPayload) => void;
-export type ActivityResponseFunction = () => ResponsePayload;
+export type ActivityResponseFunction = (payload: ResponsePayload) => void;
 
 export type ActivityRequestPayload = {
   clienteId: string;
